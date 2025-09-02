@@ -24,7 +24,7 @@ class OdooModel:
         return self.client.call(self.model_name, "write", [ids] if isinstance(ids, int) else ids, values)
 
     def unlink(self, ids):
-        return self.client.call(self.model_name, "unlink", [[ids] if isinstance(ids, int) else ids])
+        return self.client.call(self.model_name, "unlink", [ids] if isinstance(ids, int) else ids)
 
     def active(self, ids, active=True):
         return self.write(ids, {'active': active})
