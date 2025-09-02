@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import requests
 from datetime import datetime
-from odoo_wrapper import OdooModel  # Ton wrapper existant
+# from odoo_wrapper import OdooModel  # Ton wrapper existant
 import base64
 
 app = Flask(__name__)
