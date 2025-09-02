@@ -1,0 +1,54 @@
+# https://www.odoo.com/documentation/18.0/fr/developer/reference/external_api.html
+
+class OdooModel:
+    def __init__(self, client, model_name):
+        self.client = client
+        self.model_name = model_name
+
+    def search(self, domain):
+        return self.client.call(self.model_name, "search", domain)
+
+    def search_count(self, domain):
+        return self.client.call(self.model_name, "search_count", domain)
+        
+    def read(self, ids, fields=None):
+        return self.client.call(self.model_name, "read", ids, fields or [])
+    
+    def search_read(self, domain, fields=None):
+        return self.client.call(self.model_name, "search_read", domain, fields or [])
+       
+    def create(self, data):
+        return self.client.call(self.model_name, "create", [data])
+
+    def write(self, ids, values):
+        return self.client.call(self.model_name, "write", [ids] if isinstance(ids, int) else ids, values)
+
+    def unlink(self, ids):
+        return self.client.call(self.model_name, "unlink", [[ids] if isinstance(ids, int) else ids])
+
+    def active(self, ids, active=True):
+        return self.write(ids, {'active': active})
+
+    def upsert(self, domain, data):
+        ids = self.search(domain)
+        if ids:
+            self.write(ids, data)
+            return ids[0]
+        else:
+            return self.create(data)
+
+    # ⚡ Ajout spécifique pour poster un message
+    def message_post(self, ids, body, message_type="notification", subtype_xmlid="mail.mt_note"):
+        return self.client.call(
+            self.model_name,
+            "message_post",
+            [ids] if isinstance(ids, int) else ids, 
+            {
+                "body": body,
+                "message_type": message_type,
+                "subtype_xmlid": subtype_xmlid
+            }
+        )
+
+# fields_get()
+# models.execute_kw(db, uid, password, 'res.partner', 'fields_get', [], {'attributes': ['string', 'help', 'type']})
