@@ -7,7 +7,7 @@ import base64
 app = Flask(__name__)
 
 API_URL = "https://openapi.fr/produits/verification-plaques-france"
-odoo = OdooModel()
+# odoo = OdooModel()
 
 @app.route('/')
 def index():
@@ -30,7 +30,7 @@ def vehicles():
                 
                 # 🔹 Vérification dans Odoo
                 domain = [('default_code', '=', plate)]
-                existing = odoo.search('product.product', domain)
+                # existing = odoo.search('product.product', domain)
 
                 if existing:
                     vehicle_entry['odoo_status'] = 'Existant'
@@ -50,7 +50,7 @@ def vehicles():
                         image_data = requests.get(vehicle['image']).content
                         product_vals['image_1920'] = base64.b64encode(image_data).decode('utf-8')
 
-                    odoo.create('product.product', product_vals)
+                    # odoo.create('product.product', product_vals)
                     vehicle_entry['odoo_status'] = 'Créé'
                     vehicle_entry['odoo_date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             else:
