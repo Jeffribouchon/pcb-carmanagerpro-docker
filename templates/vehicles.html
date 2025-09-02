@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Saisir les plaques (séparées par des virgules)</h2>
+<form method="post" class="mb-4">
+    <div class="mb-3">
+        <textarea class="form-control" name="plates" rows="4" placeholder="Ex: AB-123-CD, XY-987-ZT"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Créer</button>
+</form>
+
+{% if vehicle_data %}
+<h3>Résultats</h3>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Plaque</th>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Année</th>
+                <th>Énergie</th>
+                <th>CO₂</th>
+                <th>Image</th>
+                <th>Odoo</th>
+                <th>Date création</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in vehicle_data %}
+                <tr>
+                    <td>{{ vehicle.plate }}</td>
+                    {% if vehicle.error %}
+                        <td colspan="8" class="text-danger">{{ vehicle.error }}</td>
+                    {% else %}
+                        <td>{{ vehicle.get('make','N/A') }}</td>
+                        <td>{{ vehicle.get('model','N/A') }}</td>
+                        <td>{{ vehicle.get('year','N/A') }}</td>
+                        <td>{{ vehicle.get('fuel','N/A') }}</td>
+                        <td>{{ vehicle.get('co2','N/A') }} g/km</td>
+                        <td>
+                            {% if vehicle.get('image') %}
+                                <img src="{{ vehicle['image'] }}" alt="Image véhicule" width="100">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ vehicle.get('odoo_status','N/A') }}</td>
+                        <td>{{ vehicle.get('odoo_date','-') }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
