@@ -16,6 +16,10 @@ down:
 restart:
 	docker compose down && docker compose up -d
 
+## 🔁 Visualiser les logs
+logs:
+	docker compose logs -f
+
 ## 🔁 Mettre à jour le code (via Git), nettoie l’environnement Docker, et relance les conteneurs avec les dernières modifications.
 rebuild:
 	git pull && docker compose down --remove-orphans && docker compose up -d --build
