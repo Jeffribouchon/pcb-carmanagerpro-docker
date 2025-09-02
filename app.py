@@ -9,7 +9,7 @@ import base64
 app = Flask(__name__)
 
 # https://openapi.fr/produits/verification-plaques-france
-API_URL = ""https://automotive.openapi.com/FR-car"
+API_URL = "https://automotive.openapi.com/FR-car"
 client = OdooClient()
 product_template = OdooModel(client, 'product.template')
 
