@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 import requests
 from datetime import datetime
 from modules.odoo.client import OdooClient
@@ -7,7 +8,8 @@ import base64
 
 app = Flask(__name__)
 
-API_URL = "https://openapi.fr/produits/verification-plaques-france"
+# https://openapi.fr/produits/verification-plaques-france
+API_URL = ""https://automotive.openapi.com/FR-car"
 client = OdooClient()
 product_template = OdooModel(client, 'product.template')
 
@@ -25,13 +27,15 @@ def vehicles():
         for plate in plate_list:
             vehicle_entry = {'plate': plate}
             # 🔹 Récupération des infos du véhicule via API
-            response = requests.get(f"{API_URL}?plate={plate}")
+            clean_plate = re.sub(r'[^A-Za-z0-9]', '', plate)
+            response = requests.get(f"{API_URL}/{clean_plate}")
+            
             if response.status_code == 200:
                 vehicle = response.json()
                 vehicle_entry.update(vehicle)
                 
                 # 🔹 Vérification dans Odoo
-                domain = [('default_code', '=', plate)]
+                domain = [('x_immatriculation', '=', plate)]
                 existing = product_template.search(domain)
 
                 if existing:
