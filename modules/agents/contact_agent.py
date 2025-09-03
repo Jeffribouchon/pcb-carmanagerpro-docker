@@ -71,7 +71,7 @@ class ContactAgent(BaseAgent):
     
         # # Délais de paiement
         # if criteria.get("Délais de paiement"):
-        #     domain.append(("x_delai_paiement", "ilike", criteria["Délais de paiement"]))
+        #     domain.append(("x_delai_paiement_id", "ilike", criteria["Délais de paiement"]))
     
         # # Fournisseurs habituels
         # if criteria.get("Fournisseurs habituels"):
