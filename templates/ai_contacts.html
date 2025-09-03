@@ -1,5 +1,34 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container mt-4">
+  <h2>Recherche IA Contacts</h2>
+  <form method="post" class="mb-3">
+    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin (ex: je cherche des acheteurs de SUV diesel avec budget 20k€)..." rows="4"></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Chercher</button>
+  </form>
+
+  {% if criteria %}
+    <h5>Critères extraits par l'IA :</h5>
+    <pre>{{ criteria | tojson(indent=2) }}</pre>
+  {% endif %}
+
+  {% if results %}
+    <h5>Contacts trouvés :</h5>
+    <ul class="list-group">
+      {% for contact in results %}
+        <li class="list-group-item">
+          {{ contact.get("name") }} - {{ contact.get("email") or "Pas d'email" }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% elif criteria %}
+    <div class="alert alert-warning mt-3">Aucun contact trouvé.</div>
+  {% endif %}
+</div>
+{% endblock %}
+
+<!-- {% extends "layout.html" %}
+{% block content %}
 <h2>Recherche Contacts via DeepSeek</h2>
 
 <form method="post" class="mb-4">
@@ -31,3 +60,8 @@
 </div>
 {% endif %}
 {% endblock %}
+
+
+ -->
+
+
