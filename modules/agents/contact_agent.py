@@ -22,89 +22,11 @@ class ContactAgent(BaseAgent):
         except:
             raise Exception(f"Impossible de parser la réponse DeepSeek: {response}")
     
-    # # 🔹 Étape 1 : Odoo fait le pré-filtrage
-    # def prefilter_contacts(criteria: dict):
-    #     domain = []
-
-    #     client = OdooClient()
-    #     res_partner = OdooModel(client, 'res.partner')    
-        
-    #     if criteria.get("Budget moyen"):
-    #         try:
-    #             budget = int(criteria["Budget moyen"].replace("€", "").strip())
-    #             domain.append(("x_budget_maximum", "<=", budget))
-    #         except:
-    #             pass
-    
-    #     if criteria.get("Motorisation"):
-    #         domain.append(("x_motorisation_tag_ids", "ilike", criteria["Motorisation"]))
-    
-    #     if criteria.get("Kilométrage max"):
-    #         try:
-    #             km = int(criteria["Kilométrage max"].replace("km", "").replace("<", "").strip())
-    #             domain.append(("x_kilometrage_maximum", "<=", km))
-    #         except:
-    #             pass
-    
-    #     # On récupère une sélection large mais pas toute la base
-    #     fields = [
-    #         "name", "email", "phone", "city",
-    #     ]
-    #         # "x_type_vehicule", "x_preferred_brands", "x_purchase_volume",
-    #         # "x_purchase_frequency", "x_vehicle_state", "x_motorisation_tag_ids",
-    #         # "x_kilometrage_maximum", "x_budget_maximum", "x_achat_bulk", "x_payment_mode",
-    #         # "x_payment_terms", "x_current_suppliers", "x_expectations",
-    #         # "x_contraintes", "x_opportunites", "x_canal_contact",
-    #         # "x_relations_commerciales", "x_remarques_specifiques"
-
-    #     return res_partner.search_read(domain, fields=fields)
-
-    # #🔹 Étape 2 : DeepSeek raffine
-    # def refine_with_ai(query: str, contacts: list) -> list:
-    # #     prompt = f"""
-    # # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur :
-    # # "{query}"
-    
-    # # Voici les contacts disponibles (JSON) :
-    # # {json.dumps(contacts, ensure_ascii=False)}
-    
-    # # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
-    # # Si aucun ne correspond, retourne [].
-    # # """
-    #     prompt = f"""
-    # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur
-    # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
-    # Si aucun ne correspond, retourne [].
-    # """
-    #     response = query_deepseek(prompt)
-    #     try:
-    #         return json.loads(response)
-    #     except:
-    #         return []
-
-    # def search(self, query: str):
-    #     # 1. Extraire les critères
-    #     criteria = self.extract_criteria(query)
-
-    #     # 2. Pré-filtrer côté Odoo
-    #     prefiltered = [] #prefilter_contacts(criteria)
-
-    #     if not prefiltered:
-    #         return criteria, []
-
-    #     # 3. Raffiner côté IA
-    #     refined = [] #refine_with_ai(query, prefiltered)
-
-    #     return criteria, refined
-
-
-
-
-
-        
-
-    def search(self, criteria: dict):
+    # 🔹 Étape 1 : Odoo fait le pré-filtrage
+    def prefilter_contacts(self, criteria: dict):
         domain = []
+        client = OdooClient()
+        res_partner = OdooModel(client, 'res.partner')
 
         # Type de véhicules
         if criteria.get("Type de véhicules"):
@@ -178,9 +100,51 @@ class ContactAgent(BaseAgent):
         if criteria.get("Relation commerciale"):
             domain.append(("x_relation_commerciale", "ilike", criteria["Relation commerciale"]))
 
-        client = OdooClient()
-        res_partner = OdooModel(client, 'res.partner')
         
         # Utilisation de search_read pour récupérer directement les données des contacts
         fields = ["name", "email", "phone", "city"]
         return res_partner.search_read(domain, fields=fields)
+    
+    def search(self, query: str):
+        # 1. Extraire les critères
+        criteria = self.extract_criteria(query
+        return criteria
+    
+    # #🔹 Étape 2 : DeepSeek raffine
+    # def refine_with_ai(query: str, contacts: list) -> list:
+    # #     prompt = f"""
+    # # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur :
+    # # "{query}"
+    
+    # # Voici les contacts disponibles (JSON) :
+    # # {json.dumps(contacts, ensure_ascii=False)}
+    
+    # # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
+    # # Si aucun ne correspond, retourne [].
+    # # """
+    #     prompt = f"""
+    # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur
+    # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
+    # Si aucun ne correspond, retourne [].
+    # """
+    #     response = query_deepseek(prompt)
+    #     try:
+    #         return json.loads(response)
+    #     except:
+    #         return []
+
+    # def search(self, query: str):
+    #     # 1. Extraire les critères
+    #     criteria = self.extract_criteria(query)
+
+    #     # 2. Pré-filtrer côté Odoo
+    #     prefiltered = [] #prefilter_contacts(criteria)
+
+    #     if not prefiltered:
+    #         return criteria, []
+
+    #     # 3. Raffiner côté IA
+    #     refined = [] #refine_with_ai(query, prefiltered)
+
+    #     return criteria, refined
+
