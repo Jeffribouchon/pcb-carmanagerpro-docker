@@ -49,7 +49,7 @@ class ContactAgent(BaseAgent):
         # criteria = self.extract_criteria(query)
 
         # 2. Pré-filtrer côté Odoo
-        prefiltered = prefilter_contacts(criteria)
+        prefiltered = self.prefilter_contacts(criteria)
 
         # if not prefiltered:
         #     return criteria, []
