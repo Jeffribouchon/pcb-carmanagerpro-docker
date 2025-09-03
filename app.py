@@ -66,5 +66,29 @@ def vehicles():
 
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
+# --- PAGE DEEPSEEK CONTACTS ---
+@app.route('/ai-contacts', methods=['GET', 'POST'])
+def ai_contacts():
+    results = []
+    if request.method == 'POST':
+        user_query = request.form['query']
+        criteria = deepseek.extract_criteria(user_query)
+        domain = []
+        if 'city' in criteria:
+            domain.append(('city', '=', criteria['city']))
+        if 'industry' in criteria:
+            domain.append(('industry_id.name', '=', criteria['industry']))
+        results = odoo.search('res.partner', domain)
+
+        # Créer une activité pour chaque contact
+        for contact_id in results:
+            odoo.create('mail.activity', {
+                'res_model': 'res.partner',
+                'res_id': contact_id,
+                'summary': f"Suivi via DeepSeek : {user_query}",
+                'activity_type_id': 4
+            })
+    return render_template('ai_contacts.html', results=results)
+    
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
