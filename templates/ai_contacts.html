@@ -4,7 +4,7 @@
   <h2>Recherche IA Contacts</h2>
 
   <form method="post" class="mb-3" id="aiForm">
-    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin..." rows="4"></textarea>
+    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin (ex: je cherche des acheteurs de SUV diesel avec budget 20k€)..." rows="4"></textarea>
     <button type="submit" class="btn btn-primary mt-2">Chercher</button>
   </form>
 
@@ -39,23 +39,7 @@
             <th>Email</th>
             <th>Téléphone</th>
             <th>Ville</th>
-            <th>Type véhicules</th>
-            <th>Marques</th>
-            <th>Volume d'achat</th>
-            <th>Fréquence</th>
-            <th>État</th>
-            <th>Motorisation</th>
-            <th>Kilométrage max</th>
-            <th>Budget</th>
             <th>Achat par lot</th>
-            <th>Financement</th>
-            <th>Délais paiement</th>
-            <th>Fournisseurs</th>
-            <th>Attentes</th>
-            <th>Contraintes</th>
-            <th>Opportunités</th>
-            <th>Canal contact</th>
-            <th>Relation commerciale</th>
           </tr>
         </thead>
         <tbody>
@@ -65,23 +49,7 @@
             <td>{{ contact.get("email") or "—" }}</td>
             <td>{{ contact.get("phone") or "—" }}</td>
             <td>{{ contact.get("city") or "—" }}</td>
-            <td>{{ contact.get("x_vehicle_type") or "—" }}</td>
-            <td>{{ contact.get("x_preferred_brands") or "—" }}</td>
-            <td>{{ contact.get("x_purchase_volume") or "—" }}</td>
-            <td>{{ contact.get("x_purchase_frequency") or "—" }}</td>
-            <td>{{ contact.get("x_vehicle_state") or "—" }}</td>
-            <td>{{ contact.get("x_fuel_type") or "—" }}</td>
-            <td>{{ contact.get("x_max_km") or "—" }}</td>
-            <td>{{ contact.get("x_budget") or "—" }}</td>
             <td>{% if contact.get("x_bulk_purchase") %}✅{% else %}❌{% endif %}</td>
-            <td>{{ contact.get("x_payment_mode") or "—" }}</td>
-            <td>{{ contact.get("x_payment_terms") or "—" }}</td>
-            <td>{{ contact.get("x_current_suppliers") or "—" }}</td>
-            <td>{{ contact.get("x_expectations") or "—" }}</td>
-            <td>{{ contact.get("x_constraints") or "—" }}</td>
-            <td>{{ contact.get("x_opportunities") or "—" }}</td>
-            <td>{{ contact.get("x_contact_channel") or "—" }}</td>
-            <td>{{ contact.get("x_commercial_relationship") or "—" }}</td>
           </tr>
           {% endfor %}
         </tbody>
