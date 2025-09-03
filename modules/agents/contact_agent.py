@@ -15,6 +15,14 @@ Réponds uniquement en JSON.
 
 class ContactAgent(BaseAgent):
 
+    # ✅ Implémentation obligatoire de la méthode abstraite
+    def extract_criteria(self, query: str) -> dict:
+        response = query_deepseek(CRITERIA_PROMPT, query)
+        try:
+            return json.loads(response)
+        except Exception as e:
+            raise Exception(f"Impossible de parser la réponse DeepSeek: {response}") from e
+            
     # 🔹 Étape 1 : Odoo fait le pré-filtrage
     def prefilter_contacts(criteria: dict):
         domain = []
