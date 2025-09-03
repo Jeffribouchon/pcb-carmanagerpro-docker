@@ -39,19 +39,19 @@ class ContactAgent(BaseAgent):
             
         # # Volume d'achat
         # if criteria.get("Volume d’achat"):
-        #     domain.append(("x_purchase_volume", "ilike", criteria["Volume d’achat"]))
+        #     domain.append(("x_volume_achat", "ilike", criteria["Volume d’achat"]))
     
         # # Fréquence d’achat
         # if criteria.get("Fréquence d’achat"):
-        #     domain.append(("x_purchase_frequency", "ilike", criteria["Fréquence d’achat"]))
+        #     domain.append(("x_frequence_achat", "ilike", criteria["Fréquence d’achat"]))
     
         # # État des véhicules
         # if criteria.get("État des véhicules"):
-        #     domain.append(("x_vehicle_state", "ilike", criteria["État des véhicules"]))
+        #     domain.append(("x_etat_vehicules", "ilike", criteria["État des véhicules"]))
     
         # # Motorisation
         # if criteria.get("Motorisation"):
-        #     domain.append(("x_fuel_type", "ilike", criteria["Motorisation"]))
+        #     domain.append(("x_motorisation", "ilike", criteria["Motorisation"]))
     
         # Kilométrage max
         if criteria.get("Kilométrage max"):
@@ -63,39 +63,39 @@ class ContactAgent(BaseAgent):
     
         # # Achat par lot
         # if criteria.get("Achat par lot"):
-        #     domain.append(("x_bulk_purchase", "=", criteria["Achat par lot"].lower() == "oui"))
+        #     domain.append(("x_achat_bulk", "=", criteria["Achat par lot"].lower() == "oui"))
     
         # # Mode de financement
         # if criteria.get("Mode de financement"):
-        #     domain.append(("x_payment_mode", "ilike", criteria["Mode de financement"]))
+        #     domain.append(("x_mode_paiement", "ilike", criteria["Mode de financement"]))
     
         # # Délais de paiement
         # if criteria.get("Délais de paiement"):
-        #     domain.append(("x_payment_terms", "ilike", criteria["Délais de paiement"]))
+        #     domain.append(("x_delai_paiement", "ilike", criteria["Délais de paiement"]))
     
         # # Fournisseurs habituels
         # if criteria.get("Fournisseurs habituels"):
-        #     domain.append(("x_current_suppliers", "ilike", criteria["Fournisseurs habituels"]))
+        #     domain.append(("x_fournisseurs_habituels", "ilike", criteria["Fournisseurs habituels"]))
     
         # # Attentes principales
         # if criteria.get("Attentes principales"):
-        #     domain.append(("x_expectations", "ilike", criteria["Attentes principales"]))
+        #     domain.append(("x_attentes", "ilike", criteria["Attentes principales"]))
     
         # # Contraintes
         # if criteria.get("Contraintes"):
-        #     domain.append(("x_constraints", "ilike", criteria["Contraintes"]))
+        #     domain.append(("x_constraintes", "ilike", criteria["Contraintes"]))
     
         # # Opportunités
         # if criteria.get("Opportunités"):
-        #     domain.append(("x_opportunities", "ilike", criteria["Opportunités"]))
+        #     domain.append(("x_opportunites", "ilike", criteria["Opportunités"]))
     
         # # Canal de contact
         # if criteria.get("Canal de contact"):
-        #     domain.append(("x_contact_channel", "ilike", criteria["Canal de contact"]))
+        #     domain.append(("x_canal_contact", "ilike", criteria["Canal de contact"]))
     
         # # Relation commerciale
         # if criteria.get("Relation commerciale"):
-        #     domain.append(("x_commercial_relationship", "ilike", criteria["Relation commerciale"]))
+        #     domain.append(("x_relarion_commerciale", "ilike", criteria["Relation commerciale"]))
 
         client = OdooClient()
         res_partner = OdooModel(client, 'res.partner')
