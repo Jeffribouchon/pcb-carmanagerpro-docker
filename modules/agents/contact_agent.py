@@ -102,4 +102,4 @@ class ContactAgent(BaseAgent):
         
         # Utilisation de search_read pour récupérer directement les données des contacts
         fields = ["name", "email", "phone", "city"]
-        return odoo.search_read(domain, fields=fields)
+        return res_partner.search_read(domain, fields=fields)
