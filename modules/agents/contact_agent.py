@@ -1,6 +1,7 @@
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
+from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 
 CRITERIA_PROMPT = """
@@ -24,9 +25,10 @@ class ContactAgent(BaseAgent):
     def search(self, criteria: dict):
         domain = []
         if criteria.get("Type de véhicules"):
-            domain.append(("x_vehicle_type", "ilike", criteria["Type de véhicules"]))
+            domain.append(("x_type_vehicule", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Marques privilégiées"):
-            domain.append(("x_preferred_brands", "ilike", criteria["Marques privilégiées"]))
+            domain.append(("x_marque_vehicule_tag_ids", "ilike", criteria["Marques privilégiées"]))
 
-        odoo = OdooModel("res.partner")
-        return odoo.search(domain)
+        client = OdooClient()
+        res_partner = OdooModel(client, 'res.partner')
+        return res_partner.search(domain)
