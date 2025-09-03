@@ -10,8 +10,6 @@ import base64
 
 app = Flask(__name__)
 
-# Enregistrer le blueprint
-app.register_blueprint(ai_contacts_bp)
 
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
@@ -72,19 +70,23 @@ def vehicles():
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
 # --- PAGE DEEPSEEK CONTACTS ---
-@app.route("/ai-contacts", methods=["GET", "POST"])
-def ai_contacts():
-    results = None
-    extracted_criteria = None
+# Enregistrer le blueprint
+app.register_blueprint(ai_contacts_bp)
 
-    if request.method == "POST":
-        query = request.form.get("query")
-        if query:
-            agent = ContactAgent()
-            extracted_criteria = agent.extract_criteria(query)
-            results = agent.search(extracted_criteria)
 
-    return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
+# @app.route("/ai-contacts", methods=["GET", "POST"])
+# def ai_contacts():
+#     results = None
+#     extracted_criteria = None
+
+#     if request.method == "POST":
+#         query = request.form.get("query")
+#         if query:
+#             agent = ContactAgent()
+#             extracted_criteria = agent.extract_criteria(query)
+#             results = agent.search(extracted_criteria)
+
+#     return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
     
 # @app.route('/ai-contacts', methods=['GET', 'POST'])
 # def ai_contacts():
