@@ -44,9 +44,9 @@ class ContactAgent(BaseAgent):
         return res_partner.search_read(domain, fields=fields)
 
 
-    def search(self, query: str):
+    def search(self, criteria: dict):
         # 1. Extraire les critères
-        criteria = self.extract_criteria(query)
+        # criteria = self.extract_criteria(query)
 
         # 2. Pré-filtrer côté Odoo
         prefiltered = self.prefilter_contacts(criteria)
