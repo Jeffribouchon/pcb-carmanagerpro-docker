@@ -62,13 +62,18 @@ class ContactAgent(BaseAgent):
 
     #🔹 Étape 2 : DeepSeek raffine
     def refine_with_ai(query: str, contacts: list) -> list:
+    #     prompt = f"""
+    # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur :
+    # "{query}"
+    
+    # Voici les contacts disponibles (JSON) :
+    # {json.dumps(contacts, ensure_ascii=False)}
+    
+    # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
+    # Si aucun ne correspond, retourne [].
+    # """
         prompt = f"""
-    Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur :
-    "{query}"
-    
-    Voici les contacts disponibles (JSON) :
-    {json.dumps(contacts, ensure_ascii=False)}
-    
+    Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur
     Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
     Si aucun ne correspond, retourne [].
     """
