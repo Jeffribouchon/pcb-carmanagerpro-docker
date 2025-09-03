@@ -64,3 +64,6 @@ class ContactAgent(BaseAgent):
             refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
         return criteria, refined_contacts
+    
+    def search(self, query: str):
+        return self.hybrid_search(query)
