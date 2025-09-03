@@ -2,8 +2,9 @@
 {% block content %}
 <div class="container mt-4">
   <h2>Recherche IA Contacts</h2>
+
   <form method="post" class="mb-3">
-    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin (ex: je cherche des acheteurs de SUV diesel avec budget 20k€)..." rows="4"></textarea>
+    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin..." rows="4"></textarea>
     <button type="submit" class="btn btn-primary mt-2">Chercher</button>
   </form>
 
@@ -13,17 +14,39 @@
   {% endif %}
 
   {% if results %}
-    <h5>Contacts trouvés :</h5>
-    <ul class="list-group">
-      {% for contact in results %}
-        <li class="list-group-item">
-          {{ contact.get("name") }} - {{ contact.get("email") or "Pas d'email" }} - {{ contact.get("phone") or "Pas de téléphone" }} - {{ contact.get("city") or "Pas de ville" }}
-        </li>
-      {% endfor %}
-    </ul>
+    <h5>Contacts trouvés : {{ results|length }}</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Ville</th>
+            <th>Achat par lot</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in results %}
+          <tr>
+            <td>{{ contact.get("name") }}</td>
+            <td>{{ contact.get("email") or "—" }}</td>
+            <td>{{ contact.get("phone") or "—" }}</td>
+            <td>{{ contact.get("city") or "—" }}</td>
+            <td>
+              {% if contact.get("x_achat_bulk") %}
+                ✅
+              {% else %}
+                ❌
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% elif criteria %}
     <div class="alert alert-warning mt-3">Aucun contact trouvé.</div>
   {% endif %}
 </div>
 {% endblock %}
-
