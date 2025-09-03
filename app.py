@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
+from modules.agents.contact_agent import ContactAgent
 import base64
 
 app = Flask(__name__)
@@ -67,28 +68,42 @@ def vehicles():
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
 # --- PAGE DEEPSEEK CONTACTS ---
-@app.route('/ai-contacts', methods=['GET', 'POST'])
+@app.route("/ai-contacts", methods=["GET", "POST"])
 def ai_contacts():
-    results = []
-    if request.method == 'POST':
-        user_query = request.form['query']
-        criteria = deepseek.extract_criteria(user_query)
-        domain = []
-        if 'city' in criteria:
-            domain.append(('city', '=', criteria['city']))
-        if 'industry' in criteria:
-            domain.append(('industry_id.name', '=', criteria['industry']))
-        results = odoo.search('res.partner', domain)
+    results = None
+    extracted_criteria = None
 
-        # Créer une activité pour chaque contact
-        for contact_id in results:
-            odoo.create('mail.activity', {
-                'res_model': 'res.partner',
-                'res_id': contact_id,
-                'summary': f"Suivi via DeepSeek : {user_query}",
-                'activity_type_id': 4
-            })
-    return render_template('ai_contacts.html', results=results)
+    if request.method == "POST":
+        query = request.form.get("query")
+        if query:
+            agent = ContactAgent()
+            extracted_criteria = agent.extract_criteria(query)
+            results = agent.search(extracted_criteria)
+
+    return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
+    
+# @app.route('/ai-contacts', methods=['GET', 'POST'])
+# def ai_contacts():
+#     results = []
+#     if request.method == 'POST':
+#         user_query = request.form['query']
+#         criteria = deepseek.extract_criteria(user_query)
+#         domain = []
+#         if 'city' in criteria:
+#             domain.append(('city', '=', criteria['city']))
+#         if 'industry' in criteria:
+#             domain.append(('industry_id.name', '=', criteria['industry']))
+#         results = odoo.search('res.partner', domain)
+
+#         # Créer une activité pour chaque contact
+#         for contact_id in results:
+#             odoo.create('mail.activity', {
+#                 'res_model': 'res.partner',
+#                 'res_id': contact_id,
+#                 'summary': f"Suivi via DeepSeek : {user_query}",
+#                 'activity_type_id': 4
+#             })
+#     return render_template('ai_contacts.html', results=results)
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
