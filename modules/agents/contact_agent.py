@@ -46,7 +46,7 @@ class ContactAgent(BaseAgent):
 
     def search(self, query: str):
         # 1. Extraire les critères
-        # criteria = self.extract_criteria(query)
+        criteria = self.extract_criteria(query)
 
         # 2. Pré-filtrer côté Odoo
         prefiltered = self.prefilter_contacts(criteria)
