@@ -51,13 +51,13 @@ class ContactAgent(BaseAgent):
         # 2. Pré-filtrer côté Odoo
         prefiltered = self.prefilter_contacts(criteria)
 
-        # if not prefiltered:
-        #     return criteria, []
+        if not prefiltered:
+            return criteria, []
 
         # 3. Raffiner côté IA
         # refined = [] #refine_with_ai(query, prefiltered)
 
-        return prefiltered
+        return criteria, prefiltered
         # return criteria, refined
 
     
