@@ -1,8 +1,17 @@
 {% extends "layout.html" %}
+
 {% block content %}
 <div class="text-center mt-5">
     <h1>Bienvenue sur Car Manager Pro</h1>
-    <p>Utilisez le menu pour saisir des plaques d'immatriculation et récupérer les informations des véhicules.</p>
-    <a class="btn btn-primary" href="{{ url_for('vehicles') }}">Saisir Plaques</a>
+    <p class="lead">Gérez vos véhicules et vos contacts Odoo avec l’aide de l’IA DeepSeek</p>
+
+    <div class="d-grid gap-3 col-6 mx-auto mt-4">
+        <a href="{{ url_for('vehicles') }}" class="btn btn-success btn-lg">
+            Plaques / Véhicules
+        </a>
+        <a href="{{ url_for('ai_contacts') }}" class="btn btn-primary btn-lg">
+            Recherche Contacts IA
+        </a>
+    </div>
 </div>
 {% endblock %}
