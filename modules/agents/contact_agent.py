@@ -18,38 +18,39 @@ class ContactAgent(BaseAgent):
     # 🔹 Étape 1 : Odoo fait le pré-filtrage
     def prefilter_contacts(criteria: dict):
         domain = []
-    
+
+        client = OdooClient()
+        res_partner = OdooModel(client, 'res.partner')    
+        
         if criteria.get("Budget moyen"):
             try:
                 budget = int(criteria["Budget moyen"].replace("€", "").strip())
-                domain.append(("x_budget", "<=", budget))
+                domain.append(("x_budget_maximum", "<=", budget))
             except:
                 pass
     
         if criteria.get("Motorisation"):
-            domain.append(("x_fuel_type", "ilike", criteria["Motorisation"]))
+            domain.append(("x_motorisation_tag_ids", "ilike", criteria["Motorisation"]))
     
         if criteria.get("Kilométrage max"):
             try:
                 km = int(criteria["Kilométrage max"].replace("km", "").replace("<", "").strip())
-                domain.append(("x_max_km", "<=", km))
+                domain.append(("x_kilometrage_maximum", "<=", km))
             except:
                 pass
-    
-        odoo = OdooModel("res.partner")
     
         # On récupère une sélection large mais pas toute la base
         fields = [
             "name", "email", "phone", "city",
-            "x_vehicle_type", "x_preferred_brands", "x_purchase_volume",
-            "x_purchase_frequency", "x_vehicle_state", "x_fuel_type",
-            "x_max_km", "x_budget", "x_bulk_purchase", "x_payment_mode",
-            "x_payment_terms", "x_current_suppliers", "x_expectations",
-            "x_constraints", "x_opportunities", "x_contact_channel",
-            "x_commercial_relationship"
+            "x_type_vehicule", "x_preferred_brands", "x_purchase_volume",
+            "x_purchase_frequency", "x_vehicle_state", "x_motorisation_tag_ids",
+            "x_kilometrage_maximum", "x_budget_maximum", "x_achat_bulk", "x_payment_mode",
+            # "x_payment_terms", "x_current_suppliers", "x_expectations",
+            "x_contraintes", "x_opportunites", "x_canal_contact",
+            "x_relations_commerciales", "x_remarques_specifiques"
         ]
-    
-        return odoo.search_read(domain, fields=fields)
+
+        return res_partner.search_read(domain, fields=fields)
 
     #🔹 Étape 2 : DeepSeek raffine
     def refine_with_ai(query: str, contacts: list) -> list:
