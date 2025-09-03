@@ -25,7 +25,7 @@ class ContactAgent(BaseAgent):
     def search(self, criteria: dict):
         domain = []
         if criteria.get("Type de véhicules"):
-            domain.append(("x_type_vehicule", "ilike", criteria["Type de véhicules"]))
+            domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Marques privilégiées"):
             domain.append(("x_marque_vehicule_tag_ids", "ilike", criteria["Marques privilégiées"]))
 
