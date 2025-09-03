@@ -68,19 +68,14 @@ def vehicles():
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
 # --- PAGE DEEPSEEK CONTACTS ---
-@app.route("/ai-contacts", methods=["GET", "POST"])
+@app.route("/ai/contacts", methods=["GET", "POST"])
 def ai_contacts():
-    results = None
-    extracted_criteria = None
-
+    criteria, results = None, None
     if request.method == "POST":
         query = request.form.get("query")
-        if query:
-            agent = ContactAgent()
-            extracted_criteria = agent.extract_criteria(query)
-            results = agent.search(extracted_criteria)
-
-    return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
+        agent = ContactAgent()
+        criteria, results = agent.hybrid_search(query)
+    return render_template("ai_contacts.html", criteria=criteria, results=results)
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
