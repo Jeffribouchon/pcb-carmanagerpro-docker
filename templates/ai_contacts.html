@@ -1,37 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Véhicules</h2>
+<h2>Recherche Contacts via DeepSeek</h2>
 
 <form method="post" class="mb-4">
     <div class="mb-3">
-        <textarea class="form-control" name="plates" placeholder="Ex: AB123CD, XY456ZT"></textarea>
+        <textarea class="form-control" name="query" rows="3" placeholder="Ex: Contacts à Paris dans le secteur automobile"></textarea>
     </div>
-    <button type="submit" class="btn btn-success">Créer / Mettre à jour</button>
+    <button type="submit" class="btn btn-primary">Rechercher</button>
 </form>
 
-{% if vehicle_data %}
+{% if results %}
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    {% for vehicle in vehicle_data %}
+    {% for contact in results %}
     <div class="col">
         <div class="card h-100">
-            {% if vehicle.image %}
-            <img src="{{ vehicle.image }}" class="card-img-top" alt="{{ vehicle.plate }}">
-            {% endif %}
+            <div class="card-header">
+                {{ contact.get('name') }}
+            </div>
             <div class="card-body">
-                <h5 class="card-title">{{ vehicle.plate }}</h5>
                 <p class="card-text">
-                    Marque: {{ vehicle.make or '-' }}<br>
-                    Modèle: {{ vehicle.model or '-' }}<br>
-                    Énergie: {{ vehicle.fuel or '-' }}<br>
-                    Année: {{ vehicle.year or '-' }}<br>
-                    Prix: {{ vehicle.price or '-' }}€
+                    Email: {{ contact.get('email') or '-' }}<br>
+                    Téléphone: {{ contact.get('phone') or '-' }}<br>
+                    Ville: {{ contact.get('city') or '-' }}<br>
+                    Secteur: {{ contact.get('industry_id') or '-' }}
                 </p>
-                {% if vehicle.odoo_status %}
-                <span class="badge bg-primary">{{ vehicle.odoo_status }}</span>
-                {% endif %}
-                {% if vehicle.error %}
-                <span class="text-danger">{{ vehicle.error }}</span>
-                {% endif %}
             </div>
         </div>
     </div>
