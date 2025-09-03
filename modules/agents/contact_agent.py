@@ -50,12 +50,12 @@ class ContactAgent(BaseAgent):
         # On récupère une sélection large mais pas toute la base
         fields = [
             "name", "email", "phone", "city",
-            "x_type_vehicule", "x_preferred_brands", "x_purchase_volume",
-            "x_purchase_frequency", "x_vehicle_state", "x_motorisation_tag_ids",
-            "x_kilometrage_maximum", "x_budget_maximum", "x_achat_bulk", "x_payment_mode",
+            # "x_type_vehicule", "x_preferred_brands", "x_purchase_volume",
+            # "x_purchase_frequency", "x_vehicle_state", "x_motorisation_tag_ids",
+            # "x_kilometrage_maximum", "x_budget_maximum", "x_achat_bulk", "x_payment_mode",
             # "x_payment_terms", "x_current_suppliers", "x_expectations",
-            "x_contraintes", "x_opportunites", "x_canal_contact",
-            "x_relations_commerciales", "x_remarques_specifiques"
+            # "x_contraintes", "x_opportunites", "x_canal_contact",
+            # "x_relations_commerciales", "x_remarques_specifiques"
         ]
 
         return res_partner.search_read(domain, fields=fields)
