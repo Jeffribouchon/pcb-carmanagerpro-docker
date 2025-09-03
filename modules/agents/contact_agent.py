@@ -62,28 +62,32 @@ class ContactAgent(BaseAgent):
             return []
 
     def search(self, query: str):
+        # 1. Extraire les critères
         criteria = self.extract_criteria(query)
+
+        # 2. Pré-filtrer côté Odoo
         prefiltered = self.prefilter_contacts(criteria)
+        
         if not prefiltered:
             return criteria, []
+        
+        # 3. Raffiner côté IA
         refined = self.refine_with_ai(query, prefiltered)
+        
         return criteria, refined
         
     # def search(self, criteria: dict):
-    #     # 1. Extraire les critères
     #     # criteria = self.extract_criteria(query)
 
-    #     # 2. Pré-filtrer côté Odoo
     #     prefiltered = self.prefilter_contacts(criteria)
 
     #     if not prefiltered:
     #         return criteria, []
 
-        # 3. Raffiner côté IA
-        refined = refine_with_ai(query, prefiltered)
+        # refined = refine_with_ai(query, prefiltered)
 
         # return prefiltered, criteria
-        return criteria, refined
+        # return criteria, refined
     
 
     
