@@ -23,8 +23,8 @@ Réponds uniquement avec un tableau JSON des contacts retenus (pas de texte expl
 class ContactAgent(BaseAgent):
 
     def __init__(self):
-        client = OdooClient()
-        res_partner = OdooModel(client, 'res.partner')
+        self.client = OdooClient()
+        self.res_partner = OdooModel(client, 'res.partner')
     
     def extract_criteria(self, query: str) -> dict:
         response = query_deepseek(CRITERIA_PROMPT, query)
