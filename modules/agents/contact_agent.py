@@ -51,7 +51,7 @@ class ContactAgent(BaseAgent):
     
         # # Motorisation
         # if criteria.get("Motorisation"):
-        #     domain.append(("x_motorisation", "ilike", criteria["Motorisation"]))
+        #     domain.append(("x_motorisation_tag_ids", "ilike", criteria["Motorisation"]))
     
         # Kilométrage max
         if criteria.get("Kilométrage max"):
