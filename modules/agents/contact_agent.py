@@ -74,7 +74,7 @@ class ContactAgent(BaseAgent):
         prefiltered = self.prefilter_contacts(criteria)
 
         if not prefiltered:
-            return criteria, []
+            return [], criteria
 
         # 3. Raffiner côté IA
         # refined = [] #refine_with_ai(query, prefiltered)
