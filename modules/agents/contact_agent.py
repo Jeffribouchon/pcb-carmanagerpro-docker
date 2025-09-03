@@ -83,7 +83,7 @@ class ContactAgent(BaseAgent):
     
         # # Contraintes
         # if criteria.get("Contraintes"):
-        #     domain.append(("x_constraintes", "ilike", criteria["Contraintes"]))
+        #     domain.append(("x_contraintes", "ilike", criteria["Contraintes"]))
     
         # # Opportunités
         # if criteria.get("Opportunités"):
