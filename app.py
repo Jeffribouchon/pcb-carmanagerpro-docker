@@ -70,23 +70,23 @@ def vehicles():
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
 # --- PAGE DEEPSEEK CONTACTS ---
+@app.route("/ai-contacts", methods=["GET", "POST"])
 # Enregistrer le blueprint
 app.register_blueprint(ai_contacts_bp)
+def ai_contacts():
+    results = None
+    extracted_criteria = None
+
+    if request.method == "POST":
+        query = request.form.get("query")
+        if query:
+            agent = ContactAgent()
+            extracted_criteria = agent.extract_criteria(query)
+            results = agent.search(extracted_criteria)
+
+    return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
 
 
-# @app.route("/ai-contacts", methods=["GET", "POST"])
-# def ai_contacts():
-#     results = None
-#     extracted_criteria = None
-
-#     if request.method == "POST":
-#         query = request.form.get("query")
-#         if query:
-#             agent = ContactAgent()
-#             extracted_criteria = agent.extract_criteria(query)
-#             results = agent.search(extracted_criteria)
-
-#     return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
     
 # @app.route('/ai-contacts', methods=['GET', 'POST'])
 # def ai_contacts():
