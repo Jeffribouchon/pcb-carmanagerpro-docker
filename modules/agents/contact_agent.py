@@ -31,4 +31,7 @@ class ContactAgent(BaseAgent):
 
         client = OdooClient()
         res_partner = OdooModel(client, 'res.partner')
-        return res_partner.search(domain)
+        
+        # Utilisation de search_read pour récupérer directement les données des contacts
+        fields = ["name", "email", "phone", "city"]
+        return odoo.search_read(domain, fields=fields)
