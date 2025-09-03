@@ -107,7 +107,7 @@ class ContactAgent(BaseAgent):
     
     def search(self, query: str):
         # 1. Extraire les critères
-        criteria = self.extract_criteria(query
+        criteria = self.extract_criteria(query)
         return criteria
     
     # #🔹 Étape 2 : DeepSeek raffine
