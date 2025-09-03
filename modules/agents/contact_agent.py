@@ -45,9 +45,9 @@ class ContactAgent(BaseAgent):
         # if criteria.get("Fréquence d’achat"):
         #     domain.append(("x_frequence_achat", "ilike", criteria["Fréquence d’achat"]))
     
-        # # État des véhicules
-        # if criteria.get("État des véhicules"):
-        #     domain.append(("x_etat_vehicules", "ilike", criteria["État des véhicules"]))
+        # État des véhicules
+        if criteria.get("État des véhicules"):
+            domain.append(("x_etat_vehicules", "ilike", criteria["État des véhicules"]))
     
         # # Motorisation
         # if criteria.get("Motorisation"):
@@ -65,9 +65,9 @@ class ContactAgent(BaseAgent):
         # if criteria.get("Achat par lot"):
         #     domain.append(("x_achat_bulk", "=", criteria["Achat par lot"].lower() == "oui"))
     
-        # # Mode de financement
-        # if criteria.get("Mode de financement"):
-        #     domain.append(("x_mode_financement", "ilike", criteria["Mode de financement"]))
+        # Mode de financement
+        if criteria.get("Mode de financement"):
+            domain.append(("x_mode_financement", "ilike", criteria["Mode de financement"]))
     
         # # Délais de paiement
         # if criteria.get("Délais de paiement"):
