@@ -95,7 +95,7 @@ class ContactAgent(BaseAgent):
     
         # # Relation commerciale
         # if criteria.get("Relation commerciale"):
-        #     domain.append(("x_relarion_commerciale", "ilike", criteria["Relation commerciale"]))
+        #     domain.append(("x_relation_commerciale", "ilike", criteria["Relation commerciale"]))
 
         client = OdooClient()
         res_partner = OdooModel(client, 'res.partner')
