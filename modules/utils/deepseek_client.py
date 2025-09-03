@@ -15,7 +15,7 @@ def query_deepseek(system_prompt: str, user_prompt: str, temperature: float = 0.
     #     "temperature": temperature
     # }
     payload = {
-        "model": "deepseek-v1",
+        "model": "deepseek-chat",
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
