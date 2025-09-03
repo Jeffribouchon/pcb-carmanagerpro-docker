@@ -1,7 +1,7 @@
 services:
   flask_app:
     build: .
-    container_name: flask_app
+    container_name: car_manager_pro
     ports:
       - "8000:5000"  # Le conteneur reste en 5000, mais ton host utilisera 8000
     environment:
