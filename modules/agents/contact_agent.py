@@ -1,7 +1,7 @@
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
-from modules.odoo_wrapper.odoo_model import OdooModel
+from modules.odoo.odoo_model import OdooModel
 
 CRITERIA_PROMPT = """
 Tu es un agent qui extrait des critères de recherche de contacts d’un texte utilisateur.
