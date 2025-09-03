@@ -1,16 +1,21 @@
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
-from modules.odoo.client import OdooClient
-from modules.odoo.odoo_model import OdooModel
+from modules.odoo_wrapper.odoo_model import OdooModel
 
 CRITERIA_PROMPT = """
 Tu es un agent qui extrait des critères de recherche de contacts d’un texte utilisateur.
-Les catégories attendues sont : Volume d’achat, Fréquence d’achat, Type de véhicules,
-Marques privilégiées, Modèles souhaités, État des véhicules, Motorisation, Kilométrage max, Budget moyen,
-Achat par lot, Mode de financement, Délais de paiement, Fournisseurs habituels,
-Attentes principales, Contraintes, Opportunités, Canal de contact, Relation commerciale.
-Réponds uniquement en JSON.
+Réponds uniquement en JSON avec les clés suivantes :
+Volume d’achat, Fréquence d’achat, Type de véhicules, Marques privilégiées,
+État des véhicules, Motorisation, Kilométrage max, Budget moyen, Achat par lot,
+Mode de financement, Délais de paiement, Fournisseurs habituels, Attentes principales,
+Contraintes, Opportunités, Canal de contact, Relation commerciale.
+"""
+
+FILTER_PROMPT = """
+Tu es un agent qui reçoit une liste de contacts (JSON) et des critères de recherche (JSON).
+Retourne uniquement les contacts qui correspondent le mieux aux critères.
+Réponds uniquement avec un tableau JSON des contacts retenus (pas de texte explicatif).
 """
 
 class ContactAgent(BaseAgent):
@@ -22,73 +27,40 @@ class ContactAgent(BaseAgent):
         except:
             raise Exception(f"Impossible de parser la réponse DeepSeek: {response}")
 
-    def prefilter_contacts(self, criteria: dict):
-        domain = []
-        client = OdooClient()
-        res_partner = OdooModel(client, 'res.partner')
-        
-        # Motorisation
-        if criteria.get("Motorisation"):
-            domain.append(("x_motorisation_tag_ids", "ilike", criteria["Motorisation"]))
-    
-        # Kilométrage max
-        if criteria.get("Kilométrage max"):
-            domain.append(("x_kilometrage_maximum", "<=", criteria["Kilométrage max"]))
-    
-        # Budget moyen
-        if criteria.get("Budget moyen"):
-            domain.append(("x_budget_maximum", "<=", criteria["Budget moyen"]))
-
-        # Utilisation de search_read pour récupérer directement les données des contacts
-        fields = ["name", "email", "phone", "city"]
-        return res_partner.search_read(domain, fields=fields)
-
-    #🔹 Étape 2 : DeepSeek raffine
-    def refine_with_ai(query: str, contacts: list) -> list:
-        prompt = f"""
-    Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur :
-    "{query}"
-    
-    Voici les contacts disponibles (JSON) :
-    {json.dumps(contacts, ensure_ascii=False)}
-    
-    Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
-    Si aucun ne correspond, retourne [].
-    """
-        response = query_deepseek(prompt)
-        try:
-            return json.loads(response)
-        except:
-            return []
-
-    def search(self, query: str):
-        # 1. Extraire les critères
+    def hybrid_search(self, query: str):
+        # 1. Extraction des critères
         criteria = self.extract_criteria(query)
 
-        # 2. Pré-filtrer côté Odoo
-        prefiltered = self.prefilter_contacts(criteria)
-        
-        if not prefiltered:
-            return criteria, []
-        
-        # 3. Raffiner côté IA
-        refined = self.refine_with_ai(query, prefiltered)
-        
-        return criteria, refined
-        
-    # def search(self, criteria: dict):
-    #     # criteria = self.extract_criteria(query)
+        # 2. Pré-filtrage côté Odoo (domain sur les champs clés)
+        domain = []
+        if criteria.get("Type de véhicules"):
+            domain.append(("x_vehicle_type", "ilike", criteria["Type de véhicules"]))
+        if criteria.get("Motorisation"):
+            domain.append(("x_fuel_type", "ilike", criteria["Motorisation"]))
+        if criteria.get("Marques privilégiées"):
+            domain.append(("x_preferred_brands", "ilike", criteria["Marques privilégiées"]))
 
-    #     prefiltered = self.prefilter_contacts(criteria)
+        odoo = OdooModel("res.partner")
 
-    #     if not prefiltered:
-    #         return criteria, []
+        # récupérer un set large mais limité
+        fields = [
+            "name", "email", "phone", "city", "x_vehicle_type", "x_preferred_brands",
+            "x_purchase_volume", "x_purchase_frequency", "x_vehicle_state", "x_fuel_type",
+            "x_max_km", "x_budget", "x_bulk_purchase", "x_payment_mode", "x_payment_terms",
+            "x_current_suppliers", "x_expectations", "x_constraints", "x_opportunities",
+            "x_contact_channel", "x_commercial_relationship"
+        ]
+        pre_filtered = odoo.search_read(domain, fields=fields, limit=200)
 
-        # refined = refine_with_ai(query, prefiltered)
+        # 3. Raffinage via DeepSeek
+        filtering_input = {
+            "criteria": criteria,
+            "contacts": pre_filtered
+        }
+        refined_response = query_deepseek(FILTER_PROMPT, json.dumps(filtering_input, ensure_ascii=False))
+        try:
+            refined_contacts = json.loads(refined_response)
+        except:
+            refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        # return prefiltered, criteria
-        # return criteria, refined
-    
-
-    
-
+        return criteria, refined_contacts
