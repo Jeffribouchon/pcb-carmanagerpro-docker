@@ -67,7 +67,7 @@ class ContactAgent(BaseAgent):
     
         # # Mode de financement
         # if criteria.get("Mode de financement"):
-        #     domain.append(("x_mode_paiement", "ilike", criteria["Mode de financement"]))
+        #     domain.append(("x_mode_financement", "ilike", criteria["Mode de financement"]))
     
         # # Délais de paiement
         # if criteria.get("Délais de paiement"):
