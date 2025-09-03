@@ -22,7 +22,7 @@ class ContactAgent(BaseAgent):
         except:
             raise Exception(f"Impossible de parser la réponse DeepSeek: {response}")
 
-    def search(self, criteria: dict):
+    def prefilter_contacts(self, criteria: dict):
         domain = []
         client = OdooClient()
         res_partner = OdooModel(client, 'res.partner')
@@ -43,6 +43,22 @@ class ContactAgent(BaseAgent):
         fields = ["name", "email", "phone", "city"]
         return res_partner.search_read(domain, fields=fields)
 
+
+    def search(self, query: str):
+        # 1. Extraire les critères
+        # criteria = self.extract_criteria(query)
+
+        # 2. Pré-filtrer côté Odoo
+        prefiltered = prefilter_contacts(criteria)
+
+        # if not prefiltered:
+        #     return criteria, []
+
+        # 3. Raffiner côté IA
+        # refined = [] #refine_with_ai(query, prefiltered)
+
+        return prefiltered
+        # return criteria, refined
 
     
     
@@ -157,19 +173,4 @@ class ContactAgent(BaseAgent):
     #         return json.loads(response)
     #     except:
     #         return []
-
-    # def search(self, query: str):
-    #     # 1. Extraire les critères
-    #     criteria = self.extract_criteria(query)
-
-    #     # 2. Pré-filtrer côté Odoo
-    #     prefiltered = [] #prefilter_contacts(criteria)
-
-    #     if not prefiltered:
-    #         return criteria, []
-
-    #     # 3. Raffiner côté IA
-    #     refined = [] #refine_with_ai(query, prefiltered)
-
-    #     return criteria, refined
 
