@@ -34,6 +34,7 @@ class ContactAgent(BaseAgent):
             return json.loads(cleaned)
         except Exception as e:
             raise Exception(f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}")
+    
     def hybrid_search(self, query: str):
         # 1. Extraction des critères
         criteria = self.extract_criteria(query)
