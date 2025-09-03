@@ -72,8 +72,10 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: inherit;  /* hérite du fond du body */
-    color: #555;                /* texte gris lisible */
-    border-top: 1px solid #ddd; /* fine séparation */
+    background-color: inherit;
+    color: #555;
+    border-top: 1px solid #ddd;
+    padding: 6px 0; /* réduit la hauteur */
+    font-size: 0.9rem; /* texte un peu plus petit */
 }
 
