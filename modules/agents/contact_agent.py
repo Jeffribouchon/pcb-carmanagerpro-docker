@@ -21,6 +21,10 @@ Réponds uniquement avec un tableau JSON des contacts retenus (pas de texte expl
 
 class ContactAgent(BaseAgent):
 
+    def __init__(self):
+        client = OdooClient()
+        res_partner = OdooModel(client, 'res.partner')
+    
     def extract_criteria(self, query: str) -> dict:
         response = query_deepseek(CRITERIA_PROMPT, query)
 
@@ -48,8 +52,6 @@ class ContactAgent(BaseAgent):
         if criteria.get("Marques privilégiées"):
             domain.append(("x_preferred_brands", "ilike", criteria["Marques privilégiées"]))
 
-        odoo = OdooModel("res.partner")
-
         # récupérer un set large mais limité
         fields = [
             "name", "email", "phone", "city", "x_vehicle_type", "x_preferred_brands",
@@ -58,7 +60,7 @@ class ContactAgent(BaseAgent):
             "x_current_suppliers", "x_expectations", "x_constraints", "x_opportunities",
             "x_contact_channel", "x_commercial_relationship"
         ]
-        pre_filtered = odoo.search_read(domain, fields=fields, limit=200)
+        pre_filtered = res_partner.search_read(domain, fields=fields, limit=200)
 
         # 3. Raffinage via DeepSeek
         filtering_input = {
