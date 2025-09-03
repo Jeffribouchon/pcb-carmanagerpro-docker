@@ -5,9 +5,13 @@ from datetime import datetime
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 from modules.agents.contact_agent import ContactAgent
+from routes.ai_contacts import bp as ai_contacts_bp
 import base64
 
 app = Flask(__name__)
+
+# Enregistrer le blueprint
+app.register_blueprint(ai_contacts_bp)
 
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
