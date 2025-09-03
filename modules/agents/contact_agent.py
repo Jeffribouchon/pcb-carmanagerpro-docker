@@ -54,12 +54,7 @@ class ContactAgent(BaseAgent):
     
     Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
     Si aucun ne correspond, retourne [].
-    # """
-    #     prompt = f"""
-    # Tu es un assistant qui doit filtrer une liste de contacts Odoo selon cette requête utilisateur
-    # Retourne uniquement les contacts pertinents en JSON (garde tous leurs champs).
-    # Si aucun ne correspond, retourne [].
-    # """
+    """
         response = query_deepseek(prompt)
         try:
             return json.loads(response)
@@ -79,8 +74,8 @@ class ContactAgent(BaseAgent):
         # 3. Raffiner côté IA
         refined = refine_with_ai(query, prefiltered)
 
-        return prefiltered, criteria
-        # return criteria, refined
+        # return prefiltered, criteria
+        return criteria, refined
     
 
     
