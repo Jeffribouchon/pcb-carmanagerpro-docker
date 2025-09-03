@@ -57,7 +57,7 @@ class ContactAgent(BaseAgent):
         # 3. Raffiner côté IA
         # refined = [] #refine_with_ai(query, prefiltered)
 
-        return criteria, prefiltered
+        return prefiltered
         # return criteria, refined
 
     
