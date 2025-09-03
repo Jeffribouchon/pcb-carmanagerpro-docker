@@ -17,7 +17,7 @@
     <ul class="list-group">
       {% for contact in results %}
         <li class="list-group-item">
-          {{ contact.get("name") }} - {{ contact.get("email") or "Pas d'email" }}
+          {{ contact.get("name") }} - {{ contact.get("email") or "Pas d'email" }} - {{ contact.get("phone") or "Pas de téléphone" }} - {{ contact.get("city") or "Pas de ville" }}
         </li>
       {% endfor %}
     </ul>
