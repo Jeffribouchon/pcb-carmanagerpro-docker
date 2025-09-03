@@ -24,8 +24,8 @@ if __name__ == "__main__":
     # Crée l'application
     app = create_app()
 
-    # Lance Flask sur le port 8000
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    # Lance Flask sur le port 5000
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 # from flask import Flask, render_template, request
 # import re
