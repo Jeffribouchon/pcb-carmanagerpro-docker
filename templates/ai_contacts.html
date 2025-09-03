@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Recherche IA Contacts</h2>
+
+  <form method="post" class="mb-3" id="aiForm">
+    <textarea name="query" class="form-control" placeholder="Décrivez votre besoin..." rows="4"></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Chercher</button>
+  </form>
+
+  <!-- Popup attente -->
+  <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-3 mb-0">Analyse en cours, merci de patienter...</p>
+      </div>
+    </div>
+  </div>
+
+  {% if error %}
+    <div class="alert alert-danger mt-3">{{ error }}</div>
+  {% endif %}
+
+  {% if criteria %}
+    <h5>Critères extraits par l'IA :</h5>
+    <pre>{{ criteria | tojson(indent=2) }}</pre>
+  {% endif %}
+
+  {% if results %}
+    <h5>Contacts trouvés : {{ results|length }}</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Ville</th>
+            <th>Type véhicules</th>
+            <th>Marques</th>
+            <th>Volume d'achat</th>
+            <th>Fréquence</th>
+            <th>État</th>
+            <th>Motorisation</th>
+            <th>Kilométrage max</th>
+            <th>Budget</th>
+            <th>Achat par lot</th>
+            <th>Financement</th>
+            <th>Délais paiement</th>
+            <th>Fournisseurs</th>
+            <th>Attentes</th>
+            <th>Contraintes</th>
+            <th>Opportunités</th>
+            <th>Canal contact</th>
+            <th>Relation commerciale</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in results %}
+          <tr>
+            <td>{{ contact.get("name") }}</td>
+            <td>{{ contact.get("email") or "—" }}</td>
+            <td>{{ contact.get("phone") or "—" }}</td>
+            <td>{{ contact.get("city") or "—" }}</td>
+            <td>{{ contact.get("x_vehicle_type") or "—" }}</td>
+            <td>{{ contact.get("x_preferred_brands") or "—" }}</td>
+            <td>{{ contact.get("x_purchase_volume") or "—" }}</td>
+            <td>{{ contact.get("x_purchase_frequency") or "—" }}</td>
+            <td>{{ contact.get("x_vehicle_state") or "—" }}</td>
+            <td>{{ contact.get("x_fuel_type") or "—" }}</td>
+            <td>{{ contact.get("x_max_km") or "—" }}</td>
+            <td>{{ contact.get("x_budget") or "—" }}</td>
+            <td>{% if contact.get("x_bulk_purchase") %}✅{% else %}❌{% endif %}</td>
+            <td>{{ contact.get("x_payment_mode") or "—" }}</td>
+            <td>{{ contact.get("x_payment_terms") or "—" }}</td>
+            <td>{{ contact.get("x_current_suppliers") or "—" }}</td>
+            <td>{{ contact.get("x_expectations") or "—" }}</td>
+            <td>{{ contact.get("x_constraints") or "—" }}</td>
+            <td>{{ contact.get("x_opportunities") or "—" }}</td>
+            <td>{{ contact.get("x_contact_channel") or "—" }}</td>
+            <td>{{ contact.get("x_commercial_relationship") or "—" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% elif criteria %}
+    <div class="alert alert-warning mt-3">Aucun contact trouvé.</div>
+  {% endif %}
+</div>
+
+<script>
+  document.getElementById("aiForm").addEventListener("submit", function() {
+    let modal = new bootstrap.Modal(document.getElementById("loadingModal"));
+    modal.show();
+  });
+</script>
+{% endblock %}
