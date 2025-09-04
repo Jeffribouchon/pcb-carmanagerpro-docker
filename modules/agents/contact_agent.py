@@ -61,9 +61,9 @@ class ContactAgent(BaseAgent):
 
         # récupérer un set large mais limité
         fields = [
-            "name", "email", "phone", "city", "x_statut_client", "x_type_vehicule_tag_ids.x_name", "x_marque_vehicule_tag_ids.x_name", "x_modele_vehicule",
-            "x_motorisation_tag_ids.x_name", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
-            "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id.name",
+            "name", "email", "phone", "city", "x_statut_client", "x_type_vehicule_tag_ids", "x_marque_vehicule_tag_ids", "x_modele_vehicule",
+            "x_motorisation_tag_ids", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
+            "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id",
             "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
             "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment", "vehicles"
         ]
