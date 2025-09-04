@@ -18,7 +18,7 @@ class OdooModel:
         # Construction des options dynamiquement
         options = {}
         if fields:
-            options['fields'] = fields or []
+            options['fields'] = fields
         if limit:
             options['limit'] = limit
         if offset:
