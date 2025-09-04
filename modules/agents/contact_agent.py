@@ -11,7 +11,7 @@ Réponds uniquement en JSON avec les clés suivantes :
 Volume d’achat, Fréquence d’achat, Type de véhicules, Marques privilégiées,
 État des véhicules, Motorisation, Kilométrage max, Budget moyen, Achat par lot,
 Mode de financement, Délais de paiement, Fournisseurs habituels, Attentes principales,
-Contraintes, Opportunités, Canal de contact, Relation commerciale.
+Contraintes, Opportunités, Canal de contact, Relation commerciale, Notes.
 """
 
 FILTER_PROMPT = """
@@ -63,18 +63,18 @@ class ContactAgent(BaseAgent):
         ]
         pre_filtered = self.res_partner.search_read(domain, fields=fields)
 
-        # # 3. Raffinage via DeepSeek
-        # filtering_input = {
-        #     "criteria": criteria,
-        #     "contacts": pre_filtered
-        # }
-        # refined_response = query_deepseek(FILTER_PROMPT, json.dumps(filtering_input, ensure_ascii=False))
-        # try:
-        #     refined_contacts = json.loads(refined_response)
-        # except:
-        #     refined_contacts = pre_filtered  # fallback si DeepSeek échoue
+        # 3. Raffinage via DeepSeek
+        filtering_input = {
+            "criteria": criteria,
+            "contacts": pre_filtered
+        }
+        refined_response = query_deepseek(FILTER_PROMPT, json.dumps(filtering_input, ensure_ascii=False))
+        try:
+            refined_contacts = json.loads(refined_response)
+        except:
+            refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        refined_contacts = pre_filtered 
+        # refined_contacts = pre_filtered 
         return criteria, refined_contacts
     
     def search(self, query: str):
