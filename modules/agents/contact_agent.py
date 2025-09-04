@@ -52,7 +52,7 @@ class ContactAgent(BaseAgent):
         domain.append(('category_id.name', 'not in', ['Test', 'Partenaires']))
         
         if criteria.get("Type de véhicules"):
-            domain.append(("x_type_vehicule_tag_ids.x_name", "ilike", criteria["Type de véhicules"]))
+            domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Motorisation"):
             domain.append(("x_motorisation_tag_ids.x_name", "ilike", criteria["Motorisation"]))
         if criteria.get("Marques privilégiées"):
@@ -60,7 +60,7 @@ class ContactAgent(BaseAgent):
 
         # récupérer un set large mais limité
         fields = [
-            "name", "email", "phone", "city", "x_statut_client", "x_type_vehicule_tag_ids.x_name", "x_marque_vehicule_tag_ids.x_name", "x_modele_vehicule",
+            "name", "email", "phone", "city", "x_statut_client", "x_type_vehicule_tag_ids", "x_marque_vehicule_tag_ids.x_name", "x_modele_vehicule",
             "x_motorisation_tag_ids.x_name", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
             "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id.name",
             "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
