@@ -51,7 +51,7 @@ class ContactAgent(BaseAgent):
         domain.append('|')
         domain.append(('category_id', '=', False))
         domain.append(('category_id.name', 'not in', ['Test', 'Partenaires']))
-        
+        domain.append(("is_company", "!=", False))
         if criteria.get("Type de véhicules"):
             domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Motorisation"):
