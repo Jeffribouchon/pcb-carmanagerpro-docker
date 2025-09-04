@@ -8,8 +8,6 @@ class OdooModel:
     def _build_options(self, fields=None, limit=None, offset=None, order=None):
         """Construit dynamiquement le dict des options pour les appels Odoo."""
         options = {}
-        if fields:
-            options['fields'] = fields
         if limit:
             options['limit'] = limit
         if offset:
