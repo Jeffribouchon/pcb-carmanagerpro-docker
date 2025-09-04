@@ -1,4 +1,4 @@
-.PHONY: build up down logs restart rebuild
+.PHONY: build up down logs restart rebuild checkout
 
 ## 🔧 Build l'image Docker
 build:
@@ -27,3 +27,8 @@ rebuild:
 ## 📜 Affiche l’historique des logs
 tail-logs:
 	tail -f logs/jobs.log
+
+## 🔀 Changement de branche
+checkout:
+	@echo "🔀 Changement de branche..."
+	@git checkout $(branch)
