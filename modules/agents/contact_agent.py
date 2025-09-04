@@ -68,18 +68,18 @@ class ContactAgent(BaseAgent):
         ]
         pre_filtered = self.res_partner.search_read(domain, fields=fields)
 
-        # # 3. Raffinage via DeepSeek
-        # filtering_input = {
-        #     "criteria": criteria,
-        #     "contacts": pre_filtered
-        # }
-        # refined_response = query_deepseek(FILTER_PROMPT, json.dumps(filtering_input, ensure_ascii=False))
-        # try:
-        #     refined_contacts = json.loads(refined_response)
-        # except:
-        #     refined_contacts = pre_filtered  # fallback si DeepSeek échoue
+        # 3. Raffinage via DeepSeek
+        # refined_contacts = pre_filtered
+        filtering_input = {
+            "criteria": criteria,
+            "contacts": pre_filtered
+        }
+        refined_response = query_deepseek(FILTER_PROMPT, json.dumps(filtering_input, ensure_ascii=False))
+        try:
+            refined_contacts = json.loads(refined_response)
+        except:
+            refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        refined_contacts = pre_filtered
         # ✅ Retourne les critères et contacts
         return (criteria, refined_contacts)
     
