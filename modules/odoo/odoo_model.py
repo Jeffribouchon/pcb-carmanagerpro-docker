@@ -5,6 +5,19 @@ class OdooModel:
         self.client = client
         self.model_name = model_name
 
+    def _build_options(self, fields=None, limit=None, offset=None, order=None):
+        """Construit dynamiquement le dict des options pour les appels Odoo."""
+        options = {}
+        if fields:
+            options['fields'] = fields
+        if limit:
+            options['limit'] = limit
+        if offset:
+            options['offset'] = offset
+        if order:
+            options['order'] = order
+        return options
+        
     def search(self, domain):
         return self.client.call(self.model_name, "search", domain)
 
@@ -12,21 +25,11 @@ class OdooModel:
         return self.client.call(self.model_name, "search_count", domain)
         
     def read(self, ids, fields=None):
-        return self.client.call(self.model_name, "read", ids, fields or [])
+        options = self._build_options(fields=fields, limit=limit, offset=offset, order=order)
+        return self.client.call(self.model_name, "read", ids, fields or [], **options)
 
-    # def search_read(self, domain, fields=None):
-    #     return self.client.call(self.model_name, "search_read", domain, fields or [])
-        
     def search_read(self, domain, fields=None, limit=None, offset=None, order=None):
-        # Construction des options dynamiquement
-        options = {}
-        if limit:
-            options['limit'] = limit
-        if offset:
-            options['offset'] = offset
-        if order:
-            options['order'] = order
-            
+        options = self._build_options(fields=fields, limit=limit, offset=offset, order=order)
         return self.client.call(self.model_name, "search_read", domain, fields or [], **options)
        
     def create(self, data):
