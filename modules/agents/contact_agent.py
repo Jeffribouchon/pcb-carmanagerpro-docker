@@ -61,7 +61,7 @@ class ContactAgent(BaseAgent):
             "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
             "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment"
         ]
-        pre_filtered = self.res_partner.search_read(domain, fields=fields, limit=200)
+        pre_filtered = self.res_partner.search_read(domain, fields=fields)
 
         # 3. Raffinage via DeepSeek
         filtering_input = {
