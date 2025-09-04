@@ -4,6 +4,7 @@ from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
+from modules.agents.vehicle_agent import VehicleAgent
 
 CRITERIA_PROMPT = """
 Tu es un agent qui extrait des critères de recherche de contacts d’un texte utilisateur.
@@ -80,6 +81,16 @@ class ContactAgent(BaseAgent):
         except:
             refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
+        # # 🔹 Recherche véhicules liés (complément)
+        # vehicle_agent = VehicleAgent()
+        # vehicles = vehicle_agent.search(query)
+
+        # # Associer tous les véhicules trouvés à chaque contact
+        # # (plus tard on pourra filtrer par contact si besoin)
+        # for c in refined_contacts:
+        #     c["vehicles"] = vehicles
+
+        
         # ✅ Retourne les critères et contacts
         return (criteria, refined_contacts)
     
