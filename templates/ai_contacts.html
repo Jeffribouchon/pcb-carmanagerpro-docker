@@ -30,7 +30,7 @@
   {% if criteria %}
     <h5>Critères extraits par Turbo RIDER:</h5>
     <pre>
-      {% for key, value in criteria.items() if value is not none %}
+      {% for key, value in criteria.items() if value is not none -%}
       {{ key }}: {{ value }}
       {% endfor %}
     </pre>
