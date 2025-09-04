@@ -81,14 +81,22 @@ class ContactAgent(BaseAgent):
         except:
             refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        # # 🔹 Recherche véhicules liés (complément)
-        # vehicle_agent = VehicleAgent()
-        # vehicles = vehicle_agent.search(query)
+        # 🔹 Associer véhicules via VehicleAgent
+        vehicle_agent = VehicleAgent()
 
-        # # Associer tous les véhicules trouvés à chaque contact
-        # # (plus tard on pourra filtrer par contact si besoin)
-        # for c in refined_contacts:
-        #     c["vehicles"] = vehicles
+        for c in refined_contacts:
+            # Construire critères spécifiques au contact
+            contact_criteria = {}
+            if c.get("x_type_vehicule_tag_ids"):
+                contact_criteria["Type de véhicules"] = c["x_type_vehicule_tag_ids"][1]
+            if c.get("x_motorisation_tag_ids"):
+                contact_criteria["Motorisation"] = c["x_motorisation_tag_ids"][1]
+            if c.get("x_marque_vehicule_tag_ids"):
+                contact_criteria["Marques privilégiées"] = c["x_marque_vehicule_tag_ids"][1]
+
+            # Appel VehicleAgent (bypass DeepSeek, on passe les critères directs)
+            _, vehicles = vehicle_agent.search(criteria=contact_criteria, limit=5)
+            c["vehicles"] = vehicles
 
         
         # ✅ Retourne les critères et contacts
