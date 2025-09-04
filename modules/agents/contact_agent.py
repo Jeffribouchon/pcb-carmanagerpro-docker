@@ -74,8 +74,11 @@ class ContactAgent(BaseAgent):
         except:
             refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        # refined_contacts = pre_filtered 
-        return criteria, refined_contacts
+        # ✅ Retourne les critères et contacts avec encodage lisible
+        return (
+            json.loads(json.dumps(criteria, ensure_ascii=False)),
+            refined_contacts
+        )
     
     def search(self, query: str):
         return self.hybrid_search(query)
