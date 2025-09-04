@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Recherche IA Contacts (Je suis Turbo RIDER, votre assistant</h2>
+  <h2>Recherche IA Contacts</h2>
+  <p style="font-style: italic; color: gray; margin-top: -10px;">
+    Je suis Turbo RIDER, votre assistant
+  </p>
 
   <form method="post" class="mb-3" id="aiForm">
     <textarea name="query" class="form-control" placeholder="Décrivez votre besoin (ex: je cherche des acheteurs de SUV diesel avec budget 20k€)..." rows="4"></textarea>
@@ -26,7 +29,7 @@
 
   {% if criteria %}
     <h5>Critères extraits par Turbo RIDER:</h5>
-    <pre>{{ criteria | tojson(indent=2) }}</pre>
+    <pre>{{ criteria | tojson(indent=2, ensure_ascii=False) }}</pre>
   {% endif %}
 
   {% if results %}
