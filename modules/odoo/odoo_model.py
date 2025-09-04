@@ -27,7 +27,7 @@ class OdooModel:
         if order:
             options['order'] = order
             
-        return self.client.call(self.model_name, "search_read", domain, fields or [], options)
+        return self.client.call(self.model_name, "search_read", domain, fields or [], **options)
        
     def create(self, data):
         return self.client.call(self.model_name, "create", [data])
