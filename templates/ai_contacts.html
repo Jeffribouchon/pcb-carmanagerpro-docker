@@ -29,7 +29,7 @@
 
   {% if criteria %}
     <h5>Critères extraits par Turbo RIDER:</h5>
-    <pre>{{ criteria | safe }}</pre>
+    <pre>{{ criteria | tojson(indent=2) | safe }}</pre>
   {% endif %}
 
   {% if results %}
