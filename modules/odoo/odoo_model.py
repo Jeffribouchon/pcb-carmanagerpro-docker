@@ -14,22 +14,20 @@ class OdooModel:
     def read(self, ids, fields=None):
         return self.client.call(self.model_name, "read", ids, fields or [])
 
-    def search_read(self, domain, fields=None):
-        return self.client.call(self.model_name, "search_read", domain, fields or [])
+    # def search_read(self, domain, fields=None):
+    #     return self.client.call(self.model_name, "search_read", domain, fields or [])
         
-    # def search_read(self, domain, fields=None, limit=None, offset=None, order=None):
-    #     # Construction des options dynamiquement
-    #     options = {}
-    #     if fields:
-    #         options['fields'] = fields
-    #     if limit:
-    #         options['limit'] = limit
-    #     if offset:
-    #         options['offset'] = offset
-    #     if order:
-    #         options['order'] = order
+    def search_read(self, domain, fields=None, limit=None, offset=None, order=None):
+        # Construction des options dynamiquement
+        options = {}
+        if limit:
+            options['limit'] = limit
+        if offset:
+            options['offset'] = offset
+        if order:
+            options['order'] = order
             
-    #     return self.client.call(self.model_name, "search_read", domain, options)
+        return self.client.call(self.model_name, "search_read", domain, fields or [], options)
        
     def create(self, data):
         return self.client.call(self.model_name, "create", [data])
