@@ -47,19 +47,19 @@ class ContactAgent(BaseAgent):
         # 2. Pré-filtrage côté Odoo (domain sur les champs clés)
         domain = []
         if criteria.get("Type de véhicules"):
-            domain.append(("x_vehicle_type", "ilike", criteria["Type de véhicules"]))
+            domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Motorisation"):
-            domain.append(("x_fuel_type", "ilike", criteria["Motorisation"]))
+            domain.append(("x_motorisation_tag_ids", "ilike", criteria["Motorisation"]))
         if criteria.get("Marques privilégiées"):
-            domain.append(("x_preferred_brands", "ilike", criteria["Marques privilégiées"]))
+            domain.append(("x_marque_vehicule_tag_ids", "ilike", criteria["Marques privilégiées"]))
 
         # récupérer un set large mais limité
         fields = [
-            "name", "email", "phone", "city", "x_vehicle_type", "x_preferred_brands",
-            "x_purchase_volume", "x_purchase_frequency", "x_vehicle_state", "x_fuel_type",
-            "x_max_km", "x_budget", "x_bulk_purchase", "x_payment_mode", "x_payment_terms",
-            "x_current_suppliers", "x_expectations", "x_constraints", "x_opportunities",
-            "x_contact_channel", "x_commercial_relationship"
+            "name", "email", "phone", "city", "x_statut_client", "x_type_vehicule_tag_ids", "x_marque_vehicule_tag_ids", "x_modele_vehicule",
+            "x_motorisation_tag_ids", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
+            "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id",
+            "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
+            "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment"
         ]
         pre_filtered = self.res_partner.search_read(domain, fields=fields, limit=200)
 
