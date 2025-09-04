@@ -46,6 +46,7 @@ class ContactAgent(BaseAgent):
 
         # 2. Pré-filtrage côté Odoo (domain sur les champs clés)
         domain = []
+        domain.append(("category_id.name", "not in", ["Test", "Partenaires"]))
         if criteria.get("Type de véhicules"):
             domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Motorisation"):
