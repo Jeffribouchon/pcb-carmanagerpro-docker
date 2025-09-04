@@ -65,7 +65,7 @@ class ContactAgent(BaseAgent):
             "x_motorisation_tag_ids", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
             "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id",
             "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
-            "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment"
+            "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment", "vehicles"
         ]
         pre_filtered = self.res_partner.search_read(domain, fields=fields, limit=200)
 
