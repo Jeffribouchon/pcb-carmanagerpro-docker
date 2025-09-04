@@ -30,5 +30,5 @@ tail-logs:
 
 ## 🔀 Changement de branche
 checkout:
-	@echo "🔀 Changement de branche..."
+	@echo "🔀 Changement de branche (make checkout branch=ma-branche)..."
 	@git checkout $(branch)
