@@ -5,6 +5,7 @@ from datetime import datetime
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 from modules.agents.contact_agent import ContactAgent
+from agents.contacts.cleanup_agent import CleanupAgent
 import base64
 
 app = Flask(__name__)
@@ -76,6 +77,14 @@ def ai_contacts():
         agent = ContactAgent()
         criteria, results = agent.hybrid_search(query)
     return render_template("ai_contacts.html", criteria=criteria, results=results)
-    
+
+
+@app.route("/cleanup")
+def cleanup():
+    agent = CleanupAgent()
+    results = agent.search()
+
+    return render_template("cleanup.html", results=results)
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
