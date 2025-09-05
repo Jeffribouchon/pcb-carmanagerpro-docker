@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🔍 Doublons détectés</h2>
+
+<h3>Contacts</h3>
+{% if results.contacts %}
+  <ul class="list-group">
+    {% for c1, c2 in results.contacts %}
+      <li class="list-group-item">
+        {{ c1.name }} ({{ c1.email or c1.phone or "n/a" }})
+        ↔
+        {{ c2.name }} ({{ c2.email or c2.phone or "n/a" }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Aucun doublon trouvé ✅</p>
+{% endif %}
+
+<h3>Véhicules</h3>
+{% if results.vehicles %}
+  <ul class="list-group">
+    {% for v1, v2 in results.vehicles %}
+      <li class="list-group-item">
+        {{ v1.name }} ({{ v1.x_immat or v1.x_marque ~ ' ' ~ v1.x_modele }})
+        ↔
+        {{ v2.name }} ({{ v2.x_immat or v2.x_marque ~ ' ' ~ v2.x_modele }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Aucun doublon trouvé ✅</p>
+{% endif %}
+{% endblock %}
