@@ -6,6 +6,7 @@ from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 from modules.agents.contact_agent import ContactAgent
 from agents.contacts.cleanup_agent import CleanupAgent
+from agents.matching.matching_agent import MatchingAgent
 import base64
 
 app = Flask(__name__)
@@ -85,6 +86,14 @@ def cleanup():
     results = agent.search()
 
     return render_template("cleanup.html", results=results)
+
+
+@app.route("/matching")
+def matching():
+    agent = MatchingAgent()
+    contacts = agent.search()
+
+    return render_template("matching.html", contacts=contacts)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
