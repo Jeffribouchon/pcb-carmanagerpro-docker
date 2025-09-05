@@ -1,7 +1,7 @@
 
 # modules/agents/contacts/cleanup_agent.py
 
-from agents.base import BaseAgent
+from modules.agents.base import BaseAgent
 from odoo.odoo_model import OdooModel
 
 
