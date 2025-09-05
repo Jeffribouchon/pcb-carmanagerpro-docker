@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🤝 Matching Acheteurs ↔ Véhicules</h2>
+
+{% if contacts %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Véhicules correspondants</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in contacts %}
+        <tr>
+          <td>{{ c.name }}</td>
+          <td>{{ c.email or "Pas d'email" }}</td>
+          <td>{{ c.phone or "Pas de téléphone" }}</td>
+          <td>
+            {% if c.matching_vehicles %}
+              <ul>
+                {% for v in c.matching_vehicles %}
+                  <li>{{ v.name }} ({{ v.list_price }} €)</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              Aucun véhicule trouvé
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Aucun contact trouvé.</p>
+{% endif %}
+{% endblock %}
