@@ -6,3 +6,6 @@ services:
       - "8000:5000"  # Le conteneur reste en 5000, mais ton host utilisera 8000
     environment:
       - FLASK_ENV=development
+    env_file:
+      - ../configs/.env.global    # global
+      - .env
