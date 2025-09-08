@@ -7,5 +7,5 @@ services:
     environment:
       - FLASK_ENV=development
     env_file:
-      - ../configs/.env.global    # global
-      - .env
+      - ../configs/.env.global # global
+      - .env                   # spécifique projet
