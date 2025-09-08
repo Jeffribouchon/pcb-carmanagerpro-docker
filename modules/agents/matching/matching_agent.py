@@ -5,8 +5,6 @@ import json
 from modules.agents.base_agent import BaseAgent
 from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.vehicles.vehicle_agent import VehicleAgent
-from modules.utils.deepseek_client import query_deepseek
-
 
 class MatchingAgent(BaseAgent):
     """
@@ -17,22 +15,6 @@ class MatchingAgent(BaseAgent):
     def __init__(self):
         self.contact_agent = ContactAgent()
         self.vehicle_agent = VehicleAgent()
-
-    def extract_criteria(self, query: str) -> dict:
-        """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
-        response = query_deepseek(CRITERIA_PROMPT, query)
-
-        # 🔹 Nettoyage de la réponse DeepSeek
-        cleaned = response.strip()
-        cleaned = re.sub(r"^```json\s*", "", cleaned)
-        cleaned = re.sub(r"```$", "", cleaned)
-
-        try:
-            return json.loads(cleaned)
-        except Exception as e:
-            raise Exception(
-                f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
-            )
 
     def search(self, query: str = None):
         """
