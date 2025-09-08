@@ -3,6 +3,14 @@
 {% block content %}
 <h2>🤝 Matching Acheteurs ↔ Véhicules</h2>
 
+<!-- 🔹 Formulaire de recherche -->
+<form method="POST" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Rechercher contacts ou critères..." value="{{ query or '' }}">
+        <button class="btn btn-primary" type="submit">Rechercher</button>
+    </div>
+</form>
+
 {% if contacts %}
   <table class="table table-striped">
     <thead>
@@ -23,7 +31,7 @@
             {% if c.matching_vehicles %}
               <ul>
                 {% for v in c.matching_vehicles %}
-                  <li>{{ v.name }} ({{ v.list_price }} €)</li>
+                  <li>{{ v.name }} {% if v.list_price %}({{ v.list_price }} €){% endif %}</li>
                 {% endfor %}
               </ul>
             {% else %}
