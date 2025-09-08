@@ -17,10 +17,17 @@ class ContactAgent(BaseAgent):
 
     def extract_criteria(self, query: str) -> dict:
         response = query_deepseek(CRITERIA_PROMPT, query)
+
+        # 🔹 Nettoyage de la réponse DeepSeek
+        cleaned = response.strip()
+        # enlever les balises ```json ... ```
+        cleaned = re.sub(r"^```json\s*", "", cleaned)
+        cleaned = re.sub(r"```$", "", cleaned)
+
         try:
-            return json.loads(response)
-        except:
-            raise Exception(f"Impossible de parser la réponse DeepSeek: {response}")
+            return json.loads(cleaned)
+        except Exception as e:
+            raise Exception(f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}")
 
     def search(self, criteria: dict):
         domain = []
