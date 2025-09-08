@@ -4,7 +4,6 @@ from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
-from modules.agents.vehicles.vehicle_agent import VehicleAgent
 
 CRITERIA_PROMPT = """
 Tu es un agent qui extrait des critères de recherche de contacts d’un texte utilisateur.
@@ -51,7 +50,7 @@ class ContactAgent(BaseAgent):
         domain.append('|')
         domain.append(('category_id', '=', False))
         domain.append(('category_id.name', 'not in', ['Test', 'Partenaires']))
-        domain.append(("is_company", "!=", False))
+        
         if criteria.get("Type de véhicules"):
             domain.append(("x_type_vehicule_tag_ids.x_name", "ilike", criteria["Type de véhicules"]))
         if criteria.get("Motorisation"):
@@ -65,7 +64,7 @@ class ContactAgent(BaseAgent):
             "x_motorisation_tag_ids", "x_volume_achat", "x_frequence_achat", "x_etat_vehicules",
             "x_kilometrage_maximum", "x_annee_minimum", "x_budget_maximum", "x_achat_bulk", "x_mode_financement", "x_mode_paiement", "x_delai_paiement_id",
             "x_fournisseurs_habituels", "x_attentes", "x_contraintes", "x_opportunites",
-            "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment", "vehicles"
+            "x_canal_contact", "x_relation_commerciale", "x_remarques_specifiques", "comment"
         ]
         pre_filtered = self.res_partner.search_read(domain, fields=fields, limit=200)
 
@@ -81,24 +80,6 @@ class ContactAgent(BaseAgent):
         except:
             refined_contacts = pre_filtered  # fallback si DeepSeek échoue
 
-        # # 🔹 Associer véhicules via VehicleAgent
-        # vehicle_agent = VehicleAgent()
-
-        # for c in refined_contacts:
-        #     # Construire critères spécifiques au contact
-        #     contact_criteria = {}
-        #     if c.get("x_type_vehicule_tag_ids"):
-        #         contact_criteria["Type de véhicules"] = c["x_type_vehicule_tag_ids"][1]
-        #     if c.get("x_motorisation_tag_ids"):
-        #         contact_criteria["Motorisation"] = c["x_motorisation_tag_ids"][1]
-        #     if c.get("x_marque_vehicule_tag_ids"):
-        #         contact_criteria["Marques privilégiées"] = c["x_marque_vehicule_tag_ids"][1]
-
-        #     # Appel VehicleAgent (bypass DeepSeek, on passe les critères directs)
-        #     _, vehicles = vehicle_agent.search(criteria=contact_criteria, limit=5)
-        #     c["vehicles"] = vehicles
-
-        
         # ✅ Retourne les critères et contacts
         return (criteria, refined_contacts)
     
