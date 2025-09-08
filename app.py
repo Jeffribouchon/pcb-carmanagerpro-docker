@@ -91,13 +91,19 @@ def cleanup():
 
     return render_template("cleanup.html", results=results)
 
-
-@app.route("/matching")
+@app.route("/matching", methods=["GET", "POST"])
 def matching():
-    agent = MatchingAgent()
-    contacts = agent.search()
+    contacts = []
+    query = None
 
-    return render_template("matching.html", contacts=contacts)
+    if request.method == "POST":
+        query = request.form.get("query", "").strip()
+
+    agent = MatchingAgent()
+    # 🔹 Passe le query au MatchingAgent
+    contacts = agent.search(query)
+
+    return render_template("matching.html", contacts=contacts, query=query)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
