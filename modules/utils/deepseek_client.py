@@ -6,14 +6,6 @@ DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
 def query_deepseek(system_prompt: str, user_prompt: str, temperature: float = 0.7) -> str:
     headers = {"Authorization": f"Bearer {DEEPSEEK_API_KEY}", "Content-Type": "application/json"}
-    # payload = {
-    #     "model": "deepseek-chat",
-    #     "messages": [
-    #         {"role": "system", "content": system_prompt},
-    #         {"role": "user", "content": user_query}
-    #     ],
-    #     "temperature": temperature
-    # }
     payload = {
         "model": "deepseek-chat",
         "messages": [
