@@ -5,7 +5,7 @@ import json
 from modules.agents.base_agent import BaseAgent
 from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.vehicles.vehicle_agent import VehicleAgent
-from modules.agents.deepseek import query_deepseek, CRITERIA_PROMPT
+from modules.modules.utils.deepseek_client import query_deepseek, CRITERIA_PROMPT
 
 
 class MatchingAgent(BaseAgent):
