@@ -1,8 +1,8 @@
 # modules/agents/matching/matching_agent.py
 
 from modules.agents.base_agent import BaseAgent
-from modules.agents.contact_agent import ContactAgent
-from modules.agents.vehicle_agent import VehicleAgent
+from modules.agents.contacts.contact_agent import ContactAgent
+from modules.agents.vehicles.vehicle_agent import VehicleAgent
 
 
 class MatchingAgent(BaseAgent):
