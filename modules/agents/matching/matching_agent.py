@@ -15,6 +15,20 @@ class MatchingAgent(BaseAgent):
         self.contact_agent = ContactAgent()
         self.vehicle_agent = VehicleAgent()
 
+    def extract_criteria(self, query: str) -> dict:
+        response = query_deepseek(CRITERIA_PROMPT, query)
+
+        # 🔹 Nettoyage de la réponse DeepSeek
+        cleaned = response.strip()
+        # enlever les balises ```json ... ```
+        cleaned = re.sub(r"^```json\s*", "", cleaned)
+        cleaned = re.sub(r"```$", "", cleaned)
+
+        try:
+            return json.loads(cleaned)
+        except Exception as e:
+            raise Exception(f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}")
+            
     def search(self, query: str = None):
         """
         Retourne une liste de contacts enrichis avec les véhicules correspondants.
