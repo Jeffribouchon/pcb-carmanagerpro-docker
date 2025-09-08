@@ -1,3 +1,4 @@
+import re
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import query_deepseek
