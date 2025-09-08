@@ -33,6 +33,11 @@ class ContactAgent(BaseAgent):
     def search(self, criteria: dict):
         domain = []
 
+        domain.append('|')
+        domain.append(('category_id', '=', False))
+        domain.append(('category_id.name', 'not in', ['Test', 'Partenaires']))
+        domain.append(("is_company", "!=", False))
+        
         # Type de véhicules
         if criteria.get("Type de véhicules"):
             domain.append(("x_type_vehicule_tag_ids", "ilike", criteria["Type de véhicules"]))
