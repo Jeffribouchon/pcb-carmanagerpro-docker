@@ -7,6 +7,7 @@ from modules.odoo.odoo_model import OdooModel
 from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.contacts.cleanup_agent import CleanupAgent
 from modules.agents.matching.matching_agent import MatchingAgent
+from modules.agents.immatriculation.immat_agent import ImmatAgent
 import base64
 
 app = Flask(__name__)
