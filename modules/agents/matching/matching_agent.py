@@ -48,7 +48,7 @@ class MatchingAgent(BaseAgent):
         for contact in contacts:
             # 🔹 Construire les critères pour VehicleAgent (utiliser les champs techniques Odoo)
             criteria = {
-                "x_type_vehicule_tag_ids": contact.get("x_type_vehicule_tag_ids"),
+                "x_studio_type_de_vhicule": contact.get("x_type_vehicule_tag_ids.name"),
                 "x_motorisation_tag_ids": contact.get("x_motorisation_tag_ids"),
                 "x_marque_vehicule_tag_ids": contact.get("x_marque_vehicule_tag_ids"),
                 "x_budget_moyen": contact.get("x_budget_moyen"),
