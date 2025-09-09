@@ -37,13 +37,12 @@ class MatchingAgent(BaseAgent):
                 f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
             )
 
-    def search(self, query: str = None):
+    def search(self, criteria: dict):
         """
         Retourne une liste de contacts enrichis avec les véhicules correspondants.
         """
         # 🔹 Récupère les contacts correspondant à la requête (ou tous si query vide)
-        extracted_criteria = self.extract_criteria(query or "")
-        contacts = self.contact_agent.search(extracted_criteria)
+        contacts = self.contact_agent.search(criteria)
 
         enriched_contacts = []
         for contact in contacts:
