@@ -20,4 +20,3 @@ def query_deepseek(system_prompt: str, user_prompt: str, temperature: float = 0.
     response.raise_for_status()
     return response.json()["choices"][0]["message"]["content"]
 
-CRITERIA_PROMPT = "Transforme la requête en JSON structuré avec critères véhicules"
