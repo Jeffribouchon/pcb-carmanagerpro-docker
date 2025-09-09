@@ -26,8 +26,7 @@ class VehicleAgent(BaseAgent):
         except Exception as e:
             raise Exception(f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}")
 
-    def search(self, query: str):
-        criteria = self.extract_criteria(query)
+    def search(self, criteria: dict):
 
         domain = []
 
