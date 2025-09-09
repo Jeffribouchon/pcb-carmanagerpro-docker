@@ -13,7 +13,7 @@ Kilométrage max, Budget max, Achat par lot, Opportunités.
 
 class VehicleAgent(BaseAgent):
 
-    def
+    def __init__(self):
         client = OdooClient()
         product_template = OdooModel(client, 'product.template')
 
@@ -60,6 +60,6 @@ class VehicleAgent(BaseAgent):
             "x_studio_energie", "x_studio_integer_field_hm_1iqqfg2td"
         ]
 
-        results = product_template.search_read(domain, fields=fields, limit=100)
+        results = self.product_template.search_read(domain, fields=fields, limit=100)
 
         return criteria, results
