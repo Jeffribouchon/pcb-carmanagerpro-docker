@@ -56,10 +56,10 @@ class MatchingAgent(BaseAgent):
             }
 
             # 🔹 Rechercher les véhicules correspondants
-            #vehicles = self.vehicle_agent.search(criteria) or []
+            vehicles = self.vehicle_agent.search(criteria) or []
 
             # 🔹 Limiter à 5 véhicules par contact
-            #contact["matching_vehicles"] = vehicles[:5]
-            #enriched_contacts.append(contact)
+            contact["matching_vehicles"] = vehicles[:5]
+            enriched_contacts.append(contact)
 
         return enriched_contacts
