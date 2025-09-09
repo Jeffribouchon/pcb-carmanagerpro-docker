@@ -2,7 +2,7 @@ from modules.odoo_client import OdooClient
 from modules.agents.base import BaseAgent
 from deepseek import DeepSeekClient  # ton wrapper DeepSeek
 
-class CarterCashAgent(BaseAgent):
+class ImmatAgent(BaseAgent):
     def __init__(self, odoo: OdooClient, deepseek: DeepSeekClient):
         self.odoo = odoo
         self.deepseek = deepseek
