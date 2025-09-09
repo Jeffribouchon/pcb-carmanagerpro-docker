@@ -16,7 +16,7 @@ class VehicleAgent(BaseAgent):
 
     def __init__(self):
         client = OdooClient()
-        product_template = OdooModel(client, 'product.template')
+        self.product_template = OdooModel(client, 'product.template')
 
     def extract_criteria(self, query: str) -> dict:
         response = query_deepseek(CRITERIA_PROMPT, query)
