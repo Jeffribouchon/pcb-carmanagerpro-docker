@@ -13,6 +13,9 @@ Kilométrage max, Budget max, Achat par lot, Opportunités.
 
 class VehicleAgent(BaseAgent):
 
+    def
+          product_template = OdooModel(client, 'product.template')
+
     def extract_criteria(self, query: str) -> dict:
         response = query_deepseek(CRITERIA_PROMPT, query)
 
@@ -50,8 +53,6 @@ class VehicleAgent(BaseAgent):
                 domain.append(("list_price", "<=", budget))
             except:
                 pass
-
-        product_template = OdooModel("product.template")
 
         fields = [
             "name", "list_price", "x_studio_type_de_vhicule", "x_studio_modele", "x_studio_marque",
