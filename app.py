@@ -91,6 +91,18 @@ def cleanup():
 
     return render_template("cleanup.html", results=results)
 
+@app.route("/immat_import", methods=["GET", "POST"])
+def immat_import():
+    vehicle = None
+    if request.method == "POST":
+        raw_text = request.form.get("immat_text")
+        agent = ImmatAgent(odoo_client, deepseek_client)
+        vehicle_id, vehicle_data = agent.parse_and_create_vehicle(raw_text)
+        vehicle = vehicle_data
+
+    return render_template("immat_import.html", vehicle=vehicle)
+
+
 @app.route("/matching", methods=["GET", "POST"])
 def matching():
     contacts = []
