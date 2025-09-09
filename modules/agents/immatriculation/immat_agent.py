@@ -13,13 +13,35 @@ class CarterCashAgent(BaseAgent):
         """
         # 1. Demander à DeepSeek d'extraire les infos structurées
         prompt = f"""
-        Analyse ce texte et retourne un JSON avec les infos suivantes :
-        marque, modele, version, carrosserie, vin, energie, moteur,
-        couleur, immatriculation, puissance_cv, puissance_kw,
-        boite_vitesse, type_propulsion, date_mec, ktype.
-        
-        Texte : {raw_text}
+        Tu es un assistant spécialisé en parsing automobile. 
+        Analyse le texte fourni et retourne UNIQUEMENT un JSON valide. 
+        Pas de texte avant ou après, pas de commentaires.
+
+        Champs attendus (si une info est manquante, retourne null) :
+        - marque (string)
+        - modele (string)
+        - version (string)
+        - carrosserie (string)
+        - genre (string)
+        - nb_portes (int)
+        - vin (string)
+        - energie (string)
+        - moteur (string)
+        - couleur (string)
+        - immatriculation (string)
+        - puissance_cv (int)
+        - puissance_kw (int)
+        - turbo (string)
+        - boite_vitesse (string)
+        - type_propulsion (string)
+        - date_mec (string au format YYYY-MM-DD)
+        - ktype (string)
+        - numero_serie (string)
+
+        Texte à analyser :
+        \"\"\"{raw_text}\"\"\"
         """
+
         result = self.deepseek.extract_json(prompt)
 
         # 2. Mapper vers Odoo (product.template ou modèle véhicule)
