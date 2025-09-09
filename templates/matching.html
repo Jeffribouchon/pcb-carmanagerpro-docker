@@ -4,10 +4,8 @@
 
 <!-- 🔹 Formulaire de recherche -->
 <form method="POST" class="mb-3">
-    <div class="input-group">
-        <textarea name="query" class="form-control" placeholder="Rechercher contacts ou critères..." rows="4"></textarea>
-        <button class="btn btn-primary" type="submit">Rechercher</button>
-    </div>
+    <textarea name="query" class="form-control" placeholder="Rechercher contacts ou critères..." rows="4"></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
 </form>
 
 {% if contacts %}
