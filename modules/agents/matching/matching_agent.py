@@ -39,7 +39,8 @@ class MatchingAgent(BaseAgent):
         Retourne une liste de contacts enrichis avec les véhicules correspondants.
         """
         # 🔹 Récupère les contacts correspondant à la requête (ou tous si query vide)
-        contacts = self.contact_agent.search(query or "")
+        extracted_criteria = agent.extract_criteria(query or "")
+        contacts = self.contact_agent.search(extracted_criteria)
 
         enriched_contacts = []
         for contact in contacts:
