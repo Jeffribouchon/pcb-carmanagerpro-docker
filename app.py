@@ -95,14 +95,15 @@ def cleanup():
 def matching():
     contacts = []
     query = None
+    extracted_criteria = None
 
     if request.method == "POST":
-        query = request.form.get("query", "").strip()
-
-    agent = MatchingAgent()
-    # 🔹 Passe le query au MatchingAgent
-    extracted_criteria = agent.extract_criteria(query)
-    contacts = agent.search(extracted_criteria)
+        query = request.form.get("query")
+        if query:
+            agent = MatchingAgent()
+            # 🔹 Passe le query au MatchingAgent
+            extracted_criteria = agent.extract_criteria(query)
+            contacts = agent.search(extracted_criteria)
 
     return render_template("matching.html", contacts=contacts, query=query)
 
