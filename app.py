@@ -101,7 +101,8 @@ def matching():
 
     agent = MatchingAgent()
     # 🔹 Passe le query au MatchingAgent
-    contacts = agent.search(query)
+    extracted_criteria = agent.extract_criteria(query)
+    contacts = agent.search(extracted_criteria)
 
     return render_template("matching.html", contacts=contacts, query=query)
 
