@@ -8,12 +8,7 @@ from modules.agents.vehicles.vehicle_agent import VehicleAgent
 from modules.utils.deepseek_client import query_deepseek, CRITERIA_PROMPT
 
 CRITERIA_PROMPT = """
-Tu es un agent qui extrait des critères de recherche de contacts d’un texte utilisateur.
-Les catégories attendues sont : Volume d’achat, Fréquence d’achat, Type de véhicules,
-Marques privilégiées, Modèles souhaités, État des véhicules, Motorisation, Kilométrage max, Budget moyen,
-Achat par lot, Mode de financement, Délais de paiement, Fournisseurs habituels,
-Attentes principales, Contraintes, Opportunités, Canal de contact, Relation commerciale.
-Réponds uniquement en JSON.
+Transforme la requête en JSON structuré avec critères véhicules
 """
 
 class MatchingAgent(BaseAgent):
