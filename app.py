@@ -17,7 +17,7 @@ app = Flask(__name__)
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
 odoo_client = OdooClient()
-deepseek_client = DeepSeekClient
+deepseek_client = DeepSeekClient()
 product_template = OdooModel(odoo_client, 'product.template')
 
 @app.route('/')
