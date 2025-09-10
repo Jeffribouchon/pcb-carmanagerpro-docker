@@ -31,7 +31,7 @@ CRITERIA_PROMPT = """
         - numero_serie (string)
 
         ⚠️ Important : 
-        - Pour `boite_vitesse`, renvoie uniquement "manuelle" ou "automatique".
+        - Pour `boite_vitesse`, renvoie uniquement "Manuelle" ou "Automatique".
 
         Texte à analyser :
         """
