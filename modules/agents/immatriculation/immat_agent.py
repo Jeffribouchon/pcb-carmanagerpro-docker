@@ -22,7 +22,7 @@ class ImmatAgent(BaseAgent):
                 f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
             )
             
-    def parse_and_create_vehicle(self, raw_text: str):
+    def search(self, raw_text: str):
         """
         Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
         """
