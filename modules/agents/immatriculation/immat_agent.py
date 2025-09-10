@@ -2,32 +2,7 @@ from modules.agents.base_agent import BaseAgent
 from modules.odoo.odoo_model import OdooModel
 from modules.utils.deepseek_client  import DeepSeekClient 
 
-class ImmatAgent(BaseAgent):
-    def __init__(self, odoo_client):
-        self.product_template = OdooModel(odoo_client, 'product.template')
-
-    def extract_criteria(self, query: str) -> dict:
-        """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
-        response = DeepSeekClient(CRITERIA_PROMPT, query)
-
-        # 🔹 Nettoyage de la réponse DeepSeek
-        cleaned = response.strip()
-        cleaned = re.sub(r"^```json\s*", "", cleaned)
-        cleaned = re.sub(r"```$", "", cleaned)
-
-        try:
-            return json.loads(cleaned)
-        except Exception as e:
-            raise Exception(
-                f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
-            )
-            
-    def search(self, raw_text: str):
-        """
-        Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
-        """
-        # 1. Demander à DeepSeek d'extraire les infos structurées
-        prompt = f"""
+CRITERIA_PROMPT = f"""
         Tu es un assistant spécialisé en parsing automobile. 
         Analyse le texte fourni et retourne UNIQUEMENT un JSON valide. 
         Pas de texte avant ou après, pas de commentaires.
@@ -57,22 +32,44 @@ class ImmatAgent(BaseAgent):
         \"\"\"{query}\"\"\"
         """
 
-        result = self.deepseek.extract_json(prompt)
+class ImmatAgent(BaseAgent):
+    def __init__(self, odoo_client):
+        self.product_template = OdooModel(odoo_client, 'product.template')
 
+    def extract_criteria(self, query: str) -> dict:
+        """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
+        response = DeepSeekClient(CRITERIA_PROMPT, query)
+
+        # 🔹 Nettoyage de la réponse DeepSeek
+        cleaned = response.strip()
+        cleaned = re.sub(r"^```json\s*", "", cleaned)
+        cleaned = re.sub(r"```$", "", cleaned)
+
+        try:
+            return json.loads(cleaned)
+        except Exception as e:
+            raise Exception(
+                f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
+            )
+            
+    def search(self, criteria: str):
+        """
+        Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
+        """
         # 2. Mapper vers Odoo (product.template ou modèle véhicule)
         vehicle_data = {
-            "name": f"{result.get('marque')} {result.get('modele')} {result.get('version')}",
-            "x_vin": result.get("vin"),
-            "x_immatriculation": result.get("immatriculation"),
-            "x_motorisation": result.get("moteur"),
-            "x_energie": result.get("energie"),
-            "x_puissance_cv": result.get("puissance_cv"),
-            "x_puissance_kw": result.get("puissance_kw"),
-            "x_boite_vitesse": result.get("boite_vitesse"),
-            "x_type_propulsion": result.get("type_propulsion"),
-            "x_date_mec": result.get("date_mec"),
-            "x_couleur": result.get("couleur"),
-            "x_ktype": result.get("ktype"),
+            "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
+            "x_vin": criteria.get("vin"),
+            "x_immatriculation": criteria.get("immatriculation"),
+            "x_motorisation": criteria.get("moteur"),
+            "x_energie": criteria.get("energie"),
+            "x_puissance_cv": criteria.get("puissance_cv"),
+            "x_puissance_kw": criteria.get("puissance_kw"),
+            "x_boite_vitesse": criteria.get("boite_vitesse"),
+            "x_type_propulsion": criteria.get("type_propulsion"),
+            "x_date_mec": criteria.get("date_mec"),
+            "x_couleur": criteria.get("couleur"),
+            "x_ktype": criteria.get("ktype"),
         }
 
         # 3. Créer dans Odoo
