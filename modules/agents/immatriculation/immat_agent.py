@@ -30,6 +30,9 @@ CRITERIA_PROMPT = """
         - ktype (string)
         - numero_serie (string)
 
+        ⚠️ Important : 
+        - Pour `boite_vitesse`, renvoie uniquement "manuelle" ou "automatique".
+
         Texte à analyser :
         """
 
