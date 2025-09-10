@@ -2,7 +2,7 @@ from modules.agents.base_agent import BaseAgent
 from modules.odoo.odoo_model import OdooModel
 from modules.utils.deepseek_client  import DeepSeekClient 
 
-CRITERIA_PROMPT = f"""
+CRITERIA_PROMPT = """
         Tu es un assistant spécialisé en parsing automobile. 
         Analyse le texte fourni et retourne UNIQUEMENT un JSON valide. 
         Pas de texte avant ou après, pas de commentaires.
@@ -29,7 +29,6 @@ CRITERIA_PROMPT = f"""
         - numero_serie (string)
 
         Texte à analyser :
-        \"\"\"{query}\"\"\"
         """
 
 class ImmatAgent(BaseAgent):
