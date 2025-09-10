@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
-client = OdooClient()
-product_template = OdooModel(client, 'product.template')
+odoo_client = OdooClient()
+product_template = OdooModel(odoo_client, 'product.template')
 
 @app.route('/')
 def index():
