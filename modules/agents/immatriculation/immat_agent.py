@@ -1,7 +1,7 @@
 from modules.agents.base_agent import BaseAgent
 
 class ImmatAgent(BaseAgent):
-    def __init__(self, odoo: OdooClient, deepseek: DeepSeekClient):
+    def __init__(self, odoo, deepseek):
         self.odoo = odoo
         self.deepseek = deepseek
 
