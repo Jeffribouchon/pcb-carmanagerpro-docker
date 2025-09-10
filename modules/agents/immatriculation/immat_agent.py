@@ -1,4 +1,4 @@
-from modules.agents.base import BaseAgent
+from modules.agents.base_agent import BaseAgent
 
 class ImmatAgent(BaseAgent):
     def __init__(self, odoo: OdooClient, deepseek: DeepSeekClient):
