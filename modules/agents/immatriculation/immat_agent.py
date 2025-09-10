@@ -1,3 +1,5 @@
+import re
+import json
 from modules.agents.base_agent import BaseAgent
 from modules.odoo.odoo_model import OdooModel
 from modules.utils.deepseek_client  import DeepSeekClient 
