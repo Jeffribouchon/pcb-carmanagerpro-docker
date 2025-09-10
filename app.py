@@ -3,6 +3,8 @@ import re
 import requests
 from datetime import datetime
 from modules.odoo.client import OdooClient
+from utils.deepseek_client import DeepSeekClient
+
 from modules.odoo.odoo_model import OdooModel
 from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.contacts.cleanup_agent import CleanupAgent
