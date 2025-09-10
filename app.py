@@ -95,16 +95,16 @@ def cleanup():
 
 @app.route("/immat_import", methods=["GET", "POST"])
 def immat_import():
-    vehicle = None
+    results = None
     if request.method == "POST":
         query = request.form.get("query")
         if query:
             agent = ImmatAgent(odoo_client)
             extracted_criteria = agent.extract_criteria(query)
             vehicle_id, vehicle_data = agent.parse_and_create_vehicle(extracted_criteria)
-            vehicle = vehicle_data
+            results = vehicle_data
 
-    return render_template("immat_import.html", vehicle=vehicle)
+    return render_template("immat_import.html", vehicle=results)
 
 
 @app.route("/matching", methods=["GET", "POST"])
