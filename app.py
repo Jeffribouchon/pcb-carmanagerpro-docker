@@ -98,10 +98,12 @@ def cleanup():
 def immat_import():
     vehicle = None
     if request.method == "POST":
-        raw_text = request.form.get("immat_text")
-        agent = ImmatAgent(odoo_client, DeepSeekClient)
-        vehicle_id, vehicle_data = agent.parse_and_create_vehicle(raw_text)
-        vehicle = vehicle_data
+        query = request.form.get("immat_text")
+        if query:
+            agent = ImmatAgent(odoo_client, DeepSeekClient)
+            extracted_criteria = agent.extract_criteria(query)
+            vehicle_id, vehicle_data = agent.parse_and_create_vehicle(extracted_criteria)
+            vehicle = vehicle_data
 
     return render_template("immat_import.html", vehicle=vehicle)
 
