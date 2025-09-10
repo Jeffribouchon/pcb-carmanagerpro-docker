@@ -5,6 +5,22 @@ class ImmatAgent(BaseAgent):
         self.odoo = odoo
         self.deepseek = deepseek
 
+    def extract_criteria(self, query: str) -> dict:
+        """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
+        response = query_deepseek(CRITERIA_PROMPT, query)
+
+        # 🔹 Nettoyage de la réponse DeepSeek
+        cleaned = response.strip()
+        cleaned = re.sub(r"^```json\s*", "", cleaned)
+        cleaned = re.sub(r"```$", "", cleaned)
+
+        try:
+            return json.loads(cleaned)
+        except Exception as e:
+            raise Exception(
+                f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
+            )
+            
     def parse_and_create_vehicle(self, raw_text: str):
         """
         Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
