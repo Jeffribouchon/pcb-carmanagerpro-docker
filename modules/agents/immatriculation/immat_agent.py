@@ -1,15 +1,14 @@
 from modules.agents.base_agent import BaseAgent
 from modules.odoo.odoo_model import OdooModel
+from modules.utils.deepseek_client  import DeepSeekClient 
 
 class ImmatAgent(BaseAgent):
-    def __init__(self, odoo_client, deepseek):
-        odoo_client = odoo_client 
-        self.deepseek = deepseek
+    def __init__(self, odoo_client):
         self.product_template = OdooModel(odoo_client, 'product.template')
 
     def extract_criteria(self, query: str) -> dict:
         """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
-        response = query_deepseek(CRITERIA_PROMPT, query)
+        response = DeepSeekClient(CRITERIA_PROMPT, query)
 
         # 🔹 Nettoyage de la réponse DeepSeek
         cleaned = response.strip()
