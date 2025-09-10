@@ -1,9 +1,11 @@
 from modules.agents.base_agent import BaseAgent
+from modules.odoo.odoo_model import OdooModel
 
 class ImmatAgent(BaseAgent):
-    def __init__(self, odoo, deepseek):
-        self.odoo = odoo
+    def __init__(self, odoo_client, deepseek):
+        odoo_client = odoo_client 
         self.deepseek = deepseek
+        self.product_template = OdooModel(odoo_client, 'product.template')
 
     def extract_criteria(self, query: str) -> dict:
         """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
@@ -53,7 +55,7 @@ class ImmatAgent(BaseAgent):
         - numero_serie (string)
 
         Texte à analyser :
-        \"\"\"{raw_text}\"\"\"
+        \"\"\"{query}\"\"\"
         """
 
         result = self.deepseek.extract_json(prompt)
@@ -75,5 +77,5 @@ class ImmatAgent(BaseAgent):
         }
 
         # 3. Créer dans Odoo
-        vehicle_id = self.odoo.create("product.template", vehicle_data)
+        vehicle_id = self.product_template.create(vehicle_data)
         return vehicle_id, vehicle_data
