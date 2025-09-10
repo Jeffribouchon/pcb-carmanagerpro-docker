@@ -60,17 +60,12 @@ class ImmatAgent(BaseAgent):
         # 2. Mapper vers Odoo (product.template ou modèle véhicule)
         vehicle_data = {
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
-            "x_vin": criteria.get("vin"),
+            "x_numero_chassis": criteria.get("vin"),
             "x_immatriculation": criteria.get("immatriculation"),
-            "x_motorisation": criteria.get("moteur"),
-            "x_energie": criteria.get("energie"),
-            "x_puissance_cv": criteria.get("puissance_cv"),
-            "x_puissance_kw": criteria.get("puissance_kw"),
-            "x_boite_vitesse": criteria.get("boite_vitesse"),
+            "x_studio_energie": criteria.get("energie"),
+            "x_studio_boite_de_vitesse": criteria.get("boite_vitesse"),
             "x_type_propulsion": criteria.get("type_propulsion"),
-            "x_date_mec": criteria.get("date_mec"),
-            "x_couleur": criteria.get("couleur"),
-            "x_ktype": criteria.get("ktype"),
+            "x_studio_couleur": criteria.get("couleur"),
         }
 
         # 3. Créer dans Odoo
