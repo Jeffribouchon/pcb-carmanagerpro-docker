@@ -64,7 +64,6 @@ class ImmatAgent(BaseAgent):
             "x_immatriculation": criteria.get("immatriculation"),
             "x_studio_energie": criteria.get("energie"),
             "x_studio_boite_de_vitesse": criteria.get("boite_vitesse"),
-            "x_type_propulsion": criteria.get("type_propulsion"),
             "x_studio_couleur": criteria.get("couleur"),
         }
 
