@@ -17,6 +17,7 @@ app = Flask(__name__)
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
 odoo_client = OdooClient()
+deepseek_client = DeepSeekClient
 product_template = OdooModel(odoo_client, 'product.template')
 
 @app.route('/')
@@ -100,7 +101,7 @@ def immat_import():
     if request.method == "POST":
         query = request.form.get("immat_text")
         if query:
-            agent = ImmatAgent(odoo_client, DeepSeekClient)
+            agent = ImmatAgent(odoo_client, deepseek_client)
             extracted_criteria = agent.extract_criteria(query)
             vehicle_id, vehicle_data = agent.parse_and_create_vehicle(extracted_criteria)
             vehicle = vehicle_data
