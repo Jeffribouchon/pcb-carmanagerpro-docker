@@ -3,7 +3,6 @@ import re
 import requests
 from datetime import datetime
 from modules.odoo.client import OdooClient
-from modules.utils.deepseek_client import DeepSeekClient
 
 from modules.odoo.odoo_model import OdooModel
 from modules.agents.contacts.contact_agent import ContactAgent
@@ -17,7 +16,6 @@ app = Flask(__name__)
 # https://openapi.fr/produits/verification-plaques-france
 API_URL = "https://automotive.openapi.com/FR-car"
 odoo_client = OdooClient()
-deepseek_client = DeepSeekClient()
 product_template = OdooModel(odoo_client, 'product.template')
 
 @app.route('/')
@@ -101,7 +99,7 @@ def immat_import():
     if request.method == "POST":
         query = request.form.get("query")
         if query:
-            agent = ImmatAgent(odoo_client, deepseek_client)
+            agent = ImmatAgent(odoo_client)
             extracted_criteria = agent.extract_criteria(query)
             vehicle_id, vehicle_data = agent.parse_and_create_vehicle(extracted_criteria)
             vehicle = vehicle_data
