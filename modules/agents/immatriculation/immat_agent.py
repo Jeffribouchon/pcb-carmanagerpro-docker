@@ -64,7 +64,7 @@ class ImmatAgent(BaseAgent):
         """
         Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
         """
-        # 2. Mapper vers Odoo (product.template ou modèle véhicule)
+        # 1. Mapper vers Odoo (product.template ou modèle véhicule)
         vehicle_data = {
             "categ_id": 5,
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
@@ -83,6 +83,6 @@ class ImmatAgent(BaseAgent):
             "qty_available": 1,
         }
 
-        # 3. Créer dans Odoo
+        # 2. Créer dans Odoo
         vehicle_id = self.product_template.create(vehicle_data)
         return vehicle_id, vehicle_data
