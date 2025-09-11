@@ -36,7 +36,6 @@ Champs attendus (si une info est manquante, retourne null) :
 - Pour `couleur`, renvoie avec seulement la première lettre en majuscule.
 - Si une valeur n’est pas présente, mets `null`.
 - Retourne uniquement l’objet JSON, sans texte supplémentaire.
-Texte à analyser :
 """
 
 class ImmatAgent(BaseAgent):
