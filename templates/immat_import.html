@@ -11,7 +11,7 @@
         <button type="submit" class="btn btn-primary">Créer le véhicule</button>
     </form>
 
-    {% if vehicle_id %}
+    {% if existing_vehicle %}
         <div class="alert alert-warning mt-4">
             <h5>Véhicule déjà existant (ID: {{ vehicle_id }})</h5>
             <p>Un véhicule avec ce VIN ou cette immatriculation existe déjà en base. Aucun nouvel enregistrement n'a été créé.</p>
