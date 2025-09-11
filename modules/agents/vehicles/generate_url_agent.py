@@ -105,5 +105,6 @@ class GenerateUrlAgent(BaseAgent):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
-        urls = self.build_urls(criteria)
+        # urls = self.build_urls(criteria)
+        urls["autoscout24"] = "https://www.autoscout24.fr/lst?"
         return urls
