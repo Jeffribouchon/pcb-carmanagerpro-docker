@@ -11,15 +11,15 @@
         <button type="submit" class="btn btn-primary">Créer le véhicule</button>
     </form>
 
-    {% if vehicle %}
-        <div class="alert alert-success mt-4">
-            <h5>Véhicule {{ vehicle_id }} créé avec succès !</h5>
-            <pre>{{ vehicle | tojson(indent=2) }}</pre>
-        </div>
     {% if vehicle_id %}
         <div class="alert alert-warning mt-4">
             <h5>Véhicule déjà existant (ID: {{ vehicle_id }})</h5>
             <p>Un véhicule avec ce VIN ou cette immatriculation existe déjà en base. Aucun nouvel enregistrement n'a été créé.</p>
+            <pre>{{ vehicle | tojson(indent=2) }}</pre>
+        </div>
+    {% elif vehicle %}
+        <div class="alert alert-success mt-4">
+            <h5>Véhicule {{ vehicle_id }} créé avec succès !</h5>
             <pre>{{ vehicle | tojson(indent=2) }}</pre>
         </div>
     {% endif %}
