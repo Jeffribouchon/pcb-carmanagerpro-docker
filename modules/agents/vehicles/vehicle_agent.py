@@ -2,7 +2,6 @@ import re
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import DeepSeekClient
-from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 
 CRITERIA_PROMPT = """
@@ -14,7 +13,7 @@ Kilométrage max, Budget max, Achat par lot, Opportunités.
 
 class VehicleAgent(BaseAgent):
 
-    def __init__(self):
+    def __init__(self; odoo_client):
         odoo_client = OdooClient()
         self.product_template = OdooModel(odoo_client, 'product.template')
 
