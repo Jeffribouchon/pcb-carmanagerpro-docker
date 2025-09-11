@@ -71,7 +71,7 @@ class GenerateUrlAgent(BaseAgent):
                 f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
             )
 
-    def scrape_leboncoin(url: str, limit: int = 10):
+    def scrape_leboncoin(self, url: str, limit: int = 10):
         headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
