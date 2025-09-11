@@ -80,7 +80,7 @@ def ai_contacts():
     if request.method == "POST":
         query = request.form.get("query")
         if query:
-            agent = ContactAgent()
+            agent = ContactAgent(odoo_client)
             extracted_criteria = agent.extract_criteria(query)
             results = agent.search(extracted_criteria)
 
@@ -92,6 +92,25 @@ def cleanup():
     results = agent.search()
 
     return render_template("cleanup.html", results=results)
+
+
+@app.route("/matching", methods=["GET", "POST"])
+def matching():
+    contacts = []
+    query = None
+    extracted_criteria = None
+
+    if request.method == "POST":
+        query = request.form.get("query")
+        if query:
+            agent = MatchingAgent(odoo_client)
+            # 🔹 Passe le query au MatchingAgent
+            extracted_criteria = agent.extract_criteria(query)
+            contacts = agent.search(extracted_criteria)
+
+    return render_template("matching.html", contacts=contacts, query=query)
+
+
 
 @app.route("/immat_import", methods=["GET", "POST"])
 def immat_import():
@@ -105,23 +124,7 @@ def immat_import():
             results = vehicle_data
 
     return render_template("immat_import.html", vehicle=results)
-
-
-@app.route("/matching", methods=["GET", "POST"])
-def matching():
-    contacts = []
-    query = None
-    extracted_criteria = None
-
-    if request.method == "POST":
-        query = request.form.get("query")
-        if query:
-            agent = MatchingAgent()
-            # 🔹 Passe le query au MatchingAgent
-            extracted_criteria = agent.extract_criteria(query)
-            contacts = agent.search(extracted_criteria)
-
-    return render_template("matching.html", contacts=contacts, query=query)
+    
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
