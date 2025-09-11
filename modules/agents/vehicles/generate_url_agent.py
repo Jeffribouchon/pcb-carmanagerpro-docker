@@ -86,9 +86,6 @@ class GenerateUrlAgent(BaseAgent):
         response = requests.get(api_url, headers=headers)
         ads = []
         if response.status_code != 200:
-            ads.append({
-                "title": response.status_code,
-            })
             return ads
 
         data = response.json()
@@ -151,9 +148,10 @@ class GenerateUrlAgent(BaseAgent):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
+        lbc_results = None
         # urls = self.build_urls(criteria)
         urls = criteria
-        if "Le Bon Coin" in urls:
-                lbc_results = self.scrape_leboncoin(urls["Le Bon Coin"], limit=10)
+        # if "Le Bon Coin" in urls:
+        #        lbc_results = self.scrape_leboncoin(urls["Le Bon Coin"], limit=10)
         
         return urls, lbc_results
