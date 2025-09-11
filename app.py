@@ -82,6 +82,20 @@ def immat_import():
             results = vehicle_data
 
     return render_template("immat_import.html", existing_vehicle=existing_vehicle, vehicle_id=vehicle_id, vehicle=results)
+
+
+@app.route("/generate_url", methods=["GET", "POST"])
+def generate_url():
+    results = None
+    if request.method == "POST":
+        query = request.form.get("query")
+        if query:
+            agent = GenerateUrl(odoo_client)
+            extracted_criteria = agent.extract_criteria(query)
+            existing_vehicle, vehicle_id, vehicle_data = agent.search(extracted_criteria)
+            results = vehicle_data
+
+    return render_template("generate_url.html", vehicle=results)
     
 
 if __name__ == "__main__":
