@@ -114,6 +114,7 @@ def matching():
 
 @app.route("/immat_import", methods=["GET", "POST"])
 def immat_import():
+    existing_vehicle = None
     vehicle_id = None
     results = None
     if request.method == "POST":
@@ -121,10 +122,10 @@ def immat_import():
         if query:
             agent = ImmatAgent(odoo_client)
             extracted_criteria = agent.extract_criteria(query)
-            vehicle_id, vehicle_data = agent.search(extracted_criteria)
+            existing_vehicle, vehicle_id, vehicle_data = agent.search(extracted_criteria)
             results = vehicle_data
 
-    return render_template("immat_import.html", vehicle_id=vehicle_id, vehicle=results)
+    return render_template("immat_import.html", existing_vehicle=existing_vehicle, vehicle_id=vehicle_id, vehicle=results)
     
 
 if __name__ == "__main__":
