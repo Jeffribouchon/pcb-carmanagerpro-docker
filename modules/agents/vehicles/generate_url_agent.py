@@ -150,6 +150,6 @@ class GenerateUrlAgent(BaseAgent):
         # urls = self.build_urls(criteria)
         urls = criteria
         if "Le Bon Coin" in urls:
-                lbc_results = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
+                lbc_results = self.scrape_leboncoin(urls["Le Bon Coin"], limit=10)
         
         return urls, lbc_results
