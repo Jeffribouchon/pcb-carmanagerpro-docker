@@ -10,6 +10,7 @@ CRITERIA_PROMPT = """
         Pas de texte avant ou après, pas de commentaires.
 
         Champs attendus (si une info est manquante, retourne null) :
+        - type_vehicule (string)
         - marque (string)
         - modele (string)
         - version (string)
@@ -26,7 +27,7 @@ CRITERIA_PROMPT = """
         - turbo (string)
         - boite_vitesse (string)
         - type_propulsion (string)
-        - date_mec (string au format YYYY-MM-DD)
+        - date_mec (string au format YYYY)
         - ktype (string)
         - numero_serie (string)
 
@@ -67,20 +68,19 @@ class ImmatAgent(BaseAgent):
         vehicle_data = {
             "categ_id": 5,
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
-            x_etat_vehicule
+            "x_etat_vehicule": "Roulant",
             "x_immatriculation": criteria.get("immatriculation"),
             "x_numero_chassis": criteria.get("vin"),
-            x_puissance_din_int
-            x_studio_anne_de_mise_en_circulation
+            "x_puissance_din_int": criteria.get("puissance_cv"),
+            "x_studio_anne_de_mise_en_circulation": criteria.get("date_mec"),
             "x_studio_boite_de_vitesse": criteria.get("boite_vitesse"),
             "x_studio_couleur": criteria.get("couleur"),
             "x_studio_energie": criteria.get("energie"),
-            x_studio_integer_field_hm_1iqqfg2td
-            x_studio_marque
-            x_studio_modele
-            x_studio_type_de_vhicule
-            Suivre l'inventaire
-            Quantité en stock
+            "x_studio_marque": criteria.get("marque"),
+            "x_studio_modele": criteria.get("modele"),
+            "x_studio_type_de_vhicule": criteria.get("type_vehicule"),
+            "is_storable": True,
+            "qty_available": 1,
         }
 
         # 3. Créer dans Odoo
