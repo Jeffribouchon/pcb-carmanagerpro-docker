@@ -114,7 +114,7 @@ class GenerateUrlAgent(BaseAgent):
 
     #     return urls
 
-    def search(self, criteria: str):
+    def search(self, criteria: dict):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
