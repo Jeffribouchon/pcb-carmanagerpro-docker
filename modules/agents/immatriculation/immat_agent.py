@@ -37,6 +37,7 @@ Champs attendus (si une info est manquante, retourne null) :
 - Pour `marque`, renvoie tout en majuscule.
 - Pour `modèle`, renvoie avec seulement la première lettre en majuscule.
 - Pour `couleur`, renvoie avec seulement la première lettre en majuscule.
+- Pour `immatriculation`, renvoie au format AA-123-AA.
 - Pour 'type_vehicule', renvoie une des codes suivants : 
         CITADINE pour Citadine	
         COMPACT	pour Compacte	
