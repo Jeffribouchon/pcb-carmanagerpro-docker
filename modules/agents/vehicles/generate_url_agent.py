@@ -148,10 +148,10 @@ class GenerateUrlAgent(BaseAgent):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
-        lbc_results = None
+        ads = None
         # urls = self.build_urls(criteria)
         urls = criteria
         # if "Le Bon Coin" in urls:
         #        lbc_results = self.scrape_leboncoin(urls["Le Bon Coin"], limit=10)
         
-        return urls, lbc_results
+        return urls, ads
