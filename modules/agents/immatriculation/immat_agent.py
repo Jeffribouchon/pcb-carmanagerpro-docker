@@ -105,6 +105,18 @@ class ImmatAgent(BaseAgent):
         }
         #     "qty_available": 1,
 
-        # 2. Créer dans Odoo
-        vehicle_id = self.product_template.create(vehicle_data)
+        # 2. Vérifier si le véhicule existe déjà
+        existing_vehicle = self.product_template.search([
+            '|',  # OU logique
+            ('x_numero_chassis', '=', criteria.get('vin')),
+            ('x_immatriculation', '=', criteria.get('immatriculation'))
+        ], limit=1)
+        
+        if existing_vehicle:
+            vehicle_id = existing_vehicle.id
+            # _logger.info(f"Véhicule déjà existant : ID {vehicle_id}")
+        else:
+            # 3. Créer si non trouvé
+            vehicle_id = self.product_template.create(vehicle_data)
+            # _logger.info(f"Nouveau véhicule créé : ID {vehicle_id}")
         return vehicle_id, vehicle_data
