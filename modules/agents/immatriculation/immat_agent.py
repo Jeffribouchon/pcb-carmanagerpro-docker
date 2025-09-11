@@ -33,6 +33,9 @@ Champs attendus (si une info est manquante, retourne null) :
 
 ⚠️ RÈGLES IMPORTANTES :
 - Pour `boite_vitesse`, renvoie uniquement "Manuelle" ou "Automatique".
+- Pour `energie`, renvoie uniquement "Diesel" ou "Essence" ou "Hybride" ou "Electrique" ou "GPL".
+- Pour `marque`, renvoie tout en majuscule.
+- Pour `modèle`, renvoie avec seulement la première lettre en majuscule.
 - Pour `couleur`, renvoie avec seulement la première lettre en majuscule.
 - Si une valeur n’est pas présente, mets `null`.
 - Retourne uniquement l’objet JSON, sans texte supplémentaire.
@@ -64,9 +67,16 @@ class ImmatAgent(BaseAgent):
         Analyse un copier-coller Carter-Cash et crée un véhicule Odoo
         """
         # 1. Mapper vers Odoo (product.template ou modèle véhicule)
+        marque = criteria.get('marque')
+        if marque:
+            marque = " ".join(word.capitalize() for word in marque.split())
+        
         vehicle_data = {
             "categ_id": 5,
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
+            "x_studio_type_de_vhicule": "Citadine",
+            "x_studio_marque": marque,
+            "x_studio_modele": criteria.get('modele'),
             "x_etat_vehicule": "Roulant",
             "x_immatriculation": criteria.get('immatriculation'),
             "x_numero_chassis": criteria.get('vin'),
@@ -74,11 +84,9 @@ class ImmatAgent(BaseAgent):
             "x_studio_couleur": criteria.get('couleur'),
             "x_puissance_din_int": criteria.get('puissance_cv'),
             "x_studio_anne_de_mise_en_circulation": criteria.get('date_mec'),
+            "x_studio_energie": criteria.get('energie'),
             "is_storable": True,
         }
-        #     "x_studio_energie": criteria.get('energie'),
-        #     "x_studio_marque": criteria.get('marque'),
-        #     "x_studio_modele": criteria.get('modele'),
         #     "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
         #     "qty_available": 1,
 
