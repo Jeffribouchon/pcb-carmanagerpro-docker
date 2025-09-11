@@ -9,7 +9,6 @@ class ImmatAgent(BaseAgent):
     def __init__(self, odoo_client):
         product_template = OdooModel(odoo_client, 'product.template')
 
-
     def search(self):
         plates = request.form['plates']
         plate_list = [p.strip() for p in plates.split(',') if p.strip()]
