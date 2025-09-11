@@ -31,7 +31,7 @@ CRITERIA_PROMPT = """
         - ktype (string)
         - numero_serie (string)
 
-        ⚠️ Important : 
+        ⚠️ RÈGLES IMPORTANTES :
         - Pour `boite_vitesse`, renvoie uniquement "Manuelle" ou "Automatique".
         - Pour `couleur`, renvoie avec seulement la première lettre en majuscule.
         - Si une valeur n’est pas présente, mets `null`.
