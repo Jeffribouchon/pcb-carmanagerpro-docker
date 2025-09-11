@@ -1,3 +1,13 @@
+from modules.odoo.odoo_model import OdooModel
+
+
+# https://openapi.fr/produits/verification-plaques-france
+API_URL = "https://automotive.openapi.com/FR-car"
+
+product_template = OdooModel(odoo_client, 'product.template')
+
+
+
         plates = request.form['plates']
         plate_list = [p.strip() for p in plates.split(',') if p.strip()]
 
