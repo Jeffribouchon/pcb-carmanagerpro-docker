@@ -1,9 +1,9 @@
+import re
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import DeepSeekClient
 from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
-import re
 
 CRITERIA_PROMPT = """
 Tu es un agent qui extrait des critères de recherche de véhicules à partir d'une demande acheteur.
