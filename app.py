@@ -84,6 +84,7 @@ def immat_import():
     return render_template("immat_import.html", existing_vehicle=existing_vehicle, vehicle_id=vehicle_id, vehicle=results)
 
 
+# --- PAGE DEEPSEEK GENERATEUR D'URL ---
 @app.route("/generate_url", methods=["GET", "POST"])
 def generate_url():
     results = None
