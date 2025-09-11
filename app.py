@@ -21,7 +21,7 @@ def index():
 @app.route('/vehicles', methods=['GET', 'POST'])
 def vehicles():
     vehicle_data = []
-    if request.method == 'POST':
+    # if request.method == 'POST':
 
 
     return render_template('vehicles.html', vehicle_data=vehicle_data)
