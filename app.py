@@ -89,6 +89,7 @@ def immat_import():
 @app.route("/generate_url", methods=["GET", "POST"])
 def generate_url():
     results = None
+    lbc_results = None
     if request.method == "POST":
         query = request.form.get("query")
         if query:
