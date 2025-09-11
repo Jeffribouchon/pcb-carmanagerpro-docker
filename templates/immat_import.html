@@ -3,9 +3,12 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Import Immatriculation</h2>
+    <p style="font-style: italic; color: gray; margin-top: -10px;">
+        Collez les informations issues de votre recherche par plaque d'immatriculation, 
+        votre agent Turbo RIDER se charge de créer le véhicule dans votre ERP si celui-ci n'existe pas
+    </p>
     <form method="POST">
         <div class="mb-3">
-            <label for="query" class="form-label">Coller ici les infos Véhicule :</label>
             <textarea class="form-control" id="query" name="query" rows="12"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Créer le véhicule</button>
