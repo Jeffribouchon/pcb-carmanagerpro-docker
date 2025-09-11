@@ -23,7 +23,7 @@ class MatchingAgent(BaseAgent):
 
     def extract_criteria(self, query: str) -> dict:
         """Utilise DeepSeek pour transformer une requête texte en critères structurés."""
-        response = query_deepseek(CRITERIA_PROMPT, query)
+        response = DeepSeekClient(CRITERIA_PROMPT, query)
 
         # 🔹 Nettoyage de la réponse DeepSeek
         cleaned = response.strip()
