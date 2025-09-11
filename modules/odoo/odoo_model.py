@@ -16,13 +16,14 @@ class OdooModel:
             options['order'] = order
         return options
         
-    def search(self, domain):
-        return self.client.call(self.model_name, "search", domain)
+    def search(self, domain, fields=None, limit=None, offset=None, order=None):
+        options = self._build_options(fields=fields, limit=limit, offset=offset, order=order)
+        return self.client.call(self.model_name, "search", domain, fields or [], **options)
 
     def search_count(self, domain):
         return self.client.call(self.model_name, "search_count", domain)
         
-    def read(self, ids, fields=None):
+    def read(self, ids, fields=None, limit=None, offset=None, order=None):
         options = self._build_options(fields=fields, limit=limit, offset=offset, order=order)
         return self.client.call(self.model_name, "read", ids, fields or [], **options)
 
