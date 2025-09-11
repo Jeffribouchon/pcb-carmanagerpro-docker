@@ -94,10 +94,9 @@ def generate_url():
         if query:
             agent = GenerateUrlAgent()
             extracted_criteria = agent.extract_criteria(query)
-            existing_vehicle, vehicle_id, vehicle_data = agent.search(extracted_criteria)
-            results = vehicle_data
+            results = agent.search(extracted_criteria)
 
-    return render_template("generate_url.html", vehicle=results)
+    return render_template("generate_url.html", results=results)
     
 
 if __name__ == "__main__":
