@@ -17,8 +17,8 @@ Réponds uniquement en JSON.
 class ContactAgent(BaseAgent):
 
     def __init__(self):
-        client = OdooClient()
-        self.res_partner = OdooModel(client, 'res.partner')
+        odoo_client = OdooClient()
+        self.res_partner = OdooModel(odoo_client, 'res.partner')
 
     def extract_criteria(self, query: str) -> dict:
         response = DeepSeekClient(CRITERIA_PROMPT, query)
@@ -116,4 +116,4 @@ class ContactAgent(BaseAgent):
         
         # Utilisation de search_read pour récupérer directement les données des contacts
         fields = ["name", "email", "phone", "city"]
-        return res_partner.search_read(domain, fields=fields)
+        return self.res_partner.search_read(domain, fields=fields)
