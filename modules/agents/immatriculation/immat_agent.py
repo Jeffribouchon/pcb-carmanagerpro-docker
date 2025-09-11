@@ -118,6 +118,6 @@ class ImmatAgent(BaseAgent):
         else:
             # 3. Créer si non trouvé
             vehicle_id = self.product_template.create(vehicle_data)
-            self.product_template.write(vehicle_id, {'default_code': f"PCB-{str(vehicle_id).zfill(7)}"})
+            self.product_template.write(vehicle_id[0], {'default_code': f"PCB-{str(vehicle_id[0]).zfill(7)}"})
             # _logger.info(f"Nouveau véhicule créé : ID {vehicle_id}")
         return existing_vehicle, vehicle_id, vehicle_data
