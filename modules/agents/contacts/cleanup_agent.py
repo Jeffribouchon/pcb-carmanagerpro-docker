@@ -12,6 +12,10 @@ class CleanupAgent(BaseAgent):
     - product.template (véhicules)
     """
 
+    def __init__(self):
+        self.partner_model = OdooModel("res.partner")
+        self.vehicle_model = OdooModel("product.template")
+        
     def search(self, query: str = None):
         """
         Exécute la recherche des doublons.
@@ -25,11 +29,11 @@ class CleanupAgent(BaseAgent):
         return results
 
     def _find_contact_duplicates(self):
-        partner_model = OdooModel("res.partner")
+        
         fields = ["id", "name", "email", "phone", "city"]
 
         # On récupère tous les contacts (limit = 500 pour éviter surcharge)
-        contacts = partner_model.search_read([], fields=fields, limit=500)
+        contacts = self.partner_model.search_read([], fields=fields, limit=500)
 
         duplicates = []
         seen = {}
@@ -52,10 +56,9 @@ class CleanupAgent(BaseAgent):
         return duplicates
 
     def _find_vehicle_duplicates(self):
-        vehicle_model = OdooModel("product.template")
         fields = ["id", "name", "x_immat", "x_marque", "x_modele", "x_annee"]
 
-        vehicles = vehicle_model.search_read([], fields=fields, limit=500)
+        vehicles = self.vehicle_model.search_read([], fields=fields, limit=500)
 
         duplicates = []
         seen = {}
