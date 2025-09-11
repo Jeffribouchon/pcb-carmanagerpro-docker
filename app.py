@@ -9,6 +9,7 @@ from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.contacts.cleanup_agent import CleanupAgent
 from modules.agents.matching.matching_agent import MatchingAgent
 from modules.agents.immatriculation.immat_agent import ImmatAgent
+from modules.agents.immatriculation.generate_url_agent import GenerateUrlAgent
 
 app = Flask(__name__)
 
@@ -91,7 +92,7 @@ def generate_url():
     if request.method == "POST":
         query = request.form.get("query")
         if query:
-            agent = GenerateUrl(odoo_client)
+            agent = GenerateUrlAgent(odoo_client)
             extracted_criteria = agent.extract_criteria(query)
             existing_vehicle, vehicle_id, vehicle_data = agent.search(extracted_criteria)
             results = vehicle_data
