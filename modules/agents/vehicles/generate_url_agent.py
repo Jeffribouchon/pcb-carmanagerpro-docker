@@ -46,7 +46,7 @@ Tu es un assistant spécialisé dans la génération d’URLs de recherche pour 
   "La Centrale": "https://www.lacentrale.fr/listing?...",
   "Autoscout24": "https://www.autoscout24.fr/lst?..."
 }
-⚠️ Important : 
+⚠️ RÈGLES IMPORTANTES :
 - Retourne uniquement le JSON, sans texte ni explication.
 - Si une information est manquante, utilise des valeurs par défaut raisonnables.
 """
