@@ -13,7 +13,7 @@ Kilométrage max, Budget max, Achat par lot, Opportunités.
 
 class VehicleAgent(BaseAgent):
 
-    def __init__(self; odoo_client):
+    def __init__(self, odoo_client):
         odoo_client = OdooClient()
         self.product_template = OdooModel(odoo_client, 'product.template')
 
