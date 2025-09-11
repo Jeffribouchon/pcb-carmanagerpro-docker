@@ -119,5 +119,5 @@ class GenerateUrlAgent(BaseAgent):
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
         # urls = self.build_urls(criteria)
-        urls = self.extract_criteria(criteria)
+        urls = criteria
         return urls
