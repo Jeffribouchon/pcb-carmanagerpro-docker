@@ -39,6 +39,7 @@ CRITERIA_PROMPT = """
         """
 
 class ImmatAgent(BaseAgent):
+        
     def __init__(self, odoo_client):
         self.product_template = OdooModel(odoo_client, 'product.template')
 
