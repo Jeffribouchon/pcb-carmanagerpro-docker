@@ -37,6 +37,22 @@ Champs attendus (si une info est manquante, retourne null) :
 - Pour `marque`, renvoie tout en majuscule.
 - Pour `modèle`, renvoie avec seulement la première lettre en majuscule.
 - Pour `couleur`, renvoie avec seulement la première lettre en majuscule.
+- Pour 'type_vehicule', renvoie une des codes suivants : 
+        CITADINE pour Citadine	
+        COMPACT	pour Compacte	
+        BERLINE	pour Berline	
+        FAMBRK	pour Breaks familiaux	
+        SUVFAM	pour SUV Familiaux	
+        SUVCMP	pour SUV Compact	
+        MONOSPC	pour Monospaces	
+        FOURX4	pour 4x4	
+        UTILITE	pour Utilitaire léger	
+        COUPE	pour Coupé	
+        CABRIOLET pour	Cabriolet	
+        ELECHYB	pour Véhicules électriques / hybrides	
+        SOCVEHI	pour Véhicule de société	
+        PREMIUM	pour Véhicule premium	
+        LUXSPORT pour Véhicule de luxe / sport
 - Si une valeur n’est pas présente, mets `null`.
 - Retourne uniquement l’objet JSON, sans texte supplémentaire.
 """
@@ -74,7 +90,7 @@ class ImmatAgent(BaseAgent):
         vehicle_data = {
             "categ_id": 5,
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
-            "x_studio_type_de_vhicule": "Citadine",
+            "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
             "x_studio_marque": marque,
             "x_studio_modele": criteria.get('modele'),
             "x_etat_vehicule": "Roulant",
@@ -87,7 +103,6 @@ class ImmatAgent(BaseAgent):
             "x_studio_energie": criteria.get('energie'),
             "is_storable": True,
         }
-        #     "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
         #     "qty_available": 1,
 
         # 2. Créer dans Odoo
