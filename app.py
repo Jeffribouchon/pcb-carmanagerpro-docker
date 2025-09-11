@@ -123,7 +123,7 @@ def immat_import():
             vehicle_id, vehicle_data = agent.search(extracted_criteria)
             results = vehicle_data
 
-    return render_template("immat_import.html", vehicle=results)
+    return render_template("immat_import.html", vehicle_id=vehicle_id, vehicle=results)
     
 
 if __name__ == "__main__":
