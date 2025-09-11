@@ -7,7 +7,7 @@
 
     <div class="d-grid gap-3 col-6 mx-auto mt-4">
         <a href="{{ url_for('vehicles') }}" class="btn btn-success btn-lg">
-            Plaques / Véhicules
+            Import en masse de véhicules via API
         </a>
         <a href="{{ url_for('ai_contacts') }}" class="btn btn-primary btn-lg">
             Recherche Contacts IA
@@ -16,7 +16,10 @@
             Matching Acheteurs ↔ Véhicules
         </a>
         <a href="{{ url_for('immat_import') }}" class="btn btn-secondary btn-lg">
-            Import Immatriculation
+            Import véhicules via Carter Cash
+        </a>
+        <a href="{{ url_for('generate_url') }}" class="btn btn-secondary btn-lg">
+            Générateur d'Urls
         </a>
     </div>
 </div>
