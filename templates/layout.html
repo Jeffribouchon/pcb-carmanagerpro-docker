@@ -30,20 +30,34 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+    
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('vehicles') }}">Plaques / Véhicules</a>
+    
+                    <!-- Groupe Véhicules -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="vehiculesDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Véhicules
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="vehiculesDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('vehicles') }}">Plaques / Véhicules</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('immat_import') }}">Immatriculation véhicules</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('ai_contacts') }}">Recherche Contacts IA</a>
+    
+                    <!-- Groupe IA -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="iaDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            IA & Outils
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="iaDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('ai_contacts') }}">Recherche Contacts IA</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('matching') }}">Matching Acheteurs ↔ Véhicules</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('matching') }}">Matching Acheteurs ↔ Véhicules</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('immat_import') }}">Immatriculation véhicules</a>
-                    </li>
+    
                 </ul>
             </div>
         </div>
