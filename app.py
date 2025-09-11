@@ -1,22 +1,18 @@
 from flask import Flask, render_template, request
 import re
 import requests
+import base64
 from datetime import datetime
 from modules.odoo.client import OdooClient
 
-from modules.odoo.odoo_model import OdooModel
 from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.contacts.cleanup_agent import CleanupAgent
 from modules.agents.matching.matching_agent import MatchingAgent
 from modules.agents.immatriculation.immat_agent import ImmatAgent
-import base64
 
 app = Flask(__name__)
 
-# https://openapi.fr/produits/verification-plaques-france
-API_URL = "https://automotive.openapi.com/FR-car"
 odoo_client = OdooClient()
-product_template = OdooModel(odoo_client, 'product.template')
 
 @app.route('/')
 def index():
