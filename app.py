@@ -114,6 +114,7 @@ def matching():
 
 @app.route("/immat_import", methods=["GET", "POST"])
 def immat_import():
+    vehicle_id = None
     results = None
     if request.method == "POST":
         query = request.form.get("query")
