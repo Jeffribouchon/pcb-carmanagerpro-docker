@@ -113,7 +113,7 @@ class ImmatAgent(BaseAgent):
         ], limit=1)
         
         if existing_vehicle:
-            vehicle_id = existing_vehicle.id
+            vehicle_id = existing_vehicle
             # _logger.info(f"Véhicule déjà existant : ID {vehicle_id}")
         else:
             # 3. Créer si non trouvé
