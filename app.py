@@ -89,15 +89,15 @@ def immat_import():
 @app.route("/generate_url", methods=["GET", "POST"])
 def generate_url():
     results = None
-    lbc_results = None
+    ads_results = None
     if request.method == "POST":
         query = request.form.get("query")
         if query:
             agent = GenerateUrlAgent()
             extracted_criteria = agent.extract_criteria(query)
-            results, lbc_results = agent.search(extracted_criteria)
+            results, ads_results = agent.search(extracted_criteria)
 
-    return render_template("generate_url.html", results=results, lbc_results=lbc_results)
+    return render_template("generate_url.html", results=results, ads_results=ads_results)
     
 
 if __name__ == "__main__":
