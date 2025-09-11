@@ -91,12 +91,11 @@ def generate_url():
     results = None
     if request.method == "POST":
         query = request.form.get("query")
-        # if query:
-        #     agent = GenerateUrlAgent()
-        #     extracted_criteria = agent.extract_criteria(query)
-        #     results = agent.search(extracted_criteria)
-    results = {}
-    results["autoscout24"] = "https://www.autoscout24.fr/lst?"
+        if query:
+            agent = GenerateUrlAgent()
+            extracted_criteria = agent.extract_criteria(query)
+            results = agent.search(extracted_criteria)
+
     return render_template("generate_url.html", results=results)
     
 
