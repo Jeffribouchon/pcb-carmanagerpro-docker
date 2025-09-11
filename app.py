@@ -95,8 +95,8 @@ def generate_url():
         #     agent = GenerateUrlAgent()
         #     extracted_criteria = agent.extract_criteria(query)
         #     results = agent.search(extracted_criteria)
-    urls = {}
-    urls["autoscout24"] = "https://www.autoscout24.fr/lst?"
+    results = {}
+    results["autoscout24"] = "https://www.autoscout24.fr/lst?"
     return render_template("generate_url.html", results=results)
     
 
