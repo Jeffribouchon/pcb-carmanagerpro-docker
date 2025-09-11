@@ -9,7 +9,7 @@ from modules.agents.contacts.contact_agent import ContactAgent
 from modules.agents.contacts.cleanup_agent import CleanupAgent
 from modules.agents.matching.matching_agent import MatchingAgent
 from modules.agents.immatriculation.immat_agent import ImmatAgent
-from modules.agents.immatriculation.generate_url_agent import GenerateUrlAgent
+from modules.agents.vehicles.generate_url_agent import GenerateUrlAgent
 
 app = Flask(__name__)
 
