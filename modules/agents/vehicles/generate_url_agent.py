@@ -1,5 +1,6 @@
 import re
 import json
+import requests
 from urllib.parse import urlencode, quote_plus
 
 from modules.agents.base_agent import BaseAgent
@@ -148,4 +149,7 @@ class GenerateUrlAgent(BaseAgent):
         """
         # urls = self.build_urls(criteria)
         urls = criteria
-        return urls
+        if "Le Bon Coin" in urls:
+                lbc_results = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
+        
+        return urls, lbc_results
