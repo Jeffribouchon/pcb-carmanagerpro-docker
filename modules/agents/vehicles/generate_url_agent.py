@@ -84,11 +84,15 @@ class GenerateUrlAgent(BaseAgent):
         )
     
         response = requests.get(api_url, headers=headers)
+        ads = []
         if response.status_code != 200:
-            return []
+            ads.append({
+                "title": response.status_code,
+            })
+            return ads
 
         data = response.json()
-        ads = []
+        
         for ad in data.get("ads", [])[:limit]:
             ads.append({
                 "title": ad.get("subject"),
