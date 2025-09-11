@@ -16,8 +16,12 @@ Réponds uniquement en JSON.
 
 class ContactAgent(BaseAgent):
 
+    def __init__(self):
+        client = OdooClient()
+        self.res_partner = OdooModel(client, 'res.partner')
+
     def extract_criteria(self, query: str) -> dict:
-        response = query_deepseek(CRITERIA_PROMPT, query)
+        response = DeepSeekClient(CRITERIA_PROMPT, query)
 
         # 🔹 Nettoyage de la réponse DeepSeek
         cleaned = response.strip()
@@ -109,9 +113,6 @@ class ContactAgent(BaseAgent):
         # Relation commerciale
         if criteria.get("Relation commerciale"):
             domain.append(("x_relation_commerciale", "ilike", criteria["Relation commerciale"]))
-
-        client = OdooClient()
-        res_partner = OdooModel(client, 'res.partner')
         
         # Utilisation de search_read pour récupérer directement les données des contacts
         fields = ["name", "email", "phone", "city"]
