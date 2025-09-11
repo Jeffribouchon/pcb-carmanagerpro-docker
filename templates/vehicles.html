@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>Saisir les plaques (séparées par des virgules)</h2>
+<p style="font-style: italic; color: gray; margin-top: -10px;">
+   Saisissez une liste de plaque d'immatriculation sépare par des virgules, 
+   votre agent Turbo RIDER se charge d'appeler une API pour récumpérer toutes les caractéristique et de créer le véhicule dans votre ERP
+</p>
 <form method="post" class="mb-4">
     <div class="mb-3">
         <textarea class="form-control" name="plates" rows="4" placeholder="Ex: AB-123-CD, XY-987-ZT"></textarea>
