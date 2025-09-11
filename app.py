@@ -92,7 +92,7 @@ def generate_url():
     if request.method == "POST":
         query = request.form.get("query")
         if query:
-            agent = GenerateUrlAgent(odoo_client)
+            agent = GenerateUrlAgent()
             extracted_criteria = agent.extract_criteria(query)
             existing_vehicle, vehicle_id, vehicle_data = agent.search(extracted_criteria)
             results = vehicle_data
