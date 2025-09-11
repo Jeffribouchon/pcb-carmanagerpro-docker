@@ -26,6 +26,7 @@ def vehicles():
 
     return render_template('vehicles.html', vehicle_data=vehicle_data)
 
+
 # --- PAGE DEEPSEEK CONTACTS ---
 @app.route("/ai-contacts", methods=["GET", "POST"])
 def ai_contacts():
@@ -40,6 +41,7 @@ def ai_contacts():
             results = agent.search(extracted_criteria)
 
     return render_template("ai_contacts.html", results=results, criteria=extracted_criteria)
+
 
 @app.route("/cleanup")
 def cleanup():
@@ -64,7 +66,6 @@ def matching():
             contacts = agent.search(extracted_criteria)
 
     return render_template("matching.html", contacts=contacts, query=query)
-
 
 
 @app.route("/immat_import", methods=["GET", "POST"])
