@@ -2,7 +2,6 @@ import re
 import json
 from modules.agents.base_agent import BaseAgent
 from modules.utils.deepseek_client import DeepSeekClient
-from modules.odoo.client import OdooClient
 from modules.odoo.odoo_model import OdooModel
 
 CRITERIA_PROMPT = """
@@ -16,9 +15,8 @@ Réponds uniquement en JSON.
 
 class ContactAgent(BaseAgent):
 
-    def __init__(self):
-        odoo_client = OdooClient()
-        self.res_partner = OdooModel(odoo_client, 'res.partner')
+    def __init__(self, odoo_client):
+         self.res_partner = OdooModel(odoo_client, 'res.partner')
 
     def extract_criteria(self, query: str) -> dict:
         response = DeepSeekClient(CRITERIA_PROMPT, query)
