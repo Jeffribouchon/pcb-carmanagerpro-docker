@@ -64,7 +64,7 @@
   {% elif criteria %}
     <div class="alert alert-warning mt-3">Aucune URL n'a pu être générée.</div>
   {% endif %}
-  {% if lbc_results %}
+  {% if ads_results %}
     <h5 class="mt-4">Annonces Le Bon Coin :</h5>
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
@@ -72,7 +72,7 @@
           <tr><th>Titre</th><th>Prix</th><th>Ville</th><th>Lien</th></tr>
         </thead>
         <tbody>
-          {% for ad in lbc_results %}
+          {% for ad in ads_results %}
           <tr>
             <td>{{ ad.title }}</td>
             <td>{{ ad.price }} €</td>
