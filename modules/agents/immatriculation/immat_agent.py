@@ -90,7 +90,6 @@ class ImmatAgent(BaseAgent):
         vehicle_data = {
             "categ_id": 5,
             "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
-            "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
             "x_studio_marque": marque,
             "x_studio_modele": criteria.get('modele'),
             "x_etat_vehicule": "Roulant",
@@ -104,6 +103,7 @@ class ImmatAgent(BaseAgent):
             "is_storable": True,
         }
         #     "qty_available": 1,
+        #     "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
 
         # 2. Vérifier si le véhicule existe déjà
         existing_vehicle = self.product_template.search([
@@ -119,4 +119,4 @@ class ImmatAgent(BaseAgent):
             # 3. Créer si non trouvé
             vehicle_id = self.product_template.create(vehicle_data)
             # _logger.info(f"Nouveau véhicule créé : ID {vehicle_id}")
-        return vehicle_id, vehicle_data
+        return existing_vehicle, vehicle_id, vehicle_data
