@@ -72,24 +72,16 @@ class ImmatAgent(BaseAgent):
             "x_numero_chassis": criteria.get('vin'),
             "x_studio_boite_de_vitesse": criteria.get('boite_vitesse'),
             "x_studio_couleur": criteria.get('couleur'),
+            "is_storable": True,
+            "qty_available": 1,
         }
-        # vehicle_data = {
-        #     "categ_id": 5,
-        #     "name": f"{criteria.get('marque')} {criteria.get('modele')} {criteria.get('version')}",
-        #     "x_etat_vehicule": "Roulant",
-        #     "x_immatriculation": criteria.get('immatriculation'),
-        #     "x_numero_chassis": criteria.get('vin'),
+
         #     "x_puissance_din_int": criteria.get('puissance_cv'),
         #     "x_studio_anne_de_mise_en_circulation": criteria.get('date_mec'),
-        #     "x_studio_boite_de_vitesse": criteria.get('boite_vitesse'),
-        #     "x_studio_couleur": criteria.get('couleur'),
         #     "x_studio_energie": criteria.get('energie'),
         #     "x_studio_marque": criteria.get('marque'),
         #     "x_studio_modele": criteria.get('modele'),
         #     "x_studio_type_de_vhicule": criteria.get('type_vehicule'),
-        #     "is_storable": True,
-        #     "qty_available": 1,
-        # }
 
         # 2. Créer dans Odoo
         vehicle_id = self.product_template.create(vehicle_data)
