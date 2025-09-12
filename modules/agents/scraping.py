@@ -80,7 +80,11 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
     }
     """
     # Import Odoo RPC / API
-    from odoo_rpc_client import Odoo  # ou ton wrapper Odoo
+    from modules.odoo.client import OdooClient
+    from modules.odoo.odoo_model import OdooModel
+    
+    odoo_client = OdooClient()
+    self.product_template = OdooModel(odoo_client, 'product.template')
 
     domain = []
 
@@ -102,14 +106,11 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
     if "year_max" in criteria:
         domain.append(("year", "<=", criteria["year_max"]))
 
-    # Appel à Odoo pour récupérer les véhicules
-    vehicle_records = odoo.env['product.template'].search_read(
-        domain,
-        fields=["name", "list_price", "odometer", "year", "fuel", "gearbox", "id"],
-        limit=limit
-    )
-
     results = []
+    
+    fields=["name", "list_price", "odometer", "year", "fuel", "gearbox", "id"],
+    vehicle_records = self.product_template.search_read(domain, fields=fields, limit=100)
+
     for v in vehicle_records:
         results.append({
             "title": v.get("name", "Véhicule"),
