@@ -117,7 +117,7 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
             "fuel": v.get("x_studio_energie", "-"),
             "gearbox": v.get("x_studio_boite_de_vitesse", "-"),
             "year": v.get("x_studio_anne_de_mise_en_circulation", "-"),
-            "mileage": v.get("name", "-"),
+            "mileage": v.get("x_studio_integer_field_hm_1iqqfg2td", "-"),
             "price": v.get("list_price", "—"),
             "city": v.get("x_studio_localisation_du_vhicule", "—"),
             "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
