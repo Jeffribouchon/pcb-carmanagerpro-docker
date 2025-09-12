@@ -24,53 +24,47 @@
       {% endfor %}
     </pre>
   {% endif %}
-
+  
   {% if results %}
-    <h5>URLs de recherche générées :</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped table-hover align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Site</th>
-            <th>Recherche</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for site, url in results.items() %}
-          <tr>
-            <td>{{ site|capitalize }}</td>
-            <td>
-              <a href="{{ url }}" class="btn btn-sm btn-primary" target="_blank">
-                Ouvrir la recherche
-              </a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+    {% for site, data in results.items() %}
+      <!-- Nom du site + bouton rechercher -->
+      <div class="d-flex align-items-center mt-3 mb-2">
+        <h5 class="mb-0 me-2">{{ site|capitalize }}</h5>
+        <a href="{{ data.url }}" class="btn btn-sm btn-primary" target="_blank">
+          Rechercher
+        </a>
+      </div>
+  
+      <!-- Tableau des annonces du site -->
+      {% if data.ads_results %}
+        <div class="table-responsive mb-4">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Ville</th>
+                <th>Lien</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ad in data.ads_results %}
+              <tr>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.price }} €</td>
+                <td>{{ ad.city }}</td>
+                <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="alert alert-warning">Aucune annonce trouvée pour {{ site|capitalize }}.</div>
+      {% endif %}
+    {% endfor %}
   {% elif criteria %}
     <div class="alert alert-warning mt-3">Aucune URL n'a pu être générée.</div>
-  {% endif %}
-  {% if ads_results %}
-    <h5 class="mt-4">Annonces PlatformCars B2B :</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr><th>Titre</th><th>Prix</th><th>Ville</th><th>Lien</th></tr>
-        </thead>
-        <tbody>
-          {% for ad in ads_results %}
-          <tr>
-            <td>{{ ad.title }}</td>
-            <td>{{ ad.price }} €</td>
-            <td>{{ ad.city }}</td>
-            <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
   {% endif %}
 </div>
 
