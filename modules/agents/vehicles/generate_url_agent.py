@@ -177,46 +177,46 @@ class GenerateUrlAgent(BaseAgent):
             
         return urls, ads
 
-    def search(self, urls_json: dict):
-        """
-        Analyse une demande en langage naturel et crée une liste d’ads à partir des URLs générées.
+    # def search(self, urls_json: dict):
+    #     """
+    #     Analyse une demande en langage naturel et crée une liste d’ads à partir des URLs générées.
         
-        criteria : dictionnaire JSON généré par l'agent AI, avec la structure :
-            {
-                "Le Bon Coin": {"url": "...", "criteria": {...}},
-                "La Centrale": {"url": "...", "criteria": {...}},
-                "Autoscout24": {"url": "...", "criteria": {...}},
-                "PlatformCars B2B": {"url": "...", "criteria": {...}}
-            }
-        """
-        results = {}  # dictionnaire final à retourner
+    #     criteria : dictionnaire JSON généré par l'agent AI, avec la structure :
+    #         {
+    #             "Le Bon Coin": {"url": "...", "criteria": {...}},
+    #             "La Centrale": {"url": "...", "criteria": {...}},
+    #             "Autoscout24": {"url": "...", "criteria": {...}},
+    #             "PlatformCars B2B": {"url": "...", "criteria": {...}}
+    #         }
+    #     """
+    #     results = {}  # dictionnaire final à retourner
     
-        for site, data in urls_json.items():
-            # Initialisation du site avec l'URL et une liste vide d'annonces
-            site_entry = {
-                "url": data.get("url", "#"),
-                "ads_results": []
-            }
+    #     for site, data in urls_json.items():
+    #         # Initialisation du site avec l'URL et une liste vide d'annonces
+    #         site_entry = {
+    #             "url": data.get("url", "#"),
+    #             "ads_results": []
+    #         }
             
-            # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
-            # if "Le Bon Coin" in criteria:
-            #     leboncoin_ads = scrape_leboncoin(urls_json["Le Bon Coin"]["url"], limit=10)
-            #     ads.extend(leboncoin_ads)
+    #         # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
+    #         # if "Le Bon Coin" in criteria:
+    #         #     leboncoin_ads = scrape_leboncoin(urls_json["Le Bon Coin"]["url"], limit=10)
+    #         #     ads.extend(leboncoin_ads)
       
-            # if "La Centrale" in criteria:
-            #     lacentrale_ads = scrape_lacentrale(urls_json["La Centrale"]["url"], limit=10)
-            #     ads.extend(lacentrale_ads)
+    #         # if "La Centrale" in criteria:
+    #         #     lacentrale_ads = scrape_lacentrale(urls_json["La Centrale"]["url"], limit=10)
+    #         #     ads.extend(lacentrale_ads)
       
-            # if "Autoscout24" in criteria:
-            #     autoscout_ads = scrape_autoscout24(urls_json["Autoscout24"]["url"], limit=10)
-            #     ads.extend(autoscout_ads)
+    #         # if "Autoscout24" in criteria:
+    #         #     autoscout_ads = scrape_autoscout24(urls_json["Autoscout24"]["url"], limit=10)
+    #         #     ads.extend(autoscout_ads)
 
-            # Si c'est PlatformCars B2B, chercher les annonces
-            if site == "PlatformCars B2B" and "criteria" in data:
-                platformcars_ads = search_platformcars_b2b(data["criteria"], limit=10)
-                site_entry["ads_results"].extend(platformcars_ads)
+    #         # Si c'est PlatformCars B2B, chercher les annonces
+    #         if site == "PlatformCars B2B" and "criteria" in data:
+    #             platformcars_ads = search_platformcars_b2b(data["criteria"], limit=10)
+    #             site_entry["ads_results"].extend(platformcars_ads)
     
-            results[site] = site_entry
+    #         results[site] = site_entry
     
-        return results
+    #     return results
 
