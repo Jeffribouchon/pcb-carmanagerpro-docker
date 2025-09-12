@@ -84,7 +84,7 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
     from modules.odoo.odoo_model import OdooModel
     
     odoo_client = OdooClient()
-    self.product_template = OdooModel(odoo_client, 'product.template')
+    product_template = OdooModel(odoo_client, 'product.template')
 
     domain = []
 
@@ -109,7 +109,7 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
     results = []
     
     fields=["name", "list_price", "x_studio_anne_de_mise_en_circulation", "x_studio_energie", "x_studio_boite_de_vitesse", "default_code"],
-    vehicle_records = self.product_template.search_read(domain, fields=fields, limit=limit)
+    vehicle_records = product_template.search_read(domain, fields=fields, limit=limit)
 
     for v in vehicle_records:
         results.append({
