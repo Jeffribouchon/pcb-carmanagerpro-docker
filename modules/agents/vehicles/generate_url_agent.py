@@ -4,7 +4,7 @@ import requests
 from urllib.parse import urlencode, quote_plus
 
 from modules.agents.base_agent import BaseAgent
-from modules.agents.scraping import scrape_lacentrale, scrape_leboncoin
+from modules.agents.scraping import scrape_lacentrale, scrape_leboncoin, search_platformcars_b2b
 from modules.utils.deepseek_client import DeepSeekClient
 
 CRITERIA_PROMPT = """
