@@ -163,6 +163,11 @@ class GenerateUrlAgent(BaseAgent):
             }
         """
         ads = []  # liste vide pour cumuler tous les résultats
+        urls = {}
+
+        for site, data in urls_json.items():
+            if isinstance(data, dict) and "url" in data:
+                urls[site] = data["url"]
 
       # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
       # if "Le Bon Coin" in criteria:
@@ -186,6 +191,6 @@ class GenerateUrlAgent(BaseAgent):
         #     platformcars_ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
         #     ads.extend(platformcars_ads)
             
-        return urls_json, ads
+        return urls, ads
 
 
