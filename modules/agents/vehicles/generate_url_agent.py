@@ -186,13 +186,12 @@ class GenerateUrlAgent(BaseAgent):
 #     # return criteria, ads
 #     return urls, ads
 
-    def search(self, criteria: dict):
+    def search(self, urls_json: dict):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
         ads = []  # liste vide pour cumuler tous les résultats
 
-        urls = criteria
         # if "Le Bon Coin" in urls:
         #     leboncoin_ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
         #     ads.extend(leboncoin_ads)
@@ -205,6 +204,6 @@ class GenerateUrlAgent(BaseAgent):
         #     platformcars_ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
         #     ads.extend(platformcars_ads)
             
-        return urls, ads
+        return urls_json, ads
 
 
