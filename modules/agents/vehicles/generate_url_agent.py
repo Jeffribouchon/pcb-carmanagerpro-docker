@@ -78,7 +78,7 @@ Sortie :
 {
   "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-999999&mileage=0-200000&u_car_brand=BMW&u_car_model=BMW_X3&fuel=3&gearbox=2&regdate=2018-2022",
   "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=BMW%3AX3&priceMax=999999&kilometerMax=200000&years=2018-2022&fuels=diesel&gearboxes=automatique",
-  "Autoscout24": "https://www.autoscout24.fr/lst/bmw/x3?atype=C&priceTo=999999&kmto=200000&fuel=diesel&gear=automatic&fregfrom=2018&fregto=2022"
+  "Autoscout24": "https://www.autoscout24.fr/lst/bmw/x3?atype=C&cy=F&damaged_listing=exclude&desc=0&fregfrom=2018&fregto=2022&fuel=D&gear=A&powertype=kw&priceTo=999999&search_id=o6way7nesc&sort=standard&ustate=N%2CU"
 }
 
 Entrée :
@@ -88,7 +88,7 @@ Sortie :
 {
   "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-5000&mileage=0-200000&u_car_brand=RENAULT&u_car_model=RENAULT_CLIO",
   "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=RENAULT%3ACLIO&priceMax=5000&kilometerMax=200000",
-  "Autoscout24": "https://www.autoscout24.fr/lst/renault/clio?atype=C&priceTo=5000&kmto=200000"
+  "Autoscout24": "https://www.autoscout24.fr/lst/renault/clio/pr_5000?atype=C&cy=F&damaged_listing=exclude&desc=0&powertype=kw&priceTo=999999&search_id=2cb8asenjht&sort=standard&ustate=N%2CU"
 }
 """
 
