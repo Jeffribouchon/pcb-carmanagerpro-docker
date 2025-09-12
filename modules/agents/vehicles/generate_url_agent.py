@@ -63,8 +63,8 @@ PlatformCars B2B :
 - price=min-max → Prix en €
 - mileage=min-max → Kilométrage en km
 - regdate=min-max → Année de mise en circulation
-- u_car_brand → Marque (ex. PEUGEOT, BMW, RENAULT)
-- u_car_model → Modèle (ex. PEUGEOT_208, BMW_X3)
+- brand → Marque (ex. PEUGEOT, BMW, RENAULT)
+- model → Modèle (ex. PEUGEOT_208, BMW_X3)
 - fuel → Carburant
     1 = Essence
     2 = Hybride essence
