@@ -108,18 +108,17 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
 
     results = []
     
-    fields=["name", "list_price", "odometer", "year", "fuel", "gearbox", "id"],
-    vehicle_records = self.product_template.search_read(domain, fields=fields, limit=100)
+    fields=["name", "list_price", "x_studio_anne_de_mise_en_circulation", "x_studio_energie", "x_studio_boite_de_vitesse", "default_code"],
+    vehicle_records = self.product_template.search_read(domain, fields=fields, limit=limit)
 
     for v in vehicle_records:
         results.append({
             "title": v.get("name", "Véhicule"),
             "price": v.get("list_price", "—"),
-            "mileage": v.get("odometer", "—"),
-            "year": v.get("year", "—"),
-            "fuel": v.get("fuel", "—"),
-            "gearbox": v.get("gearbox", "—"),
-            "url": f"https://platformcars-b2b.com/vehicle/{v.get('id')}"
+            "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
+            "fuel": v.get("x_studio_energie", "—"),
+            "gearbox": v.get("x_studio_boite_de_vitesse", "—"),
+            "url": f"https://www.platformcars-b2b.com/shop/{v.get('default_code')}"
         })
 
     return results
