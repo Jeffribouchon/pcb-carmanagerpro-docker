@@ -88,7 +88,7 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
 
     domain = []
 
-    domain.append(('category_id', '=', 5))
+    domain.append(('categ_id', '=', 5))
 
     # Construction du domain Odoo à partir des critères
     if "brand" in criteria:
