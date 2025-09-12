@@ -47,7 +47,10 @@ La Centrale :
 - priceMax=XXXX
 - kilometerMax=XXXX
 - years=AAAA-AAAA
-- fuels → essence, diesel, electrique, hybride, gpl
+- energies → Carburant
+    ess = essence
+    die = diesel
+    elec = electriqueybride, gp
 - gearboxes → manuelle, automatique
 
 Autoscout24 :
