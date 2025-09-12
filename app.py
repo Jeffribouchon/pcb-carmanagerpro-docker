@@ -95,9 +95,11 @@ def generate_url():
         if query:
             agent = GenerateUrlAgent()
             extracted_criteria = agent.extract_criteria(query)
-            results, ads_results = agent.search(extracted_criteria)
+            # results, ads_results = agent.search(extracted_criteria)
+            results = agent.search(extracted_criteria)
 
-    return render_template("generate_url.html", results=results, ads_results=ads_results)
+    # return render_template("generate_url.html", results=results, ads_results=ads_results)
+    return render_template("generate_url.html", results=results)
     
 
 if __name__ == "__main__":
