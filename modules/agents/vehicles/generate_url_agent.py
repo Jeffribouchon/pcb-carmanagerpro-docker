@@ -49,7 +49,7 @@ class GenerateUrlAgent(BaseAgent):
         # if "Le Bon Coin" in urls:
         #        ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
       
-        if "La centrale" in urls:
-            ads = scrape_lacentrale(urls["La centrale"], limit=10)
+        # if "La centrale" in urls:
+        #     ads = scrape_lacentrale(urls["La centrale"], limit=10)
         
         return urls, ads
