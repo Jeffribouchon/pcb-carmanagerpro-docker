@@ -44,7 +44,7 @@ class GenerateUrlAgent(BaseAgent):
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
         ads = None
-        # urls = self.build_urls(criteria)
+
         urls = criteria
         # if "Le Bon Coin" in urls:
         #        ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
