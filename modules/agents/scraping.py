@@ -63,7 +63,7 @@ def scrape_lacentrale(url: str, limit: int = 10):
 
     return results
 
-def search_platformcars(criteria: dict, limit: int = 10):
+def search_platformcars_b2b(criteria: dict, limit: int = 10):
     """
     Recherche de véhicules sur PlatformCars B2B via l'API Odoo.
     ⚠️ Pas d'URL → on utilise le modèle product.template pour filtrer.
