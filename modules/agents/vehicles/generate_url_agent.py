@@ -180,8 +180,15 @@ class GenerateUrlAgent(BaseAgent):
             # Si c'est PlatformCars B2B, chercher les annonces
             if site == "PlatformCars B2B" and "criteria" in data:
                 platformcars_ads = search_platformcars_b2b(data["criteria"], limit=10)
-                site_entry["ads_results"].extend(platformcars_ads)
-    
+                # site_entry["ads_results"].extend(platformcars_ads)
+
+                if "error" in platformcars_ads:
+                    site_entry["ads_results"].extend(platformcars_ads["error"])
+                else:
+                    site_entry["ads_results"].extend(platformcars_ads["results"])
+
+
+            
             results[site] = site_entry
     
         return results
