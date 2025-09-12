@@ -95,8 +95,8 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
         domain.append(("x_studio_marque", "ilike", criteria["brand"]))
     if "model" in criteria:
         domain.append(("x_studio_modele", "ilike", criteria["model"]))
-    # if "fuel" in criteria:
-    #     domain.append(("x_studio_energie", "=", criteria["fuel"]))
+    if "fuel" in criteria:
+        domain.append(("x_studio_energie", "=", criteria["fuel"]))
     # if "gearbox" in criteria:
     #     domain.append(("x_studio_boite_de_vitesse", "=", criteria["gearbox"]))
     # if "price_max" in criteria:
