@@ -163,7 +163,7 @@ def search(self, criteria: dict):
         }
     """
     ads = []  # liste vide pour cumuler tous les résultats
-    urls = {}
+    urls = criteria
 
     # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
     if "Le Bon Coin" in criteria:
