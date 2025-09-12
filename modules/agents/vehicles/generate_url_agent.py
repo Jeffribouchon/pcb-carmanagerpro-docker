@@ -68,7 +68,8 @@ Sortie :
 {
   "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-10000&mileage=0-100000&u_car_brand=PEUGEOT&u_car_model=PEUGEOT_208&fuel=1&gearbox=1",
   "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=PEUGEOT%3A208&priceMax=10000&kilometerMax=100000&fuels=essence&gearboxes=manuelle",
-  "Autoscout24": "https://www.autoscout24.fr/lst/peugeot/208?atype=C&cy=F&damaged_listing=exclude&desc=0&fuel=B&gear=M&kmto=100000&powertype=kw&priceto=10000&priceTo=999999&search_id=1oicjv5uo3v&sort=standard&ustate=N%2CU"
+  "Autoscout24": "https://www.autoscout24.fr/lst/peugeot/208?atype=C&cy=F&damaged_listing=exclude&desc=0&fuel=B&gear=M&kmto=100000&powertype=kw&priceto=10000&priceTo=999999&search_id=1oicjv5uo3v&sort=standard&ustate=N%2CU",
+  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
 }
 
 Entrée :
@@ -78,7 +79,8 @@ Sortie :
 {
   "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-999999&mileage=0-200000&u_car_brand=BMW&u_car_model=BMW_X3&fuel=3&gearbox=2&regdate=2018-2022",
   "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=BMW%3AX3&priceMax=999999&kilometerMax=200000&years=2018-2022&fuels=diesel&gearboxes=automatique",
-  "Autoscout24": "https://www.autoscout24.fr/lst/bmw/x3?atype=C&cy=F&damaged_listing=exclude&desc=0&fregfrom=2018&fregto=2022&fuel=D&gear=A&powertype=kw&priceTo=999999&search_id=o6way7nesc&sort=standard&ustate=N%2CU"
+  "Autoscout24": "https://www.autoscout24.fr/lst/bmw/x3?atype=C&cy=F&damaged_listing=exclude&desc=0&fregfrom=2018&fregto=2022&fuel=D&gear=A&powertype=kw&priceTo=999999&search_id=o6way7nesc&sort=standard&ustate=N%2CU",
+  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
 }
 
 Entrée :
@@ -88,7 +90,8 @@ Sortie :
 {
   "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-5000&mileage=0-200000&u_car_brand=RENAULT&u_car_model=RENAULT_CLIO",
   "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=RENAULT%3ACLIO&priceMax=5000&kilometerMax=200000",
-  "Autoscout24": "https://www.autoscout24.fr/lst/renault/clio/pr_5000?atype=C&cy=F&damaged_listing=exclude&desc=0&powertype=kw&priceTo=999999&search_id=2cb8asenjht&sort=standard&ustate=N%2CU"
+  "Autoscout24": "https://www.autoscout24.fr/lst/renault/clio/pr_5000?atype=C&cy=F&damaged_listing=exclude&desc=0&powertype=kw&priceTo=999999&search_id=2cb8asenjht&sort=standard&ustate=N%2CU",
+  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
 }
 """
 
@@ -123,5 +126,8 @@ class GenerateUrlAgent(BaseAgent):
       
         # if "La centrale" in urls:
         #     ads = scrape_lacentrale(urls["La centrale"], limit=10)
+
+        if "PlatformCars B2B" in urls:
+            ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
         
         return urls, ads
