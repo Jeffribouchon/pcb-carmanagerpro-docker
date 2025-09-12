@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Recherche Annonces</h2>
+  <p style="font-style: italic; color: gray; margin-top: -10px;">
+    Décrivez le véhicule que vous cherchez, votre agent IA Turbo RIDER génère automatiquement les URL de recherche
+    sur Le Bon Coin, La Centrale, et Autoscout24.
+  </p>
+
+  <form method="post" class="mb-3" id="aiForm">
+    <textarea name="query" class="form-control" placeholder="Ex: Je cherche une Peugeot 208 essence boîte manuelle, max 15k€..." rows="4"></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Générer les recherches</button>
+  </form>
+
+  {% if error %}
+    <div class="alert alert-danger mt-3">{{ error }}</div>
+  {% endif %}
+
+  {% if criteria %}
+    <h5>Critères extraits :</h5>
+    <pre>
+      {% for key, value in criteria.items() if value is not none -%}
+      {{ key }}: {{ value }}
+      {% endfor %}
+    </pre>
+  {% endif %}
+
+  {% if results %}
+    <h5>URLs de recherche générées :</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Site</th>
+            <th>Recherche</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for site, url in results.items() %}
+          <tr>
+            <td>{{ site|capitalize }}</td>
+            <td>
+              <a href="{{ url }}" class="btn btn-sm btn-primary" target="_blank">
+                Ouvrir la recherche
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% elif criteria %}
+    <div class="alert alert-warning mt-3">Aucune URL n'a pu être générée.</div>
+  {% endif %}
+  {% if ads_results %}
+    <h5 class="mt-4">Annonces PlatformCars B2B :</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr><th>Titre</th><th>Prix</th><th>Ville</th><th>Lien</th></tr>
+        </thead>
+        <tbody>
+          {% for ad in ads_results %}
+          <tr>
+            <td>{{ ad.title }}</td>
+            <td>{{ ad.price }} €</td>
+            <td>{{ ad.city }}</td>
+            <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
