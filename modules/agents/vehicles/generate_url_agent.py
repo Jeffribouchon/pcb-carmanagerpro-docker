@@ -163,6 +163,7 @@ def search(self, urls_json: dict):
         }
     """
     ads = []  # liste vide pour cumuler tous les résultats
+    urls = {}
 
     # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
     if "Le Bon Coin" in urls_json:
@@ -182,7 +183,8 @@ def search(self, urls_json: dict):
         platformcars_ads = search_platformcars_b2b(urls_json["PlatformCars B2B"]["criteria"], limit=10)
         ads.extend(platformcars_ads)
 
-    return urls_json, ads
+    # return urls_json, ads
+    return urls, ads
 
 
 
