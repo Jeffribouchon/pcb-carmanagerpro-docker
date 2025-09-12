@@ -8,8 +8,8 @@ from modules.agents.scraping import scrape_lacentrale, scrape_leboncoin, search_
 from modules.utils.deepseek_client import DeepSeekClient
 
 CRITERIA_PROMPT = """
-Tu es un assistant spécialisé dans la génération d’URLs de recherche pour sites automobiles.
-À partir d’une description en langage naturel, retourne uniquement un objet JSON avec les sites et leurs URLs correspondantes.
+Tu es un assistant spécialisé dans la génération d’URLs de recherche pour sites automobiles. 
+À partir d’une description en langage naturel, retourne uniquement un objet JSON avec les sites, leurs URLs correspondantes, et les critères utilisés pour générer chaque URL.
 
 ⚠️ RÈGLES IMPORTANTES :
 - Retourne uniquement le JSON, sans texte ni explication.
@@ -77,39 +77,57 @@ PlatformCars B2B :
     1 = Manuelle
     2 = Automatique
 
-### Exemples
+### Exemple de sortie JSON
 
 Entrée :
 "Je cherche une Peugeot 208 essence, boîte manuelle, moins de 100 000 km, pour moins de 10 000 €."
 
 Sortie :
 {
-  "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-10000&mileage=0-100000&u_car_brand=PEUGEOT&u_car_model=PEUGEOT_208&fuel=1&gearbox=1",
-  "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=PEUGEOT%3A208&priceMax=10000&kilometerMax=100000&fuels=essence&gearboxes=manuelle",
-  "Autoscout24": "https://www.autoscout24.fr/lst/peugeot/208?atype=C&cy=F&damaged_listing=exclude&desc=0&fuel=B&gear=M&kmto=100000&powertype=kw&priceto=10000&priceTo=999999&search_id=1oicjv5uo3v&sort=standard&ustate=N%2CU",
-  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
-}
-
-Entrée :
-"BMW X3 diesel automatique entre 2018 et 2022."
-
-Sortie :
-{
-  "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-999999&mileage=0-200000&u_car_brand=BMW&u_car_model=BMW_X3&fuel=3&gearbox=2&regdate=2018-2022",
-  "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=BMW%3AX3&priceMax=999999&kilometerMax=200000&years=2018-2022&fuels=diesel&gearboxes=automatique",
-  "Autoscout24": "https://www.autoscout24.fr/lst/bmw/x3?atype=C&cy=F&damaged_listing=exclude&desc=0&fregfrom=2018&fregto=2022&fuel=D&gear=A&powertype=kw&priceTo=999999&search_id=o6way7nesc&sort=standard&ustate=N%2CU",
-  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
-}
-
-Entrée :
-"Renault Clio toutes motorisations, budget max 5000 €, peu importe l'année."
-
-Sortie :
-{
-  "Le Bon Coin": "https://www.leboncoin.fr/recherche?category=2&price=0-5000&mileage=0-200000&u_car_brand=RENAULT&u_car_model=RENAULT_CLIO",
-  "La Centrale": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=RENAULT%3ACLIO&priceMax=5000&kilometerMax=200000",
-  "Autoscout24": "https://www.autoscout24.fr/lst/renault/clio/pr_5000?atype=C&cy=F&damaged_listing=exclude&desc=0&powertype=kw&priceTo=999999&search_id=2cb8asenjht&sort=standard&ustate=N%2CU",
-  "PlatformCars B2B": "https://www.platformcars-b2b.com/shop"
+  "Le Bon Coin": {
+    "url": "https://www.leboncoin.fr/recherche?category=2&price=0-10000&mileage=0-100000&u_car_brand=PEUGEOT&u_car_model=PEUGEOT_208&fuel=1&gearbox=1",
+    "criteria": {
+      "brand": "PEUGEOT",
+      "model": "208",
+      "fuel": "essence",
+      "gearbox": "manuelle",
+      "mileage_max": 100000,
+      "price_max": 10000
+    }
+  },
+  "La Centrale": {
+    "url": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=PEUGEOT%3A208&priceMax=10000&kilometerMax=100000&fuels=essence&gearboxes=manuelle",
+    "criteria": {
+      "brand": "PEUGEOT",
+      "model": "208",
+      "fuel": "essence",
+      "gearbox": "manuelle",
+      "mileage_max": 100000,
+      "price_max": 10000
+    }
+  },
+  "Autoscout24": {
+    "url": "https://www.autoscout24.fr/lst/peugeot/208?atype=C&cy=F&damaged_listing=exclude&desc=0&fuel=B&gear=M&kmto=100000&powertype=kw&priceto=10000&priceTo=999999&search_id=1oicjv5uo3v&sort=standard&ustate=N%2CU",
+    "criteria": {
+      "brand": "PEUGEOT",
+      "model": "208",
+      "fuel": "essence",
+      "gearbox": "manuelle",
+      "mileage_max": 100000,
+      "price_max": 10000
+    }
+  },
+  "PlatformCars B2B": {
+    "url": "https://www.platformcars-b2b.com/shop",
+    "criteria": {
+      "brand": "PEUGEOT",
+      "model": "208",
+      "fuel": "essence",
+      "gearbox": "manuelle",
+      "mileage_max": 100000,
+      "price_max": 10000
+    }
+  }
 }
 """
 
@@ -132,23 +150,39 @@ class GenerateUrlAgent(BaseAgent):
                 f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
             )
 
-    def search(self, criteria: dict):
-        """
-        Analyse une demande en langage naturel et crée une liste d’urls de recherche.
-        """
-        ads = []  # liste vide pour cumuler tous les résultats
+def search(self, urls_json: dict):
+    """
+    Analyse une demande en langage naturel et crée une liste d’ads à partir des URLs générées.
+    
+    urls_json : dictionnaire JSON généré par l'agent AI, avec la structure :
+        {
+            "Le Bon Coin": {"url": "...", "criteria": {...}},
+            "La Centrale": {"url": "...", "criteria": {...}},
+            "Autoscout24": {"url": "...", "criteria": {...}},
+            "PlatformCars B2B": {"url": "...", "criteria": {...}}
+        }
+    """
+    ads = []  # liste vide pour cumuler tous les résultats
 
-        urls = criteria
-        # if "Le Bon Coin" in urls:
-        #     leboncoin_ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
-        #     ads.extend(leboncoin_ads)
-      
-        # if "La centrale" in urls:
-        #     lacentrale_ads  = scrape_lacentrale(urls["La centrale"], limit=10)
-        #     ads.extend(lacentrale_ads)
+    # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
+    if "Le Bon Coin" in urls_json:
+        leboncoin_ads = scrape_leboncoin(urls_json["Le Bon Coin"]["url"], limit=10)
+        ads.extend(leboncoin_ads)
 
-        if "PlatformCars B2B" in urls:
-            platformcars_ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
-            ads.extend(platformcars_ads)
-            
-        return urls, ads
+    if "La Centrale" in urls_json:
+        lacentrale_ads = scrape_lacentrale(urls_json["La Centrale"]["url"], limit=10)
+        ads.extend(lacentrale_ads)
+
+    if "Autoscout24" in urls_json:
+        autoscout_ads = scrape_autoscout24(urls_json["Autoscout24"]["url"], limit=10)
+        ads.extend(autoscout_ads)
+
+    # Scraping PlatformCars B2B avec les critères
+    if "PlatformCars B2B" in urls_json:
+        platformcars_ads = search_platformcars_b2b(urls_json["PlatformCars B2B"]["criteria"], limit=10)
+        ads.extend(platformcars_ads)
+
+    return urls_json, ads
+
+
+
