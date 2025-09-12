@@ -34,37 +34,38 @@
           <a href="{{ data.url }}" class="btn btn-sm btn-primary" target="_blank">
             Rechercher
           </a>
-          <!-- Tableau des annonces du site -->
-          {% if data.ads_results %}
-            <div class="table-responsive mb-4">
-              <table class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>Titre</th>
-                    <th>Prix</th>
-                    <th>Ville</th>
-                    <th>Lien</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for ad in data.ads_results %}
-                  <tr>
-                    <td>{{ ad.title }}</td>
-                    <td>{{ ad.price }} €</td>
-                    <td>{{ ad.city }}</td>
-                    <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          {% endif %}
-        {% endfor %}
-      {% elif criteria %}
-        <div class="alert alert-warning mt-3">Aucune URL n'a pu être générée.</div>
+        </div>
+      </div>
+  
+      <!-- Tableau des annonces du site -->
+      {% if data.ads_results %}
+        <div class="table-responsive mb-4">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Ville</th>
+                <th>Lien</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ad in data.ads_results %}
+              <tr>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.price }} €</td>
+                <td>{{ ad.city }}</td>
+                <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       {% endif %}
-    </div>
-  </div>
+    {% endfor %}
+  {% elif criteria %}
+    <div class="alert alert-warning mt-3">Aucune URL n'a pu être générée.</div>
+  {% endif %}
 </div>
 
 {% endblock %}
