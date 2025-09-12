@@ -88,31 +88,34 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
 
     domain = []
 
+    domain.append(('category_id', '=', 5))
+
     # Construction du domain Odoo à partir des critères
     if "brand" in criteria:
         domain.append(("x_studio_marque", "ilike", criteria["brand"]))
-    if "model" in criteria:
-        domain.append(("x_studio_modele", "ilike", criteria["model"]))
-    if "fuel" in criteria:
-        domain.append(("x_studio_energie", "=", criteria["fuel"]))
-    if "gearbox" in criteria:
-        domain.append(("x_studio_boite_de_vitesse", "=", criteria["gearbox"]))
-    if "price_max" in criteria:
-        domain.append(("list_price", "<=", criteria["price_max"]))
-    if "year_min" in criteria:
-        domain.append(("x_studio_anne_de_mise_en_circulation", ">=", criteria["year_min"]))
-    if "year_max" in criteria:
-        domain.append(("x_studio_anne_de_mise_en_circulation", "<=", criteria["year_max"]))
+    # if "model" in criteria:
+    #     domain.append(("x_studio_modele", "ilike", criteria["model"]))
+    # if "fuel" in criteria:
+    #     domain.append(("x_studio_energie", "=", criteria["fuel"]))
+    # if "gearbox" in criteria:
+    #     domain.append(("x_studio_boite_de_vitesse", "=", criteria["gearbox"]))
+    # if "price_max" in criteria:
+    #     domain.append(("list_price", "<=", criteria["price_max"]))
+    # if "year_min" in criteria:
+    #     domain.append(("x_studio_anne_de_mise_en_circulation", ">=", criteria["year_min"]))
+    # if "year_max" in criteria:
+    #     domain.append(("x_studio_anne_de_mise_en_circulation", "<=", criteria["year_max"]))
 
     results = []
     
-    fields=["name", "list_price", "x_studio_anne_de_mise_en_circulation", "x_studio_energie", "x_studio_boite_de_vitesse", "default_code"]
+    fields=["name", "list_price", "x_studio_localisation_du_vhicule", "x_studio_anne_de_mise_en_circulation", "x_studio_energie", "x_studio_boite_de_vitesse", "default_code"]
     vehicle_records = product_template.search_read(domain, fields=fields, limit=limit)
 
     for v in vehicle_records:
         results.append({
             "title": v.get("name", "Véhicule"),
             "price": v.get("list_price", "—"),
+            "city": v.get("x_studio_localisation_du_vhicule", "—"),
             "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
             "fuel": v.get("x_studio_energie", "—"),
             "gearbox": v.get("x_studio_boite_de_vitesse", "—"),
