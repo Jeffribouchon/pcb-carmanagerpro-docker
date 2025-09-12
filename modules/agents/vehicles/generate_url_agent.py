@@ -52,6 +52,7 @@ La Centrale :
     die  = diesel
     elec = electrique
     hyb  = hybride
+    gpl  = GPL
 - gearboxes → manuelle, automatique
 
 Autoscout24 :
