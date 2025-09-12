@@ -59,6 +59,24 @@ Autoscout24 :
 - fuel → petrol, diesel, electric, hybrid, cng, lpg
 - gear → manual, automatic
 
+PlatformCars B2B :
+- price=min-max → Prix en €
+- mileage=min-max → Kilométrage en km
+- regdate=min-max → Année de mise en circulation
+- u_car_brand → Marque (ex. PEUGEOT, BMW, RENAULT)
+- u_car_model → Modèle (ex. PEUGEOT_208, BMW_X3)
+- fuel → Carburant
+    1 = Essence
+    2 = Hybride essence
+    3 = Diesel
+    4 = Hybride diesel
+    5 = Électrique
+    6 = GPL
+    7 = Éthanol
+- gearbox → Boîte de vitesse
+    1 = Manuelle
+    2 = Automatique
+
 ### Exemples
 
 Entrée :
