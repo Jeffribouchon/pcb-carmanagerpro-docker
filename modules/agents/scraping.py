@@ -90,21 +90,19 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
 
     # Construction du domain Odoo à partir des critères
     if "brand" in criteria:
-        domain.append(("brand_id.name", "ilike", criteria["brand"]))
+        domain.append(("x_studio_marque", "ilike", criteria["brand"]))
     if "model" in criteria:
-        domain.append(("model_id.name", "ilike", criteria["model"]))
+        domain.append(("x_studio_modele", "ilike", criteria["model"]))
     if "fuel" in criteria:
-        domain.append(("fuel", "=", criteria["fuel"]))
+        domain.append(("x_studio_energie", "=", criteria["fuel"]))
     if "gearbox" in criteria:
-        domain.append(("gearbox", "=", criteria["gearbox"]))
+        domain.append(("x_studio_boite_de_vitesse", "=", criteria["gearbox"]))
     if "price_max" in criteria:
         domain.append(("list_price", "<=", criteria["price_max"]))
-    if "mileage_max" in criteria:
-        domain.append(("odometer", "<=", criteria["mileage_max"]))
     if "year_min" in criteria:
-        domain.append(("year", ">=", criteria["year_min"]))
+        domain.append(("x_studio_anne_de_mise_en_circulation", ">=", criteria["year_min"]))
     if "year_max" in criteria:
-        domain.append(("year", "<=", criteria["year_max"]))
+        domain.append(("x_studio_anne_de_mise_en_circulation", "<=", criteria["year_max"]))
 
     results = []
     
