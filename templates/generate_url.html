@@ -29,7 +29,7 @@
     {% for site, data in results.items() %}
       <!-- Nom du site + bouton rechercher -->
       <div class="d-flex align-items-center mt-3 mb-2">
-        <h5 class="mb-0 me-2">{{ site|capitalize }}</h5>
+        <h5 class="mb-0 me-2">{Annonces { site }}</h5>
         <a href="{{ data.url }}" class="btn btn-sm btn-primary" target="_blank">
           Rechercher
         </a>
@@ -59,8 +59,8 @@
             </tbody>
           </table>
         </div>
-      {% else %}
-        <div class="alert alert-warning">Aucune annonce trouvée pour {{ site|capitalize }}.</div>
+<!--       {% else %}
+        <div class="alert alert-warning">Aucune annonce trouvée pour {{ site }}.</div> -->
       {% endif %}
     {% endfor %}
   {% elif criteria %}
