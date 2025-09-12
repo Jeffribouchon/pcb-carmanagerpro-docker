@@ -60,22 +60,10 @@ Autoscout24 :
 - gear → manual, automatic
 
 PlatformCars B2B :
-- price=min-max → Prix en €
-- mileage=min-max → Kilométrage en km
-- regdate=min-max → Année de mise en circulation
-- brand → Marque (ex. PEUGEOT, BMW, RENAULT)
-- model → Modèle (ex. PEUGEOT_208, BMW_X3)
-- fuel → Carburant
-    1 = Essence
-    2 = Hybride essence
-    3 = Diesel
-    4 = Hybride diesel
-    5 = Électrique
-    6 = GPL
-    7 = Éthanol
-- gearbox → Boîte de vitesse
-    1 = Manuelle
-    2 = Automatique
+⚠️ Toujours retourner l'URL générique :
+https://www.platformcars-b2b.com/shop
+Ne pas ajouter de paramètres dans l'URL.
+Inclure seulement les critères utilisés dans le champ "criteria".
 
 ### Exemple de sortie JSON
 
