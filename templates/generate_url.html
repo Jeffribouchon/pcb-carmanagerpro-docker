@@ -44,6 +44,10 @@
             <thead>
               <tr>
                 <th>Titre</th>
+                <th>Carburant</th>
+                <th>Boite vitesse</th>
+                <th>Millésime</th>
+                <th>KIlomètrage</th>
                 <th>Prix</th>
                 <th>Ville</th>
                 <th>Lien</th>
@@ -52,6 +56,10 @@
             <tbody>
               {% for ad in data.ads_results %}
               <tr>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.title }}</td>
                 <td>{{ ad.title }}</td>
                 <td>{{ ad.price }} €</td>
                 <td>{{ ad.city }}</td>
