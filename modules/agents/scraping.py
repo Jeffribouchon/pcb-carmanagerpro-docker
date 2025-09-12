@@ -114,6 +114,10 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
     for v in vehicle_records:
         results.append({
             "title": v.get("name", "Véhicule"),
+            "fuel": v.get("x_studio_energie", "-"),
+            "gearbox": v.get("x_studio_boite_de_vitesse", "-"),
+            "year": v.get("x_studio_anne_de_mise_en_circulation", "-"),
+            "milea": v.get("name", "-"),
             "price": v.get("list_price", "—"),
             "city": v.get("x_studio_localisation_du_vhicule", "—"),
             "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
