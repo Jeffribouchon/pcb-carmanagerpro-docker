@@ -4,7 +4,7 @@
   <h2>Recherche Annonces</h2>
   <p style="font-style: italic; color: gray; margin-top: -10px;">
     Décrivez le véhicule que vous cherchez, votre agent IA Turbo RIDER génère automatiquement les URL de recherche
-    sur Le Bon Coin, La Centrale, et Autoscout24.
+    sur Le Bon Coin, La Centrale, Autoscout24, etc...
   </p>
 
   <form method="post" class="mb-3" id="aiForm">
@@ -31,10 +31,10 @@
         <!-- En-tête du site -->
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="mb-0">
-            Annonces {{ site|capitalize }}
             {% if data.ads_results %}
               <span class="badge bg-secondary ms-2">{{ data.ads_results|length }}</span>
             {% endif %}
+            Annonces {{ site }}
           </h5>
           <a href="{{ data.url }}" class="btn btn-sm btn-primary" target="_blank">
             Rechercher
@@ -75,7 +75,7 @@
           </div>
         {% else %}
           <div class="card-body text-center text-muted">
-            Aucune annonce trouvée pour {{ site|capitalize }}.
+            Aucune annonce trouvée pour {{ site }}.
           </div>
         {% endif %}
       </div>
