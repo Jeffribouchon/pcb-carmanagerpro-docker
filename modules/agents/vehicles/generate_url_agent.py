@@ -186,10 +186,6 @@ class GenerateUrlAgent(BaseAgent):
         if "PlatformCars B2B" in urls_json:
             platformcars_ads = search_platformcars_b2b(urls_json["PlatformCars B2B"]["criteria"], limit=10)
             ads.extend(platformcars_ads)
-
-        # if "PlatformCars B2B" in urls:
-        #     platformcars_ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
-        #     ads.extend(platformcars_ads)
             
         return urls, ads
 
