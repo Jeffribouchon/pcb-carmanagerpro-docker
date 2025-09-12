@@ -37,17 +37,16 @@
         </div>
       </div>
   
-      <!-- Tableau des annonces collé à la card -->
       {% if data.ads_results %}
         <div class="table-responsive mt-1 mb-3">
-          <table class="table table-bordered table-hover mb-0">
+          <table class="table table-bordered table-hover mb-0 datatable">
             <thead>
               <tr>
                 <th>Titre</th>
                 <th>Carburant</th>
                 <th>Boite vitesse</th>
                 <th>Millésime</th>
-                <th>KIlomètrage</th>
+                <th>Kilométrage</th>
                 <th>Prix</th>
                 <th>Ville</th>
                 <th>Lien</th>
@@ -61,7 +60,7 @@
                 <td>{{ ad.gearbox }}</td>
                 <td>{{ ad.year }}</td>
                 <td>{{ ad.mileage }}</td>
-                <td>{{ ad.price }} €</td>
+                <td>{{ ad.price }}</td>
                 <td>{{ ad.city }}</td>
                 <td><a href="{{ ad.url }}" target="_blank" class="btn btn-sm btn-secondary">Voir</a></td>
               </tr>
@@ -70,11 +69,26 @@
           </table>
         </div>
       {% endif %}
-  
-      <!-- Espace entre les sites -->
       <div class="mb-4"></div>
     {% endfor %}
   {% endif %}
 </div>
 
+<!-- Ajout des scripts DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('.datatable').DataTable({
+      "order": [[5, "asc"]], // Tri par prix par défaut
+      "pageLength": 10,
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+      }
+    });
+  });
+</script>
 {% endblock %}
