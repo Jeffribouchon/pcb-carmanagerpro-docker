@@ -48,9 +48,10 @@ La Centrale :
 - kilometerMax=XXXX
 - years=AAAA-AAAA
 - energies → Carburant
-    ess = essence
-    die = diesel
-    elec = electriqueybride, gp
+    ess  = essence
+    die  = diesel
+    elec = electrique
+    hyb  = hybride
 - gearboxes → manuelle, automatique
 
 Autoscout24 :
