@@ -187,8 +187,6 @@ class GenerateUrlAgent(BaseAgent):
                 else:
                     site_entry["ads_results"].extend(platformcars_ads["results"])
 
-
-            
             results[site] = site_entry
     
         return results
