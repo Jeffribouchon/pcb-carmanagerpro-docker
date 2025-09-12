@@ -63,3 +63,65 @@ def scrape_lacentrale(url: str, limit: int = 10):
 
     return results
 
+def search_platformcars(criteria: dict, limit: int = 10):
+    """
+    Recherche de véhicules sur PlatformCars B2B via l'API Odoo.
+    ⚠️ Pas d'URL → on utilise le modèle product.template pour filtrer.
+    
+    criteria: dict retourné par l'IA, exemple :
+    {
+        "brand": "PEUGEOT",
+        "model": "208",
+        "fuel": "essence",
+        "gearbox": "manuelle",
+        "price_max": 10000,
+        "mileage_max": 100000,
+        "year_min": 2015,
+        "year_max": 2023
+    }
+    """
+    # Import Odoo RPC / API
+    from odoo_rpc_client import Odoo  # ou ton wrapper Odoo
+
+    domain = []
+
+    # Construction du domain Odoo à partir des critères
+    if "brand" in criteria:
+        domain.append(("brand_id.name", "ilike", criteria["brand"]))
+    if "model" in criteria:
+        domain.append(("model_id.name", "ilike", criteria["model"]))
+    if "fuel" in criteria:
+        domain.append(("fuel", "=", criteria["fuel"]))
+    if "gearbox" in criteria:
+        domain.append(("gearbox", "=", criteria["gearbox"]))
+    if "price_max" in criteria:
+        domain.append(("list_price", "<=", criteria["price_max"]))
+    if "mileage_max" in criteria:
+        domain.append(("odometer", "<=", criteria["mileage_max"]))
+    if "year_min" in criteria:
+        domain.append(("year", ">=", criteria["year_min"]))
+    if "year_max" in criteria:
+        domain.append(("year", "<=", criteria["year_max"]))
+
+    # Appel à Odoo pour récupérer les véhicules
+    vehicle_records = odoo.env['product.template'].search_read(
+        domain,
+        fields=["name", "list_price", "odometer", "year", "fuel", "gearbox", "id"],
+        limit=limit
+    )
+
+    results = []
+    for v in vehicle_records:
+        results.append({
+            "title": v.get("name", "Véhicule"),
+            "price": v.get("list_price", "—"),
+            "mileage": v.get("odometer", "—"),
+            "year": v.get("year", "—"),
+            "fuel": v.get("fuel", "—"),
+            "gearbox": v.get("gearbox", "—"),
+            "url": f"https://platformcars-b2b.com/vehicle/{v.get('id')}"
+        })
+
+    return results
+
+
