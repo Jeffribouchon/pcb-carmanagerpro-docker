@@ -138,45 +138,6 @@ class GenerateUrlAgent(BaseAgent):
                 f"Impossible de parser la réponse DeepSeek nettoyée:\n{cleaned}\nErreur: {e}"
             )
 
-    # def search(self, urls_json: dict):
-    #     """
-    #     Analyse une demande en langage naturel et crée une liste d’ads à partir des URLs générées.
-        
-    #     criteria : dictionnaire JSON généré par l'agent AI, avec la structure :
-    #         {
-    #             "Le Bon Coin": {"url": "...", "criteria": {...}},
-    #             "La Centrale": {"url": "...", "criteria": {...}},
-    #             "Autoscout24": {"url": "...", "criteria": {...}},
-    #             "PlatformCars B2B": {"url": "...", "criteria": {...}}
-    #         }
-    #     """
-    #     ads = []  # liste vide pour cumuler tous les résultats
-    #     urls = {}
-
-    #     for site, data in urls_json.items():
-    #         if isinstance(data, dict) and "url" in data:
-    #             urls[site] = data["url"]
-
-    #   # Scraping Le Bon Coin, La Centrale, Autoscout24 avec l'URL
-    #   # if "Le Bon Coin" in criteria:
-    #   #     leboncoin_ads = scrape_leboncoin(urls_json["Le Bon Coin"]["url"], limit=10)
-    #   #     ads.extend(leboncoin_ads)
-
-    #   # if "La Centrale" in criteria:
-    #   #     lacentrale_ads = scrape_lacentrale(urls_json["La Centrale"]["url"], limit=10)
-    #   #     ads.extend(lacentrale_ads)
-
-    #   # if "Autoscout24" in criteria:
-    #   #     autoscout_ads = scrape_autoscout24(urls_json["Autoscout24"]["url"], limit=10)
-    #   #     ads.extend(autoscout_ads)
-
-    #   # Searching PlatformCars B2B avec les critères
-    #     if "PlatformCars B2B" in urls_json:
-    #         platformcars_ads = search_platformcars_b2b(urls_json["PlatformCars B2B"]["criteria"], limit=10)
-    #         ads.extend(platformcars_ads)
-            
-    #     return urls, ads
-
     def search(self, urls_json: dict):
         """
         Analyse une demande en langage naturel et crée une liste d’ads à partir des URLs générées.
