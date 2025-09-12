@@ -84,7 +84,7 @@ Sortie :
     }
   },
   "La Centrale": {
-    "url": "https://www.lacentrale.fr/listing?makesModelsCommercialNames=PEUGEOT%3A208&priceMax=10000&kilometerMax=100000&fuels=essence&gearboxes=manuelle",
+    "url": "https://www.lacentrale.fr/listing?energies=ess&gearbox=MANUAL&makesModelsCommercialNames=PEUGEOT%3A208&mileageMax=100000&priceMax=10000",
     "criteria": {
       "brand": "PEUGEOT",
       "model": "208",
