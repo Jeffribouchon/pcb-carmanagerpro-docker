@@ -118,16 +118,18 @@ class GenerateUrlAgent(BaseAgent):
         """
         Analyse une demande en langage naturel et crée une liste d’urls de recherche.
         """
-        ads = None
+        ads = []  # liste vide pour cumuler tous les résultats
 
         urls = criteria
         # if "Le Bon Coin" in urls:
-        #        ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
+        #     leboncoin_ads = scrape_leboncoin(urls["Le Bon Coin"], limit=10)
+        #     ads.extend(leboncoin_ads)
       
         # if "La centrale" in urls:
-        #     ads = scrape_lacentrale(urls["La centrale"], limit=10)
+        #     lacentrale_ads  = scrape_lacentrale(urls["La centrale"], limit=10)
+        #     ads.extend(lacentrale_ads)
 
         if "PlatformCars B2B" in urls:
-            ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
-        
+            platformcars_ads = search_platformcars_b2b(urls["PlatformCars B2B"], limit=10)
+            ads.extend(platformcars_ads)
         return urls, ads
