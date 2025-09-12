@@ -79,53 +79,66 @@ def search_platformcars_b2b(criteria: dict, limit: int = 10):
         "year_max": 2023
     }
     """
-    # Import Odoo RPC / API
-    from modules.odoo.client import OdooClient
-    from modules.odoo.odoo_model import OdooModel
-    
-    odoo_client = OdooClient()
-    product_template = OdooModel(odoo_client, 'product.template')
+    try:
+        # Import Odoo RPC / API
+        from modules.odoo.client import OdooClient
+        from modules.odoo.odoo_model import OdooModel
+        
+        odoo_client = OdooClient()
+        product_template = OdooModel(odoo_client, 'product.template')
 
-    domain = []
+        domain = [('categ_id', '=', 5)]
 
-    domain.append(('categ_id', '=', 5))
+        # Construction du domain Odoo à partir des critères
+        if "brand" in criteria:
+            domain.append(("x_studio_marque", "ilike", criteria["brand"]))
+        if "model" in criteria:
+            domain.append(("x_studio_modele", "ilike", criteria["model"]))
+        if "fuel" in criteria:
+            domain.append(("x_studio_energie", "ilike", criteria["fuel"]))
+        if "gearbox" in criteria:
+            domain.append(("x_studio_boite_de_vitesse", "ilike", criteria["gearbox"]))
+        if "price_max" in criteria:
+            domain.append(("list_price", "<=", criteria["price_max"]))
+        if "year_min" in criteria:
+            domain.append(("x_studio_anne_de_mise_en_circulation", ">=", criteria["year_min"]))
+        if "year_max" in criteria:
+            domain.append(("x_studio_anne_de_mise_en_circulation", "<=", criteria["year_max"]))
 
-    # Construction du domain Odoo à partir des critères
-    if "brand" in criteria:
-        domain.append(("x_studio_marque", "ilike", criteria["brand"]))
-    if "model" in criteria:
-        domain.append(("x_studio_modele", "ilike", criteria["model"]))
-    if "fuel" in criteria:
-        domain.append(("x_studio_energie", "ilike", criteria["fuel"]))
-    if "gearbox" in criteria:
-        domain.append(("x_studio_boite_de_vitesse", "ilike", criteria["gearbox"]))
-    if "price_max" in criteria:
-        domain.append(("list_price", "<=", criteria["price_max"]))
-    if "year_min" in criteria:
-        domain.append(("x_studio_anne_de_mise_en_circulation", ">=", criteria["year_min"]))
-    if "year_max" in criteria:
-        domain.append(("x_studio_anne_de_mise_en_circulation", "<=", criteria["year_max"]))
+        fields = [
+            "name",
+            "list_price",
+            "x_studio_localisation_du_vhicule",
+            "x_studio_integer_field_hm_1iqqfg2td",
+            "x_studio_anne_de_mise_en_circulation",
+            "x_studio_energie",
+            "x_studio_boite_de_vitesse",
+            "default_code"
+        ]
+        
+        vehicle_records = product_template.search_read(domain, fields=fields, limit=limit)
+        results = []
 
-    results = []
-    
-    fields=["name", "list_price", "x_studio_localisation_du_vhicule", "x_studio_integer_field_hm_1iqqfg2td", "x_studio_anne_de_mise_en_circulation", "x_studio_energie", "x_studio_boite_de_vitesse", "default_code"]
-    vehicle_records = product_template.search_read(domain, fields=fields, limit=limit)
+        for v in vehicle_records:
+            results.append({
+                "title": v.get("name", "Véhicule"),
+                "fuel": v.get("x_studio_energie", "—"),
+                "gearbox": v.get("x_studio_boite_de_vitesse", "—"),
+                "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
+                "mileage": v.get("x_studio_integer_field_hm_1iqqfg2td", "—"),
+                "price": v.get("list_price", "—"),
+                "city": v.get("x_studio_localisation_du_vhicule", "—"),
+                "url": f"https://www.platformcars-b2b.com/shop/{v.get('default_code')}"
+            })
 
-    for v in vehicle_records:
-        results.append({
-            "title": v.get("name", "Véhicule"),
-            "fuel": v.get("x_studio_energie", "-"),
-            "gearbox": v.get("x_studio_boite_de_vitesse", "-"),
-            "year": v.get("x_studio_anne_de_mise_en_circulation", "-"),
-            "mileage": v.get("x_studio_integer_field_hm_1iqqfg2td", "-"),
-            "price": v.get("list_price", "—"),
-            "city": v.get("x_studio_localisation_du_vhicule", "—"),
-            "year": v.get("x_studio_anne_de_mise_en_circulation", "—"),
-            "fuel": v.get("x_studio_energie", "—"),
-            "gearbox": v.get("x_studio_boite_de_vitesse", "—"),
-            "url": f"https://www.platformcars-b2b.com/shop/{v.get('default_code')}"
-        })
+        return {"results": results}
 
-    return results
+    except Exception as e:
+        import traceback
+        return {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
 
 
