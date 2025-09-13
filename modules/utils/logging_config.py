@@ -25,22 +25,28 @@ class HybridRotatingFileHandler(TimedRotatingFileHandler):
         """
         Vérifie à la fois la taille et le changement de jour.
         """
-        if self.stream is None:  # Ouvre le fichier si nécessaire
+        if self.stream is None:
             self.stream = self._open()
         if self.maxBytes > 0:
-            self.stream.seek(0, 2)  # fin du fichier
+            self.stream.seek(0, 2)
             if self.stream.tell() >= self.maxBytes:
                 return 1
         return super().shouldRollover(record)
 
 
 def setup_logging(log_dir="logs", log_file="deepseek.log"):
-    """Configure le logging global avec rotation journalière + taille."""
+    """Configure le logging global avec rotation journalière + taille et mode silencieux en production."""
     os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(log_dir, log_file)
 
-    # Lecture du niveau depuis l'environnement
+    # 🔑 Lecture des variables d'environnement
     env_level = os.getenv("LOG_LEVEL", "INFO").upper()
+    env = os.getenv("ENV", "development").lower()
+
+    # Mode silencieux automatique si ENV=production
+    if env == "production" and env_level in ("DEBUG", "INFO"):
+        env_level = "WARNING"
+
     level = LOG_LEVELS.get(env_level, logging.INFO)
 
     # Handlers
@@ -51,7 +57,7 @@ def setup_logging(log_dir="logs", log_file="deepseek.log"):
         interval=1,
         backupCount=7,            # Garde 7 jours de logs
         encoding="utf-8",
-        maxBytes=5 * 1024 * 1024  # 5 Mo max par fichier avant split
+        maxBytes=5 * 1024 * 1024  # 5 Mo max avant rotation
     )
 
     # Format
@@ -59,9 +65,8 @@ def setup_logging(log_dir="logs", log_file="deepseek.log"):
     console_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
 
-    # Application configuration
     logging.basicConfig(level=level, handlers=[console_handler, file_handler])
 
     logger = logging.getLogger("App")
-    logger.info(f"📜 Logging initialisé avec niveau: {env_level} (rotation journalière + 5Mo)")
+    logger.info(f"📜 Logging initialisé avec niveau: {env_level} (env={env})")
     return logger
